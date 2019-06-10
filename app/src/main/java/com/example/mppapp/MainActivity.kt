@@ -11,9 +11,9 @@ import org.kotlin.mpp.mobile.createApplicationScreenMessage
 class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        var textView: TextView = findViewById(R.id.main_text)
-        textView.text = createApplicationScreenMessage()
+        setContentView(R.layout.activity_login)
+        var textView: TextView = this.findViewById(R.id.authorization_text_registration)
+        //textView.text = createApplicationScreenMessage()
 
     }
 }

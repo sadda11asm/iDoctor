@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">mppApp</string>
+    <string name="app_name">iDoctor</string>
+	<string name="login">Логин</string>
+	<string name="password">Пароль</string>
+	<string name="registration"><u>Регистрация</u></string>
+	<string name="forgotpass"><u>Забыли пароль?</u></string>
+	<string name="signin">Войти</string>
 </resources>
