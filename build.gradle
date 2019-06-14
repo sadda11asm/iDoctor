@@ -25,15 +25,9 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven {
-            url "https://kotlin.bintray.com/kotlinx"
-        }
-        maven {
-            url  "http://dl.bintray.com/kotlin/ktor"
-        }
-        maven {
-            url serializationRepo
-        }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
+        maven { url  "http://dl.bintray.com/kotlin/ktor" }
+        maven { url serializationRepo }
         maven { url "https://dl.bintray.com/kotlin/kotlin-dev/" }
 
 

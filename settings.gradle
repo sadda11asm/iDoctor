@@ -1,2 +1,3 @@
+enableFeaturePreview('GRADLE_METADATA')
 
-include ':app', ':SharedCode', ':domain'
+include ':app', ':SharedCode'
