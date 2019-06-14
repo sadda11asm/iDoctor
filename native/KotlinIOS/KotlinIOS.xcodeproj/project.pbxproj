@@ -14,8 +14,8 @@
 		87DE65FF22A7DA6F0062A1A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87DE65FD22A7DA6F0062A1A0 /* LaunchScreen.storyboard */; };
 		87DE660A22A7DA700062A1A0 /* KotlinIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE660922A7DA700062A1A0 /* KotlinIOSTests.swift */; };
 		87DE661522A7DA700062A1A0 /* KotlinIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE661422A7DA700062A1A0 /* KotlinIOSUITests.swift */; };
-		87DE662322A7E2650062A1A0 /* SharedCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DE662222A7E2650062A1A0 /* SharedCode.framework */; };
-		87DE662422A7E2650062A1A0 /* SharedCode.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 87DE662222A7E2650062A1A0 /* SharedCode.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		87DE662322A7E2650062A1A0 /* SharedCode.com.example.mppapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87DE662222A7E2650062A1A0 /* SharedCode.com.example.mppapp.framework */; };
+		87DE662422A7E2650062A1A0 /* SharedCode.com.example.mppapp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 87DE662222A7E2650062A1A0 /* SharedCode.com.example.mppapp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +42,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				87DE662422A7E2650062A1A0 /* SharedCode.framework in Embed Frameworks */,
+				87DE662422A7E2650062A1A0 /* SharedCode.com.example.mppapp.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,7 +63,7 @@
 		87DE661022A7DA700062A1A0 /* KotlinIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KotlinIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		87DE661422A7DA700062A1A0 /* KotlinIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KotlinIOSUITests.swift; sourceTree = "<group>"; };
 		87DE661622A7DA700062A1A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		87DE662222A7E2650062A1A0 /* SharedCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SharedCode.framework; path = "../../SharedCode/build/xcode-frameworks/SharedCode.framework"; sourceTree = "<group>"; };
+		87DE662222A7E2650062A1A0 /* SharedCode.com.example.mppapp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.com.example.mppapp.framework; name = SharedCode.com.example.mppapp.framework; path = "../../SharedCode/build/xcode-frameworks/SharedCode.com.example.mppapp.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				87DE662322A7E2650062A1A0 /* SharedCode.framework in Frameworks */,
+				87DE662322A7E2650062A1A0 /* SharedCode.com.example.mppapp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +95,7 @@
 		87DE65E822A7DA6D0062A1A0 = {
 			isa = PBXGroup;
 			children = (
-				87DE662222A7E2650062A1A0 /* SharedCode.framework */,
+				87DE662222A7E2650062A1A0 /* SharedCode.com.example.mppapp.framework */,
 				87DE65F322A7DA6D0062A1A0 /* KotlinIOS */,
 				87DE660822A7DA700062A1A0 /* KotlinIOSTests */,
 				87DE661322A7DA700062A1A0 /* KotlinIOSUITests */,
