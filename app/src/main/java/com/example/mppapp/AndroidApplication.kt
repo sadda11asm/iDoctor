@@ -12,7 +12,7 @@ class AndroidApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        startKoin(this, listOf(networkingModule, appModule, authModule, mainModule))
+//        startKoin(this, listOf(networkingModule, appModule, authModule, mainModule))
 
     }
 }
