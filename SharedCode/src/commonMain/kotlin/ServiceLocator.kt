@@ -2,6 +2,7 @@
 
 package org.kotlin.mpp.mobile
 import io.ktor.client.engine.HttpClientEngine
+import org.kotlin.mpp.mobile.data.DoctorApi
 import org.kotlin.mpp.mobile.usecases.GetDoctors
 import kotlin.native.concurrent.ThreadLocal
 
