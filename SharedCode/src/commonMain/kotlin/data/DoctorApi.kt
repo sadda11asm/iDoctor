@@ -4,6 +4,11 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.request.get
+import io.ktor.client.response.HttpResponse
+import io.ktor.client.response.readText
+import io.ktor.http.URLProtocol
+import kotlinx.serialization.json.Json
 import org.kotlin.mpp.mobile.data.Post
 
 class DoctorApi(engine: HttpClientEngine) {
@@ -15,7 +20,15 @@ class DoctorApi(engine: HttpClientEngine) {
     }
 
     suspend fun getDoctors(): Post {
-
+        val response = client.get<HttpResponse> {
+            url {
+                protocol = URLProtocol.HTTPS
+                host = BASE_URL
+                encodedPath = ENCODED_PATH
+            }
+        }
+        val jsonBody = response.readText()
+        return Json.parse(Post.serializer(), jsonBody)
     }
 
     companion object {

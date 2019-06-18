@@ -1,6 +1,7 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
 package org.kotlin.mpp.mobile
+import data.DoctorApi
 import io.ktor.client.engine.HttpClientEngine
 import org.kotlin.mpp.mobile.usecases.GetDoctors
 import kotlin.native.concurrent.ThreadLocal
