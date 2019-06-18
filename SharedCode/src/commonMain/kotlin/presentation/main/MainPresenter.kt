@@ -1,31 +1,38 @@
 package org.kotlin.mpp.mobile.presentation
 
+import kotlinx.coroutines.launch
+import org.kotlin.mpp.mobile.domain.defaultDispatcher
+import org.kotlin.mpp.mobile.domain.model.Doctor
 import org.kotlin.mpp.mobile.presentation.main.MainContract
 import org.kotlin.mpp.mobile.usecases.GetDoctors
+import kotlin.coroutines.CoroutineContext
 
 class MainPresenter(
-    private var view: MainContract.View,
+    coroutineContext: CoroutineContext = defaultDispatcher,
     private val getDoctors: GetDoctors
-): MainContract.Presenter {
-    override fun start() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+): BasePresenter<DoctorsView>(coroutineContext) {
+    override fun onViewAttached(view: DoctorsView) {
+        view.setLoadingVisible(true)
+        getDoctors()
     }
 
-    init {
-        view.presenter = this
+    private fun getDoctors() {
+        scope.launch {
+            getDoctors(
+                UseCase.None,
+                onSuccess = { view?.setDoctors(it.results) },
+                onFailure = { view?.showDoctorsFailedToLoad() }
+            )
+            view?.setLoadingVisible(false)
+        }
     }
+}
 
-//    fun onCreate() = launch(UI) {
-//        val locations = bg { getLocations() }.await()
-//        view?.renderLocations(locations)
-//    }
-//
-//    fun newLocationClicked() = launch(UI) {
-//        val locations = bg { requestNewLocation() }.await()
-//        view?.renderLocations(locations)
-//    }
+interface DoctorsView {
 
-//    fun onDestroy() {
-//        view = null
-//    }
+    fun setDoctors(movies: List<Doctor>)
+
+    fun showDoctorsFailedToLoad()
+
+    fun setLoadingVisible(visible: Boolean)
 }

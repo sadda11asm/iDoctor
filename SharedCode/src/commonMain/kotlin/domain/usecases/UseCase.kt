@@ -1,6 +1,7 @@
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.kotlin.mpp.mobile.domain.model.Either
+import org.kotlin.mpp.mobile.domain.uiDispatcher
 
 abstract class UseCase<out Type, in Params> where Type : Any {
 

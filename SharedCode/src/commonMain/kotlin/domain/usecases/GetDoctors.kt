@@ -1,6 +1,5 @@
 package org.kotlin.mpp.mobile.usecases
 
-import data.SpecializationsRepository
 import domain.Specialization
 import org.kotlin.mpp.mobile.data.DoctorApi
 import org.kotlin.mpp.mobile.domain.model.Doctor
