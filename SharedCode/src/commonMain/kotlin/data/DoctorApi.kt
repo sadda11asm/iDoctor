@@ -32,7 +32,7 @@ class DoctorApi(engine: HttpClientEngine) {
     }
 
     companion object {
-        private const val BASE_URL = "jsonplaceholder.typicode.com"
-        private const val ENCODED_PATH = "/posts/1"
+        private const val BASE_URL = "cabinet.idoctor.kz/api"
+        private const val ENCODED_PATH = ""
     }
 }
