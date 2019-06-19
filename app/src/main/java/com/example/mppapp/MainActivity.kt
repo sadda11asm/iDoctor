@@ -2,28 +2,35 @@ package com.example.mppapp
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import data.DoctorApi
+import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.coroutines.*
-import org.kotlin.mpp.mobile.domain.ApiResult
-import org.kotlin.mpp.mobile.usecases.GetDoctors
+import kotlin.coroutines.CoroutineContext
 
-class MainActivity: AppCompatActivity() {
+class MainActivity: AppCompatActivity(), CoroutineScope {
 
+    private val job = Job()
 
+    override val coroutineContext: CoroutineContext
+        get() = job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        var textView: TextView = this.findViewById(R.id.authorization_text_registration)
+        setContentView(R.layout.activity_doctor_details)
 
+        val doctorApi = DoctorApi(OkHttp.create())
 
-
-//        Log.v("specialization", )
-
-//        textView.text = createApplicationScreenMessage()
-
+        launch(Dispatchers.Main) {
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    doctorApi.getDoctors()
+                }
+                Log.d("TAG", response.toString())
+            } catch (e: Exception) {
+                Log.d("TAG", "ERROR ${e.message}")
+            }
+        }
     }
-
 
 }
