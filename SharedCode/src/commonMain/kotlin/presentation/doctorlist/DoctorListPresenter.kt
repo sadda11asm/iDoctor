@@ -11,11 +11,10 @@ import kotlin.coroutines.CoroutineContext
 //TODO change third parameter
 class DoctorListPresenter(
     private val getDoctors: GetDoctors,
-    private val coroutineContext: CoroutineContext = defaultDispatcher,
-    private val token: String = ""
+    private val coroutineContext: CoroutineContext = defaultDispatcher
 ): BasePresenter<DoctorListView>(coroutineContext) {
 
-    fun onLoadDoctors() {
+    fun onLoadDoctors(token: String) {
         scope.launch {
             getDoctors(
                 params = token,

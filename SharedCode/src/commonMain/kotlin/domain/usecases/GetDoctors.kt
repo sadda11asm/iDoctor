@@ -10,7 +10,7 @@ import org.kotlin.mpp.mobile.domain.model.Success
 class GetDoctors(private val doctorApi: DoctorApi): UseCase<DoctorResponse, String>() {
     override suspend fun run(params: String): Either<Exception, DoctorResponse> {
         return try {
-            val response = doctorApi.getDoctors()
+            val response = doctorApi.getDoctors(params)
             Success(response)
         } catch (e: Exception) {
             Failure(e)

@@ -21,7 +21,7 @@ class MainActivity: AppCompatActivity(), DoctorListView {
 
         val token = Hawk.get<String>("access_token")
         presenter.attachView(this)
-        presenter.onLoadDoctors()
+        presenter.onLoadDoctors(token)
     }
 
     override fun showDoctors(doctorResponse: DoctorResponse) {
