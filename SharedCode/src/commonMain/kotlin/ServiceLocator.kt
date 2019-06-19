@@ -3,6 +3,9 @@
 package org.kotlin.mpp.mobile
 import data.DoctorApi
 import io.ktor.client.engine.HttpClientEngine
+import org.kotlin.mpp.mobile.data.LoginApi
+import org.kotlin.mpp.mobile.domain.usecases.AuthorizeUser
+import org.kotlin.mpp.mobile.presentation.login.LoginPresenter
 import org.kotlin.mpp.mobile.usecases.GetDoctors
 import kotlin.native.concurrent.ThreadLocal
 
@@ -16,6 +19,14 @@ object ServiceLocator {
 
     val getDoctors: GetDoctors
         get() = GetDoctors(doctorApi)
+
+    val loginApi by lazy { LoginApi(PlatformServiceLocator.httpClientEngine) }
+
+    val authorizeUser: AuthorizeUser
+        get() = AuthorizeUser(loginApi)
+
+    val loginPresenter: LoginPresenter
+        get() = LoginPresenter(authorizeUser)
 
 }
 
