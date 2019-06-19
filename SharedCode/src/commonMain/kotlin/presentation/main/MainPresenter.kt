@@ -3,7 +3,7 @@ package org.kotlin.mpp.mobile.presentation
 import kotlinx.coroutines.launch
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
-import org.kotlin.mpp.mobile.usecases.GetDoctors
+import org.kotlin.mpp.mobile.domain.usecases.GetDoctors
 import kotlin.coroutines.CoroutineContext
 
 class MainPresenter(
@@ -18,8 +18,8 @@ class MainPresenter(
     private fun getDoctors() {
         scope.launch {
             getDoctors(
-                UseCase.None,
-                onSuccess = { view?.setDoctors(it) },
+                "",
+                onSuccess = { view?.setDoctors(it.data[0]) },
                 onFailure = { view?.showDoctorsFailedToLoad() }
             )
             view?.setLoadingVisible(false)
