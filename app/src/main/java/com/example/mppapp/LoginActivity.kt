@@ -33,6 +33,7 @@ class LoginActivity: AppCompatActivity(), LoginView {
         Hawk.put("expire_in", response.expires_in)
         Hawk.put("token_type", response.token_type)
         MainActivity.open(this)
+        finish()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +41,7 @@ class LoginActivity: AppCompatActivity(), LoginView {
 
         if (Hawk.contains("access_token")) {
             MainActivity.open(this)
+            finish()
             return
         }
 
