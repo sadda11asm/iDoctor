@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
+import com.orhanobut.hawk.Hawk
 import kotlinx.coroutines.*
 import org.kotlin.mpp.mobile.data.entity.AuthorizationResponse
 import org.kotlin.mpp.mobile.domain.ApiResult
@@ -22,7 +23,8 @@ class MainActivity: AppCompatActivity() {
         var textView: TextView = this.findViewById(R.id.main_text)
 
 
-        val token = intent.extras.getString("token")
+
+        val token = Hawk.get<String>("access_token")
 
 
 
@@ -34,9 +36,8 @@ class MainActivity: AppCompatActivity() {
 
 
     companion object{
-        fun open(context: Context, response: AuthorizationResponse) {
+        fun open(context: Context) {
             val intent = Intent(context, MainActivity::class.java)
-            intent.putExtra("token", response.access_token)
             context.startActivity(intent)
 
         }

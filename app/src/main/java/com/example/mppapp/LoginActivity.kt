@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.mppapp.databinding.ActivityLoginBinding
+import com.orhanobut.hawk.Hawk
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.AuthorizationResponse
 import org.kotlin.mpp.mobile.presentation.login.LoginView
@@ -27,11 +28,20 @@ class LoginActivity: AppCompatActivity(), LoginView {
     }
 
     override fun showSuccessfulLogin(response: AuthorizationResponse) {
-        MainActivity.open(this, response)
+        Hawk.put("access_token", response.access_token)
+        Hawk.put("refresh_token", response.refresh_token)
+        Hawk.put("expire_in", response.expires_in)
+        Hawk.put("token_type", response.token_type)
+        MainActivity.open(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (Hawk.contains("access_token")) {
+            MainActivity.open(this)
+            return
+        }
 
         val binding:ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
