@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mppapp.model.to
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_doctor_list.*
 import org.kotlin.mpp.mobile.ServiceLocator
@@ -34,7 +35,7 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
 
     override fun onClick(data: Doctor) {
         Log.d(TAG, "onClick(doctor)")
-        TODO("Change to open DoctorDetailsActivity")
+        this.context?.let { DoctorDetailsActivity.open(it, data.to()) }
     }
 
     override fun showLoading() {

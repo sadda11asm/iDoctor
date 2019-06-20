@@ -1,5 +1,6 @@
 package org.kotlin.mpp.mobile.data.entity
 
+import kotlinx.serialization.Optional
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.kotlin.mpp.mobile.util.getYear
@@ -37,10 +38,13 @@ data class Doctor(
     @SerialName("certs_text") var certsText: String?,
     @SerialName("feedback_link") var feedbackLink: String
 ) {
-    val experience: Int
+
+    @Optional
+    val experience: Int?
         get() = getYear - worksSinceYear.toInt()
 
-    val specializations: String
+    @Optional
+    val specializations: String?
         get() {
 
             var result = ""
@@ -51,7 +55,8 @@ data class Doctor(
             return result.dropLast(1)
         }
 
-    val getIllnesses: String
+    @Optional
+    val getIllnesses: String?
         get() {
             var result = ""
             for (illness in illnesses) {
@@ -61,7 +66,8 @@ data class Doctor(
             return result.dropLast(1)
         }
 
-    val rating: Int
+    @Optional
+    val rating: Int?
         get()  = avgRate.toInt()
 
 }

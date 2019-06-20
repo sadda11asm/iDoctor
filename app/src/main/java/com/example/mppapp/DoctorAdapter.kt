@@ -47,6 +47,11 @@ class DoctorAdapter(
             textAddress.text = doctor.city.name
             textMedcenter.text = "" // TODO get medcenter name or remove from XML
 
+            setOnClickListener {
+                itemClickListener.onClick(currentDoctor)
+            }
+
+
             val url = "https://cabinet.idoctor.kz${doctor.avatar}"
             Log.d("URL", url)
 
