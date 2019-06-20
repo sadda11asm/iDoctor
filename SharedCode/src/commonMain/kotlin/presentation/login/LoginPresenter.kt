@@ -15,7 +15,7 @@ class LoginPresenter(
 
     override fun onViewAttached(view: LoginView) {
         super.onViewAttached(view)
-        view.showLoadingVisible(true)
+        view.showLoadingVisible(false)
     }
 
     fun onLogin(username: String, password: String) {
@@ -28,7 +28,6 @@ class LoginPresenter(
                 onSuccess = { view?.showSuccessfulLogin(it) },
                 onFailure = { view?.showFailedLogin() }
             )
-            view?.showLoadingVisible(false)
         }
     }
 }

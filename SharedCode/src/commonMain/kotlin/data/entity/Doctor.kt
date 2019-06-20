@@ -1,7 +1,9 @@
 package org.kotlin.mpp.mobile.data.entity
 
+import kotlinx.serialization.Optional
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.kotlin.mpp.mobile.util.getYear
 
 @Serializable
 data class Doctor(
@@ -35,4 +37,37 @@ data class Doctor(
     @SerialName("community_text") var communityText: String?,
     @SerialName("certs_text") var certsText: String?,
     @SerialName("feedback_link") var feedbackLink: String
-)
+) {
+
+    @Optional
+    val experience: Int?
+        get() = getYear - worksSinceYear.toInt()
+
+    @Optional
+    val specializations: String?
+        get() {
+
+            var result = ""
+            for (skill in skills) {
+                result+=skill.name
+                result+=", "
+            }
+            return result.dropLast(1)
+        }
+
+    @Optional
+    val getIllnesses: String?
+        get() {
+            var result = ""
+            for (illness in illnesses) {
+                result+=illness.name
+                result+=", "
+            }
+            return result.dropLast(1)
+        }
+
+    @Optional
+    val rating: Int?
+        get()  = avgRate.toInt()
+
+}

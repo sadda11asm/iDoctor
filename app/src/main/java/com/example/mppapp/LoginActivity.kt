@@ -3,6 +3,7 @@ package com.example.mppapp
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -17,10 +18,17 @@ class LoginActivity: AppCompatActivity(), LoginView {
     private val logTag = LoginActivity::class.java.simpleName
 
     private val presenter by lazy { ServiceLocator.loginPresenter}
+    private lateinit var binding:ActivityLoginBinding
 
 
     override fun showLoadingVisible(visible: Boolean) {
-        Log.v("LALALA", visible.toString())
+        if (visible) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.loginSection.visibility = View.INVISIBLE
+        } else {
+            binding.progressBar.visibility = View.INVISIBLE
+            binding.loginSection.visibility = View.VISIBLE
+        }
     }
 
     override fun showFailedLogin() {
@@ -45,7 +53,7 @@ class LoginActivity: AppCompatActivity(), LoginView {
             return
         }
 
-        val binding:ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
         initListeners(binding)
 
@@ -66,6 +74,7 @@ class LoginActivity: AppCompatActivity(), LoginView {
 
     private fun initListeners(binding: ActivityLoginBinding) {
         binding.authorizationButtonEnter.setOnClickListener {
+            showLoadingVisible(true)
             presenter.onLogin(binding.authorizationTextLogin.text.toString(), binding.authorizationTextPass.text.toString())
         }
     }
