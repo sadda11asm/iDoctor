@@ -16,7 +16,7 @@ class LoginActivity: AppCompatActivity(), LoginView {
 
     private val logTag = LoginActivity::class.java.simpleName
 
-    private val presenter by lazy { ServiceLocator.loginPresenter}
+    private val presenter by lazy { ServiceLocator.loginPresenter }
 
 
     override fun showLoadingVisible(visible: Boolean) {
@@ -45,10 +45,9 @@ class LoginActivity: AppCompatActivity(), LoginView {
             return
         }
 
-        val binding:ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        val binding: ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
         initListeners(binding)
-
 
 
     }
@@ -66,7 +65,10 @@ class LoginActivity: AppCompatActivity(), LoginView {
 
     private fun initListeners(binding: ActivityLoginBinding) {
         binding.authorizationButtonEnter.setOnClickListener {
-            presenter.onLogin(binding.authorizationTextLogin.text.toString(), binding.authorizationTextPass.text.toString())
+            presenter.onLogin(
+                binding.authorizationTextLogin.text.toString(),
+                binding.authorizationTextPass.text.toString()
+            )
         }
     }
 }

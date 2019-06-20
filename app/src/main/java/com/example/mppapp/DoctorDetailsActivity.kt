@@ -2,31 +2,13 @@ package com.example.mppapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
 
-class DoctorDetailsActivity : AppCompatActivity(), CoroutineScope {
+class DoctorDetailsActivity : AppCompatActivity() {
 
-    private val job = Job()
-
-    override val coroutineContext: CoroutineContext
-        get() = job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_details)
 
-//        val doctorApi = DoctorApi(OkHttp.create())
-//
-//        launch(Dispatchers.Main) {
-//            try {
-//                val response = withContext(Dispatchers.IO) {
-//                    doctorApi.getDoctors()
-//                }
-//                Log.d("TAG", response.toString())
-//            } catch (e: Exception) {
-//                Log.d("TAG", "${e.message}")
-//            }
-//        }
     }
 }

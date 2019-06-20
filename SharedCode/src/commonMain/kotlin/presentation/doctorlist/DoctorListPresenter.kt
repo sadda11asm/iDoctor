@@ -8,11 +8,15 @@ import org.kotlin.mpp.mobile.presentation.BasePresenter
 import org.kotlin.mpp.mobile.presentation.login.LoginView
 import kotlin.coroutines.CoroutineContext
 
-//TODO change third parameter
 class DoctorListPresenter(
     private val getDoctors: GetDoctors,
     private val coroutineContext: CoroutineContext = defaultDispatcher
-): BasePresenter<DoctorListView>(coroutineContext) {
+) : BasePresenter<DoctorListView>(coroutineContext) {
+
+    override fun onViewAttached(view: DoctorListView) {
+        super.onViewAttached(view)
+        view.showLoading()
+    }
 
     fun onLoadDoctors(token: String) {
         scope.launch {
@@ -26,6 +30,7 @@ class DoctorListPresenter(
 }
 
 interface DoctorListView {
+    fun showLoading() // TODO add boolean loading param
     fun showDoctors(doctorResponse: DoctorResponse)
     fun showLoadFailed(e: Exception)
 }
