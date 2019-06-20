@@ -9,4 +9,6 @@
 		<u>Забыли пароль?</u>
 	</string>
 	<string name="signin">Войти</string>
+	<string name="address">Адрес приема:</string>
+	<string name="medcenter">Мед. центр:</string>
 </resources>

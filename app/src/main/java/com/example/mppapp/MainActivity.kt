@@ -11,25 +11,16 @@ import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.DoctorResponse
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListView
 
-class MainActivity: AppCompatActivity(), DoctorListView {
-
-    private val presenter by lazy { ServiceLocator.doctorListPresenter }
+class MainActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val token = Hawk.get<String>("access_token")
-        presenter.attachView(this)
-        presenter.onLoadDoctors(token)
-    }
-
-    override fun showDoctors(doctorResponse: DoctorResponse) {
-        Log.d("TAG", doctorResponse.toString())
-    }
-
-    override fun showLoadFailed(e: Exception) {
-        Log.d("TAG", "ERROR ${e.message}")
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, DoctorListFragment())
+            .commit()
     }
 
     companion object {
@@ -38,5 +29,4 @@ class MainActivity: AppCompatActivity(), DoctorListView {
             context.startActivity(intent)
         }
     }
-
 }
