@@ -1,5 +1,7 @@
 package com.example.mppapp.model
 
+
+
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import org.kotlin.mpp.mobile.util.getYear
 import java.io.Serializable
@@ -67,6 +69,22 @@ data class DoctorO(
 
     val imageLink: String
         get() = "https://cabinet.idoctor.kz$avatar"
+
+    val parsedTreatmentText: String
+        get() {
+            if (treatmentText == null) return "Услуги не указаны"
+            return android.text.Html.fromHtml(treatmentText).toString()
+        }
+
+    val handledPhone: String
+        get() {
+            if (phone == null) {
+                return "Телефон скрыт"
+            } else {
+                return phone.toString()
+            }
+        }
+
 }
 
 fun Doctor.to() = DoctorO(id, name, alias, userId, phone, email, avatar, city.to(), qualifications.map{it.to()}, skills.map{it.to()}, worksSinceYear, illnesses.map{it.to()},
