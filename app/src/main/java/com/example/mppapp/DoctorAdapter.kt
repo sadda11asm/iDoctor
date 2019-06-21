@@ -46,8 +46,9 @@ class DoctorAdapter(
             currentDoctor = doctor
             textName.text = doctor.name
             textSkills.text = doctor.specializations
+            textExperience.text = "Стаж ${doctor.experience}"
             textAddress.text = doctor.city.name
-            textMedcenter.text = "" // TODO get medcenter name or remove from XML
+
 
             setOnClickListener {
                 itemClickListener.onClick(currentDoctor)
