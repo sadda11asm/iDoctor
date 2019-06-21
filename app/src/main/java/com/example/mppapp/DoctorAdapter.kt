@@ -11,6 +11,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_doctor_list.view.*
 import org.kotlin.mpp.mobile.data.entity.Doctor
+import java.lang.Error
+import java.lang.Exception
 
 class DoctorAdapter(
     private val doctors: List<Doctor>,
@@ -43,7 +45,7 @@ class DoctorAdapter(
         fun bind(doctor: Doctor) = with(itemView) {
             currentDoctor = doctor
             textName.text = doctor.name
-            textSkills.text = doctor.skills[0].name // TODO display all skills
+            textSkills.text = doctor.specializations
             textAddress.text = doctor.city.name
             textMedcenter.text = "" // TODO get medcenter name or remove from XML
 
@@ -51,14 +53,10 @@ class DoctorAdapter(
                 itemClickListener.onClick(currentDoctor)
             }
 
-
-            val url = "https://cabinet.idoctor.kz${doctor.avatar}"
-            Log.d("URL", url)
-
-            // TODO add separate method to load image
             Glide
                 .with(context)
-                .load(url)
+                .load(doctor.imageLink)
+                .error(R.drawable.default_avatar)
                 .apply(RequestOptions.circleCropTransform())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageAvatar)

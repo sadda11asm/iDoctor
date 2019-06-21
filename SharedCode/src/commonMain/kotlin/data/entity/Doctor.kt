@@ -40,11 +40,23 @@ data class Doctor(
 ) {
 
     @Optional
-    val experience: Int?
-        get() = getYear - worksSinceYear.toInt()
+    val experience: String
+        get() = (getYear - worksSinceYear.toInt()).toString() + " лет"
 
     @Optional
     val specializations: String?
+        get() {
+            var result = ""
+            for (skill in skills) {
+                result+=skill.name
+                result+=", "
+            }
+            if (skills.isEmpty()) return result
+            return result.substring(0, result.length-2)
+        }
+
+    @Optional
+    val getIllnesses: String?
         get() {
 
             var result = ""
@@ -52,22 +64,15 @@ data class Doctor(
                 result+=skill.name
                 result+=", "
             }
-            return result.dropLast(1)
-        }
-
-    @Optional
-    val getIllnesses: String?
-        get() {
-            var result = ""
-            for (illness in illnesses) {
-                result+=illness.name
-                result+=", "
-            }
-            return result.dropLast(1)
+            if (skills.isEmpty()) return result
+            return result.substring(0, result.length-2)
         }
 
     @Optional
     val rating: Int?
         get()  = avgRate.toInt()
+
+    val imageLink: String
+        get() = "https://cabinet.idoctor.kz$avatar"
 
 }
