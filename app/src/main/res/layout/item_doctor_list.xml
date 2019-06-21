@@ -29,7 +29,6 @@
 				android:layout_height="wrap_content"
 				android:layout_marginStart="8dp"
 				android:layout_marginLeft="8dp"
-				android:text="Мустафаева Аэлита Садуакасовна"
 				android:textColor="@android:color/black"
 				android:textSize="16sp"
 				android:textStyle="bold"
@@ -43,12 +42,12 @@
 				android:layout_height="wrap_content"
 				android:layout_marginStart="8dp"
 				android:layout_marginLeft="8dp"
-				android:text="Акушер-Гинеколог"
 				android:textColor="@color/colorPrimary"
 				android:textSize="14sp"
 				app:fontFamily="@font/blogger_sans_medium"
 				app:layout_constraintStart_toEndOf="@id/imageAvatar"
 				app:layout_constraintTop_toBottomOf="@id/textName" />
+
 
 			<TextView
 				android:id="@+id/address"
@@ -68,33 +67,24 @@
 				android:layout_height="wrap_content"
 				android:layout_marginStart="4dp"
 				android:layout_marginLeft="4dp"
-				android:text="Алматы"
 				app:fontFamily="@font/blogger_sans"
 				app:layout_constraintStart_toEndOf="@id/address"
 				app:layout_constraintTop_toBottomOf="@id/textSkills" />
 
 			<TextView
-				android:id="@+id/medcenter"
+				android:id="@+id/textExperience"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="8dp"
 				android:layout_marginLeft="8dp"
-				android:text="@string/medcenter"
+				android:layout_marginTop="2dp"
+				android:background="@drawable/text_view_border"
+				android:padding="4dp"
+				android:text="STAJ 13 let"
+				android:textSize="12sp"
 				android:textStyle="bold"
-				app:fontFamily="@font/blogger_sans"
 				app:layout_constraintStart_toEndOf="@id/imageAvatar"
 				app:layout_constraintTop_toBottomOf="@id/address" />
-
-			<TextView
-				android:id="@+id/textMedcenter"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="4dp"
-				android:layout_marginLeft="4dp"
-				android:text="Клиника SBS med"
-				app:fontFamily="@font/blogger_sans"
-				app:layout_constraintStart_toEndOf="@id/medcenter"
-				app:layout_constraintTop_toBottomOf="@id/textAddress" />
 
 		</androidx.constraintlayout.widget.ConstraintLayout>
 	</androidx.cardview.widget.CardView>

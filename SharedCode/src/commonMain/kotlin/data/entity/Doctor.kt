@@ -75,4 +75,6 @@ data class Doctor(
     val imageLink: String
         get() = "https://cabinet.idoctor.kz$avatar"
 
+
+
 }
