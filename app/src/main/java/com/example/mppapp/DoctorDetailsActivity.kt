@@ -33,9 +33,12 @@ class DoctorDetailsActivity : AppCompatActivity() {
         Glide
             .with(this)
             .load(doctor.imageLink)
+            .error(R.drawable.default_avatar)
             .apply(RequestOptions.circleCropTransform())
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.iconDoctorDetail)
+
+        title = doctor.name
 
 
 

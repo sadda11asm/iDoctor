@@ -1,5 +1,6 @@
 package com.example.mppapp
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListView
 
 class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor> {
 
+
     private val TAG = "DoctorListFragment"
 
     private val presenter by lazy { ServiceLocator.doctorListPresenter }
@@ -31,6 +33,7 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
+        activity?.title = "Поиск врача"
     }
 
     override fun onClick(data: Doctor) {
@@ -53,4 +56,5 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
     override fun showLoadFailed(e: Exception) {
         Log.d(TAG, "ERROR ${e.message}")
     }
+
 }
