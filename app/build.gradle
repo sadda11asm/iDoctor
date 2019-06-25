@@ -54,6 +54,10 @@ android {
         debug {
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
