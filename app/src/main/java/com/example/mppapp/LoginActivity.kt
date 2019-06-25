@@ -7,8 +7,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.crashlytics.android.Crashlytics
 import com.example.mppapp.databinding.ActivityLoginBinding
 import com.orhanobut.hawk.Hawk
+import io.fabric.sdk.android.Fabric
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.AuthorizationResponse
 import org.kotlin.mpp.mobile.presentation.login.LoginView
@@ -46,6 +48,8 @@ class LoginActivity: AppCompatActivity(), LoginView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Fabric.with(this, Crashlytics())
 
         if (Hawk.contains("access_token")) {
             MainActivity.open(this)
