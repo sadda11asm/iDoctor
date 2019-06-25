@@ -30,15 +30,17 @@ jobs:
             - v1-dependencies-{{ checksum "build.gradle" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-
       - run:
-          name: Build APK
-          command: ./gradlew :app:assembleDebug
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
 
       - save_cache:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
+      - run:
+          name: Build
+          command: ./gradlew build
 
       # run tests!
       - run: gradle test
