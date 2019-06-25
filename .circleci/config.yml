@@ -33,9 +33,7 @@ jobs:
 
       - run:
           name: Build APK
-          command: |
-          ./gradlew :app:assembleDebug
-          ./gradlew :app:assembleDebugAndroidTest
+          command: ./gradlew :app:assembleDebug
 
       - save_cache:
           paths:
