@@ -1,6 +1,5 @@
-package com.example.mppapp
+package com.example.mppapp.ui.doctors_list
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mppapp.R
 import com.example.mppapp.model.to
+import com.example.mppapp.util.ItemClickListener
+import com.example.mppapp.ui.doctor_page.DoctorDetailsActivity
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_doctor_list.*
 import org.kotlin.mpp.mobile.ServiceLocator

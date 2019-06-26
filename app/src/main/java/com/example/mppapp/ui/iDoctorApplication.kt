@@ -1,4 +1,4 @@
-package com.example.mppapp
+package com.example.mppapp.ui
 
 import android.app.Application
 import com.orhanobut.hawk.Hawk

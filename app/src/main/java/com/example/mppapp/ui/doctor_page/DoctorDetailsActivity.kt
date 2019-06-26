@@ -1,4 +1,4 @@
-package com.example.mppapp
+package com.example.mppapp.ui.doctor_page
 
 import android.content.Context
 import android.content.Intent
@@ -8,15 +8,9 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.example.mppapp.R
 import com.example.mppapp.databinding.ActivityDoctorDetailsBinding
 import com.example.mppapp.model.DoctorO
-import com.example.mppapp.model.to
-import kotlinx.android.synthetic.main.item_doctor_list.view.*
-import kotlinx.coroutines.*
-import org.koin.android.ext.android.bind
-import org.kotlin.mpp.mobile.data.entity.Doctor
-import java.io.Serializable
-import kotlin.coroutines.CoroutineContext
 
 class DoctorDetailsActivity : AppCompatActivity() {
 
@@ -24,7 +18,9 @@ class DoctorDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_details)
 
-        val binding: ActivityDoctorDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_doctor_details)
+        val binding: ActivityDoctorDetailsBinding = DataBindingUtil.setContentView(this,
+            R.layout.activity_doctor_details
+        )
 
         val doctor: DoctorO = intent.getSerializableExtra("doctor") as DoctorO
 

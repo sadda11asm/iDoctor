@@ -1,15 +1,11 @@
-package com.example.mppapp
+package com.example.mppapp.ui
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.orhanobut.hawk.Hawk
-import org.kotlin.mpp.mobile.ServiceLocator
-import org.kotlin.mpp.mobile.data.entity.DoctorResponse
-import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListView
+import com.example.mppapp.R
+import com.example.mppapp.ui.doctors_list.DoctorListFragment
 
 class MainActivity: AppCompatActivity() {
 

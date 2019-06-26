@@ -1,4 +1,4 @@
-package com.example.mppapp
+package com.example.mppapp.util
 
 interface ItemClickListener<T> {
 
