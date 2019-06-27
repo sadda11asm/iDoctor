@@ -17,7 +17,7 @@
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			tools:context=".DoctorDetailsActivity">
+			tools:context=".ui.doctor_page.DoctorDetailsActivity">
 
 			<TextView
 				android:id="@+id/illnesses_doctor_detail"
@@ -261,8 +261,8 @@
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/imageView5"
-				android:layout_marginRight="24dp"
-				android:layout_marginLeft="8dp" />
+				android:layout_marginLeft="8dp"
+				android:layout_marginRight="24dp" />
 
 			<Button
 				android:id="@+id/button"

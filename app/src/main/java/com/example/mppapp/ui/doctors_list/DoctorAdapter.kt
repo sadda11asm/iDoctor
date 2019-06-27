@@ -1,7 +1,6 @@
-package com.example.mppapp
+package com.example.mppapp.ui.doctors_list
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.example.mppapp.R
+import com.example.mppapp.util.ItemClickListener
 import kotlinx.android.synthetic.main.item_doctor_list.view.*
 import org.kotlin.mpp.mobile.data.entity.Doctor
-import java.lang.Error
-import java.lang.Exception
 
 class DoctorAdapter(
     private val doctors: List<Doctor>,

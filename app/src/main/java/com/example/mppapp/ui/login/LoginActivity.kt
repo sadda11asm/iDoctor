@@ -1,14 +1,14 @@
-package com.example.mppapp
+package com.example.mppapp.ui.login
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.crashlytics.android.Crashlytics
+import com.example.mppapp.R
 import com.example.mppapp.databinding.ActivityLoginBinding
+import com.example.mppapp.ui.MainActivity
 import com.orhanobut.hawk.Hawk
 import io.fabric.sdk.android.Fabric
 import org.kotlin.mpp.mobile.ServiceLocator
