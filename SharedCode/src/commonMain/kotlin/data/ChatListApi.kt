@@ -1,7 +1,5 @@
 package data
 
-import data.entity.Chat
-import data.entity.ChatResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.features.json.JsonFeature
@@ -14,7 +12,6 @@ import io.ktor.client.response.readText
 import io.ktor.http.URLProtocol
 import io.ktor.http.content.OutgoingContent
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.list
 import org.kotlin.mpp.mobile.data.entity.DoctorResponse
 import org.kotlin.mpp.mobile.data.entity.ignoreOutgoingContent
 
@@ -27,10 +24,10 @@ class ChatListApi(engine: HttpClientEngine) {
 
     }
 
-    suspend fun getChatList(token: String): List<Chat> {
+    suspend fun getChatList(token: String): DoctorResponse {
         val response = client.get<HttpResponse> {
             url {
-                protocol = URLProtocol.HTTP
+                protocol = URLProtocol.HTTPS
                 host = BASE_URL
                 encodedPath = ENCODED_PATH
                 header(HEADER_CONTENT, CONTENT_TYPE)
@@ -38,12 +35,12 @@ class ChatListApi(engine: HttpClientEngine) {
             }
         }
         val jsonBody = response.readText()
-        return Json.nonstrict.parse(Chat.serializer().list, jsonBody)
+        return Json.nonstrict.parse(DoctorResponse.serializer(), jsonBody)
     }
 
     companion object {
-        private const val BASE_URL = "172.20.20.101:8000/"
-        private const val ENCODED_PATH = ""
+        private const val BASE_URL = "cabinet.idoctor.kz/api"
+        private const val ENCODED_PATH = "/doctors"
         private const val HEADER_AUTHORIZATION = "Authorization"
         private const val HEADER_CONTENT = "Content-Type"
         private const val CONTENT_TYPE = "application/json"
