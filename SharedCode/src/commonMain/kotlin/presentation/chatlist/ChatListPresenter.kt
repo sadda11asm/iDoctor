@@ -1,35 +1,37 @@
-package org.kotlin.mpp.mobile.presentation.doctorlist
+package org.kotlin.mpp.mobile.presentation.chatlist
 
 import kotlinx.coroutines.launch
 import org.kotlin.mpp.mobile.data.entity.DoctorResponse
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
+import org.kotlin.mpp.mobile.domain.usecases.GetChatList
 import org.kotlin.mpp.mobile.domain.usecases.GetDoctors
 import org.kotlin.mpp.mobile.presentation.BasePresenter
+import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListView
 import kotlin.coroutines.CoroutineContext
 
-class DoctorListPresenter(
-    private val getDoctors: GetDoctors,
+class ChatListPresenter(
+    private val getChatList: GetChatList,
     private val coroutineContext: CoroutineContext = defaultDispatcher
-) : BasePresenter<DoctorListView>(coroutineContext) {
+) : BasePresenter<ChatListView>(coroutineContext) {
 
-    override fun onViewAttached(view: DoctorListView) {
+    override fun onViewAttached(view: ChatListView) {
         super.onViewAttached(view)
         view.showLoading()
     }
 
     fun onLoadDoctors(token: String) {
         scope.launch {
-            getDoctors(
+            getChatList(
                 params = token,
-                onSuccess = { view?.showDoctors(it) },
+                onSuccess = { view?.showChats(it) },
                 onFailure = { view?.showLoadFailed(it) }
             )
         }
     }
 }
 
-interface DoctorListView {
+interface ChatListView {
     fun showLoading() // TODO add boolean loading param
-    fun showDoctors(doctorResponse: DoctorResponse)
+    fun showChats (doctorResponse: DoctorResponse)
     fun showLoadFailed(e: Exception)
 }
