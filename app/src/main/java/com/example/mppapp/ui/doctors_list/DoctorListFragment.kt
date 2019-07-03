@@ -11,6 +11,7 @@ import com.example.mppapp.R
 import com.example.mppapp.model.to
 import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.ui.doctor_page.DoctorDetailsActivity
+import com.example.mppapp.util.getAccessToken
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_doctor_list.*
 import org.kotlin.mpp.mobile.ServiceLocator
@@ -38,19 +39,23 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
         activity?.title = "Поиск врача" // TODO change hardcoded string
     }
 
+    override fun onStop() {
+        super.onStop()
+        presenter.detachView()
+    }
+
     override fun onClick(data: Doctor) {
-        Log.d(TAG, "onClick(doctor)")
         this.context?.let { DoctorDetailsActivity.open(it, data.to()) }
     }
 
     override fun showLoading() {
-        Log.d(TAG, "showLoading()")
-        presenter.onLoadDoctors(Hawk.get<String>("access_token")) // TODO replace with utils call
+        presenter.onLoadDoctors(getAccessToken())
     }
 
     override fun showDoctors(doctorResponse: DoctorResponse) {
-        Log.d(TAG, doctorResponse.toString())
         adapter = DoctorAdapter(doctorResponse.data, context!!, this)
+        progressLoading.visibility = View.GONE
+        recyclerDoctors.visibility = View.VISIBLE
         recyclerDoctors.layoutManager = LinearLayoutManager(context)
         recyclerDoctors.adapter = adapter
     }
@@ -58,5 +63,4 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
     override fun showLoadFailed(e: Exception) {
         Log.d(TAG, "ERROR ${e.message}")
     }
-
 }
