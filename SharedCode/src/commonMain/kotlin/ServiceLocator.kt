@@ -11,7 +11,7 @@ import org.kotlin.mpp.mobile.domain.usecases.GetChatFull
 import org.kotlin.mpp.mobile.domain.usecases.GetChatList
 import org.kotlin.mpp.mobile.domain.usecases.GetDoctors
 import org.kotlin.mpp.mobile.presentation.chat.ChatPresenter
-import org.kotlin.mpp.mobile.presentation.chatlist.ChatListPresenter
+import presentation.chatlist.ChatListPresenter
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListPresenter
 import org.kotlin.mpp.mobile.presentation.login.LoginPresenter
 import kotlin.native.concurrent.ThreadLocal
