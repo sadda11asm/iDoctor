@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mppapp.R
+import com.example.mppapp.ui.chatlist.ChatListFragment
 import com.example.mppapp.ui.doctors_list.DoctorListFragment
 
 class MainActivity: AppCompatActivity() {
@@ -15,7 +16,7 @@ class MainActivity: AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.container, DoctorListFragment())
+            .replace(R.id.container, ChatListFragment())
             .commit()
     }
 

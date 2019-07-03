@@ -24,6 +24,7 @@ android {
             }
         }
         packagingOptions {
+            exclude 'META-INF/kotlinx-coroutines-core.kotlin_module'
             exclude 'META-INF/DEPENDENCIES'
             exclude 'META-INF/LICENSE'
             exclude 'META-INF/LICENSE.txt'

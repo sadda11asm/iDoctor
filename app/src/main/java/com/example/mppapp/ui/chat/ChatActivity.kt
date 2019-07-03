@@ -1,7 +1,10 @@
 package com.example.mppapp.ui.chat
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mppapp.R
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -25,5 +28,13 @@ class ChatActivity : AppCompatActivity() {
 
         recyclerMessages.layoutManager = LinearLayoutManager(this)
         recyclerMessages.adapter = MessageAdapter(messages, this)
+    }
+
+    companion object{
+        fun open(context: Context, chatId: Int) {
+            val intent = Intent(context, ChatActivity::class.java)
+            intent.putExtra("chat_id", chatId)
+            context.startActivity(intent)
+        }
     }
 }

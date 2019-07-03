@@ -8,7 +8,7 @@ import org.kotlin.mpp.mobile.data.LoginApi
 import org.kotlin.mpp.mobile.domain.usecases.AuthorizeUser
 import org.kotlin.mpp.mobile.domain.usecases.GetChatList
 import org.kotlin.mpp.mobile.domain.usecases.GetDoctors
-import org.kotlin.mpp.mobile.presentation.chatlist.ChatListPresenter
+import presentation.chatlist.ChatListPresenter
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListPresenter
 import org.kotlin.mpp.mobile.presentation.login.LoginPresenter
 import kotlin.native.concurrent.ThreadLocal
