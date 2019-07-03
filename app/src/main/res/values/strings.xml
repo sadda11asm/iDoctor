@@ -11,4 +11,9 @@
 	<string name="signin">Войти</string>
 	<string name="address">Адрес приема:</string>
 	<string name="medcenter">Мед. центр:</string>
+	<string name="type_text">Введите текст</string>
+
+	<string name="doctors">Докторы</string>
+	<string name="chats">Чаты</string>
+	<string name="profile">Профиль</string>
 </resources>

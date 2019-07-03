@@ -35,7 +35,7 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
-        activity?.title = "Поиск врача"
+        activity?.title = "Поиск врача" // TODO change hardcoded string
     }
 
     override fun onClick(data: Doctor) {

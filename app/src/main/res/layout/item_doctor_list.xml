@@ -7,8 +7,9 @@
 	<androidx.cardview.widget.CardView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_margin="16dp"
+		android:layout_margin="8dp"
 		app:cardCornerRadius="10dp"
+		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintTop_toTopOf="parent">
 
 		<androidx.constraintlayout.widget.ConstraintLayout
@@ -78,7 +79,7 @@
 				android:layout_marginStart="8dp"
 				android:layout_marginLeft="8dp"
 				android:layout_marginTop="2dp"
-				android:background="@drawable/text_view_border"
+				android:background="@drawable/bordered_text_view"
 				android:padding="4dp"
 				android:text="STAJ 13 let"
 				android:textSize="12sp"

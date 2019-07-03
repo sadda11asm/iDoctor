@@ -48,11 +48,11 @@ data class Doctor(
         get() {
             var result = ""
             for (skill in skills) {
-                result+=skill.name
-                result+=", "
+                result += skill.name
+                result += ", "
             }
             if (skills.isEmpty()) return result
-            return result.substring(0, result.length-2)
+            return result.substring(0, result.length - 2)
         }
 
     @Optional
@@ -61,20 +61,19 @@ data class Doctor(
 
             var result = ""
             for (skill in skills) {
-                result+=skill.name
-                result+=", "
+                result += skill.name
+                result += ", "
             }
             if (skills.isEmpty()) return result
-            return result.substring(0, result.length-2)
+            return result.substring(0, result.length - 2)
         }
 
     @Optional
     val rating: Int?
-        get()  = avgRate.toInt()
+        get() = avgRate.toInt()
 
     val imageLink: String
         get() = "https://cabinet.idoctor.kz$avatar"
-
 
 
 }
