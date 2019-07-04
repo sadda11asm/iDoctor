@@ -45,7 +45,7 @@ class DoctorAdapter(
             currentDoctor = doctor
             textName.text = doctor.name
             textSkills.text = doctor.specializations
-            textExperience.text = "Стаж ${doctor.experience}"
+            textExperience.text = "Стаж ${doctor.experience}" // TODO refactor
             textAddress.text = doctor.city.name
 
 
@@ -53,6 +53,7 @@ class DoctorAdapter(
                 itemClickListener.onClick(currentDoctor)
             }
 
+            // TODO move to separate method
             Glide
                 .with(context)
                 .load(doctor.imageLink)

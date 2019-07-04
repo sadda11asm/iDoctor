@@ -12,5 +12,4 @@ enum class MessageType {
     };
 
     abstract fun type(): Int
-
 }

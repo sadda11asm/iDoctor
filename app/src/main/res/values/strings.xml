@@ -16,4 +16,5 @@
 	<string name="doctors">Докторы</string>
 	<string name="chats">Чаты</string>
 	<string name="profile">Профиль</string>
+	<string name="search_doctor">Поиск врача</string>
 </resources>

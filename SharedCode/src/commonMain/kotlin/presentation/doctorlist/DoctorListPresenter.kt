@@ -17,7 +17,7 @@ class DoctorListPresenter(
         view.showLoading()
     }
 
-    fun onLoadDoctors(token: String) {
+    fun loadDoctors(token: String) {
         scope.launch {
             getDoctors(
                 params = token,
@@ -29,7 +29,10 @@ class DoctorListPresenter(
 }
 
 interface DoctorListView {
-    fun showLoading() // TODO add boolean loading param
+
+    fun showLoading() // TODO refactor
+
     fun showDoctors(doctorResponse: DoctorResponse)
+
     fun showLoadFailed(e: Exception)
 }
