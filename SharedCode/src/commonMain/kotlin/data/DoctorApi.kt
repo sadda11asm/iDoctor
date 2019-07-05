@@ -7,6 +7,7 @@ import io.ktor.client.features.json.JsonSerializer
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
 import io.ktor.client.request.header
+import io.ktor.client.request.parameter
 import io.ktor.client.response.HttpResponse
 import io.ktor.client.response.readText
 import io.ktor.http.URLProtocol
@@ -24,14 +25,15 @@ class DoctorApi(engine: HttpClientEngine) {
 
     }
 
-    suspend fun getDoctors(token: String): DoctorResponse {
+    suspend fun getDoctors(token: String, page: Int): DoctorResponse {
         val response = client.get<HttpResponse> {
             url {
                 protocol = URLProtocol.HTTPS
                 host = BASE_URL
                 encodedPath = ENCODED_PATH
                 header(HEADER_CONTENT, CONTENT_TYPE)
-                header(HEADER_AUTHORIZATION, "Bearer $token")
+                header(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
+                parameter(PARAM_PAGE, page)
             }
         }
         val jsonBody = response.readText()
@@ -44,5 +46,7 @@ class DoctorApi(engine: HttpClientEngine) {
         private const val HEADER_AUTHORIZATION = "Authorization"
         private const val HEADER_CONTENT = "Content-Type"
         private const val CONTENT_TYPE = "application/json"
+        private const val TOKEN_TYPE = "Bearer"
+        private const val PARAM_PAGE = "page"
     }
 }

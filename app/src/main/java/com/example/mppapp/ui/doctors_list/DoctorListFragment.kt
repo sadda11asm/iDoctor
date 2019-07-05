@@ -1,6 +1,7 @@
 package com.example.mppapp.ui.doctors_list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.ui.doctor_page.DoctorDetailsActivity
 import com.example.mppapp.util.getAccessToken
 import kotlinx.android.synthetic.main.fragment_doctor_list.*
+import kotlinx.coroutines.delay
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import org.kotlin.mpp.mobile.data.entity.DoctorResponse
@@ -26,6 +28,12 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
     private val presenter by lazy { ServiceLocator.doctorListPresenter }
 
     private lateinit var adapter: DoctorAdapter
+
+    private lateinit var layoutManager: LinearLayoutManager
+
+    private var isLastPage = false
+
+    private var isLoading = false
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -55,8 +63,26 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
         adapter = DoctorAdapter(doctorResponse.data, context!!, this)
         progressLoading.visibility = View.GONE
         recyclerDoctors.visibility = View.VISIBLE
-        recyclerDoctors.layoutManager = LinearLayoutManager(context)
+        layoutManager = LinearLayoutManager(context)
+        recyclerDoctors.layoutManager = layoutManager
         recyclerDoctors.adapter = adapter
+        recyclerDoctors.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
+            override fun loadMoreItems() {
+                isLoading = true
+                adapter.addLoader()
+                presenter.loadDoctors(getAccessToken())
+            }
+
+            override fun isLoading() = isLoading
+
+            override fun isLastPage() = isLastPage
+        })
+    }
+
+    override fun showMoreDoctors(doctorResponse: DoctorResponse) {
+        adapter.removeLoader()
+        adapter.addItems(doctorResponse.data)
+        isLoading = false
     }
 
     override fun showLoadFailed(e: Exception) {
