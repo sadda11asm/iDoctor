@@ -31,6 +31,8 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
 
     private lateinit var layoutManager: LinearLayoutManager
 
+    private var isFirstLoad = true
+
     private var isLastPage = false
 
     private var isLoading = false
@@ -44,39 +46,28 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         activity?.title = resources.getString(R.string.search_doctor)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        presenter.detachView()
+        swipeRefresh.setOnRefreshListener { presenter.refreshDoctors() }
     }
 
     override fun onClick(data: Doctor) {
         this.context?.let { DoctorDetailsActivity.open(it, data.to()) }
     }
 
-    override fun showLoading() {
-        presenter.loadDoctors(getAccessToken())
-    }
+    override fun token() = getAccessToken()
+
+    /**
+     * @param isFirstLoad distinguishes between actual firstLoad and
+     * refreshing adapter with new data set
+     */
 
     override fun showDoctors(doctorResponse: DoctorResponse) {
-        adapter = DoctorAdapter(doctorResponse.data, context!!, this)
-        progressLoading.visibility = View.GONE
-        recyclerDoctors.visibility = View.VISIBLE
-        layoutManager = LinearLayoutManager(context)
-        recyclerDoctors.layoutManager = layoutManager
-        recyclerDoctors.adapter = adapter
-        recyclerDoctors.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
-            override fun loadMoreItems() {
-                isLoading = true
-                adapter.addLoader()
-                presenter.loadDoctors(getAccessToken())
-            }
-
-            override fun isLoading() = isLoading
-
-            override fun isLastPage() = isLastPage
-        })
+        if(isFirstLoad) {
+            setupAdapter(doctorResponse)
+            isFirstLoad = false
+        } else {
+            adapter.updateDataSet(doctorResponse.data)
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     override fun showMoreDoctors(doctorResponse: DoctorResponse) {
@@ -87,5 +78,28 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
 
     override fun showLoadFailed(e: Exception) {
         Toast.makeText(context, "Error occurred", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setupAdapter(doctorResponse: DoctorResponse) {
+        adapter = DoctorAdapter(doctorResponse.data, context!!, this)
+        layoutManager = LinearLayoutManager(context)
+
+        progressLoading.visibility = View.GONE
+
+        recyclerDoctors.visibility = View.VISIBLE
+        recyclerDoctors.layoutManager = layoutManager
+        recyclerDoctors.adapter = adapter
+
+        recyclerDoctors.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
+            override fun loadMoreItems() {
+                isLoading = true
+                adapter.addLoader()
+                presenter.loadDoctors()
+            }
+
+            override fun isLoading() = isLoading
+
+            override fun isLastPage() = isLastPage
+        })
     }
 }

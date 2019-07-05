@@ -15,7 +15,7 @@ import org.kotlin.mpp.mobile.data.entity.Doctor
 import java.lang.IllegalArgumentException
 
 class DoctorAdapter(
-    private val doctors: MutableList<Doctor>,
+    private var doctors: MutableList<Doctor>,
     private val context: Context,
     private val itemClickListener: ItemClickListener<Doctor>
 ) : RecyclerView.Adapter<BaseHolder>() {
@@ -63,6 +63,11 @@ class DoctorAdapter(
         isLoaderVisible = false
         doctors.removeAt(doctors.size - 1)
         notifyItemRemoved(doctors.size)
+    }
+
+    fun updateDataSet(doctors: MutableList<Doctor>) {
+        this.doctors = doctors
+        notifyDataSetChanged()
     }
 
     inner class DoctorHolder(itemView: View) : BaseHolder(itemView), View.OnClickListener {

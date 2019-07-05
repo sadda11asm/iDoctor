@@ -13,16 +13,19 @@ class DoctorListPresenter(
     private val coroutineContext: CoroutineContext = defaultDispatcher
 ) : BasePresenter<DoctorListView>(coroutineContext) {
 
+    private lateinit var token : String
+
     private var isFirstLoad = true
 
     private var page = 1
 
     override fun onViewAttached(view: DoctorListView) {
         super.onViewAttached(view)
-        view.showLoading()
+        token = view.token()
+        loadDoctors()
     }
 
-    fun loadDoctors(token: String) {
+    fun loadDoctors() {
         scope.launch {
             getDoctors(
                 params = DoctorRequest(token, page),
@@ -33,11 +36,17 @@ class DoctorListPresenter(
             page++
         }
     }
+
+    fun refreshDoctors() {
+        isFirstLoad = true
+        page = 1
+        loadDoctors()
+    }
 }
 
 interface DoctorListView {
 
-    fun showLoading() // TODO refactor
+    fun token(): String
 
     fun showDoctors(doctorResponse: DoctorResponse)
 
