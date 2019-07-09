@@ -76,8 +76,10 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
         isLoading = false
     }
 
-    override fun showLoadFailed(e: Exception) {
-        Toast.makeText(context, "Error occurred", Toast.LENGTH_SHORT).show()
+    override fun showLoadFailed() {
+        Toast.makeText(context, "Error while loading data", Toast.LENGTH_SHORT).show()
+        adapter.removeLoader()
+        isLoading = false
     }
 
     private fun setupAdapter(doctorResponse: DoctorResponse) {

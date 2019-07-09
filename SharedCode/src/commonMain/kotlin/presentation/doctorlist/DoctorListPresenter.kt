@@ -30,7 +30,7 @@ class DoctorListPresenter(
             getDoctors(
                 params = DoctorRequest(token, page),
                 onSuccess = { if (isFirstLoad) view?.showDoctors(it) else view?.showMoreDoctors(it) },
-                onFailure = { view?.showLoadFailed(it) }
+                onFailure = { view?.showLoadFailed() }
             )
             isFirstLoad = false
             page++
@@ -52,5 +52,5 @@ interface DoctorListView {
 
     fun showMoreDoctors(doctorResponse: DoctorResponse)
 
-    fun showLoadFailed(e: Exception)
+    fun showLoadFailed()
 }
