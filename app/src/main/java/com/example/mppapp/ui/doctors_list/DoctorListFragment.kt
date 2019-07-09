@@ -56,7 +56,7 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
     override fun token() = getAccessToken()
 
     /**
-     * @param isFirstLoad distinguishes between actual firstLoad and
+     * @property isFirstLoad distinguishes between actual firstLoad and
      * refreshing adapter with new data set
      */
 

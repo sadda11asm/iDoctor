@@ -15,6 +15,7 @@ import io.ktor.http.content.OutgoingContent
 import kotlinx.serialization.json.Json
 import org.kotlin.mpp.mobile.data.entity.DoctorResponse
 import org.kotlin.mpp.mobile.data.entity.ignoreOutgoingContent
+import org.kotlin.mpp.mobile.util.constants.*
 
 class DoctorApi(engine: HttpClientEngine) {
 
@@ -29,8 +30,8 @@ class DoctorApi(engine: HttpClientEngine) {
         val response = client.get<HttpResponse> {
             url {
                 protocol = URLProtocol.HTTPS
-                host = BASE_URL
-                encodedPath = ENCODED_PATH
+                host = API_URL
+                encodedPath = API_DOCTORS
                 header(HEADER_CONTENT, CONTENT_TYPE)
                 header(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
                 parameter(PARAM_PAGE, page)
@@ -38,15 +39,5 @@ class DoctorApi(engine: HttpClientEngine) {
         }
         val jsonBody = response.readText()
         return Json.nonstrict.parse(DoctorResponse.serializer(), jsonBody)
-    }
-
-    companion object {
-        private const val BASE_URL = "cabinet.idoctor.kz/api"
-        private const val ENCODED_PATH = "/doctors"
-        private const val HEADER_AUTHORIZATION = "Authorization"
-        private const val HEADER_CONTENT = "Content-Type"
-        private const val CONTENT_TYPE = "application/json"
-        private const val TOKEN_TYPE = "Bearer"
-        private const val PARAM_PAGE = "page"
     }
 }
