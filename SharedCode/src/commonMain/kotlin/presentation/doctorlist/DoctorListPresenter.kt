@@ -43,14 +43,3 @@ class DoctorListPresenter(
         loadDoctors()
     }
 }
-
-interface DoctorListView {
-
-    fun token(): String
-
-    fun showDoctors(doctorResponse: DoctorResponse)
-
-    fun showMoreDoctors(doctorResponse: DoctorResponse)
-
-    fun showLoadFailed()
-}
