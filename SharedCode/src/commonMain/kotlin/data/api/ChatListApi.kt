@@ -17,6 +17,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 import org.kotlin.mpp.mobile.data.entity.DoctorResponse
 import org.kotlin.mpp.mobile.data.entity.ignoreOutgoingContent
+import org.kotlin.mpp.mobile.util.log
 
 class ChatListApi(engine: HttpClientEngine) {
 
@@ -38,11 +39,12 @@ class ChatListApi(engine: HttpClientEngine) {
             }
         }
         val jsonBody = response.readText()
+        log("CHATLIST", jsonBody)
         return Json.nonstrict.parse(Chat.serializer().list, jsonBody)
     }
 
     companion object {
-        private const val BASE_URL = "172.20.20.101:8000/"
+        private const val BASE_URL = "172.20.21.164:8000/"
         private const val ENCODED_PATH = ""
         private const val HEADER_AUTHORIZATION = "Authorization"
         private const val HEADER_CONTENT = "Content-Type"

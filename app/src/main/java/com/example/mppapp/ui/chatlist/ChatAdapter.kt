@@ -15,6 +15,7 @@ import data.entity.Chat
 import kotlinx.android.synthetic.main.item_chat_list.view.*
 import kotlinx.android.synthetic.main.item_doctor_list.view.*
 import org.kotlin.mpp.mobile.data.entity.Doctor
+import java.text.SimpleDateFormat
 
 class ChatAdapter(
     private val chats: List<Chat>,
@@ -46,8 +47,19 @@ class ChatAdapter(
 
         fun bind(chat: Chat) = with(itemView) {
             currentChat = chat
-            chatName.text = chat.title
+            if (chat.title=="anonymous user" || chat.title =="anonym" || chat.title == null)
+                chatName.text = "Анонимный юзер :)"
+            else chatName.text = chat.title
 
+            last_message.text = chat.lastMessage?.message ?: "Пока нет сообщений в этом чате"
+            var lastMesTime = chat.lastMessage?.updatedAt
+            if (lastMesTime == null)
+                time.text = "Недавно"
+            else {
+                lastMesTime = lastMesTime.substring(0, 10)
+                val arr = lastMesTime.split('-')
+                time.text = arr[2]+'.'+arr[1]
+            }
 
             setOnClickListener {
                 itemClickListener.onClick(currentChat)
@@ -55,7 +67,8 @@ class ChatAdapter(
 
             Glide
                 .with(context)
-                .load(R.drawable.default_avatar)
+                .load(R.drawable.idoctor)
+                .centerCrop()
         }
 
         override fun onClick(view: View?) {

@@ -11,13 +11,13 @@
 		app:cardBackgroundColor="@color/colorPrimary"
 		app:layout_constraintTop_toTopOf="parent"
 		app:strokeColor="#000000"
-		app:strokeWidth="2dp"
+		app:strokeWidth="0.5dp"
 		tools:layout_editor_absoluteX="16dp">
 
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_margin="10dp"
+			android:layout_margin="2dp"
 			tools:layout_editor_absoluteX="16dp"
 			tools:layout_editor_absoluteY="16dp">
 
@@ -42,9 +42,9 @@
 				android:layout_marginTop="8dp"
 				android:text="Saved Messages"
 				android:textColor="@android:color/white"
-				android:textSize="16sp"
+				android:textSize="18sp"
 				android:textStyle="bold"
-				app:fontFamily="@font/blogger_sans"
+				app:fontFamily="@font/blogger_sans_bold"
 				app:layout_constraintStart_toEndOf="@id/image_chat"
 				app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,9 +56,9 @@
 				android:layout_marginStart="8dp"
 				android:layout_marginLeft="8dp"
 				android:layout_marginTop="8dp"
-				android:layout_marginBottom="8dp"
+				android:layout_marginBottom="4dp"
 				android:text="You: Салам, как дела?"
-				android:textColor="@android:color/white"
+				android:textColor="#D3D3D3"
 				android:textStyle="bold"
 				app:fontFamily="@font/blogger_sans"
 				app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +75,7 @@
 				android:layout_marginEnd="8dp"
 				android:layout_marginRight="8dp"
 				android:text="13:36"
-				android:textColor="@android:color/white"
+				android:textColor="#D3D3D3"
 				app:fontFamily="@font/blogger_sans"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintHorizontal_bias="1.0"

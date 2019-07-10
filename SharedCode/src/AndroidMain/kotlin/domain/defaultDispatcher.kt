@@ -1,5 +1,6 @@
 package org.kotlin.mpp.mobile.domain
 
+import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 

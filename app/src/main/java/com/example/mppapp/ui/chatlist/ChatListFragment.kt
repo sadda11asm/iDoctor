@@ -1,5 +1,7 @@
 package com.example.mppapp.ui.chatlist
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +13,9 @@ import com.example.mppapp.R
 import com.example.mppapp.ui.chat.ChatActivity
 import com.example.mppapp.util.ItemClickListener
 import com.orhanobut.hawk.Hawk
+import com.squareup.sqldelight.android.AndroidSqliteDriver
+import com.squareup.sqldelight.db.SqlDriver
+import data.db.MyDatabase
 import data.entity.Chat
 import data.entity.ChatResponse
 import kotlinx.android.synthetic.main.fragment_chat_list.*
@@ -26,7 +31,6 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
 
     private lateinit var adapter: ChatAdapter
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_chat_list, container, false)
     }
@@ -34,6 +38,7 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
+
         activity?.title = "Чаты"
     }
 
@@ -44,7 +49,15 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
 
     override fun showLoading() {
         Log.d(TAG, "showLoading()")
-        presenter.onLoadChats(Hawk.get<String>("access_token")) // TODO replace with utils call
+
+        presenter.onLoadChats(Hawk.get<String>("access_token"), verifyAvailableNetwork()) // TODO replace with utils call
+    }
+
+
+    private fun verifyAvailableNetwork():Boolean{
+        val connectivityManager= activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo=connectivityManager.activeNetworkInfo
+        return  networkInfo!=null && networkInfo.isConnected
     }
 
     override fun showChats(chats: List<Chat>) {

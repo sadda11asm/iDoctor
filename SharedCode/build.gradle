@@ -2,9 +2,47 @@ apply plugin: 'kotlin-multiplatform'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'com.wiredforcode.spawn'
 apply plugin: 'com.squareup.sqldelight'
+apply plugin: 'com.android.library'
 
 
 
+
+
+
+
+sqldelight {
+    MyDatabase {
+        //The package where all entities will be generated in
+        //More options https://github.com/square/sqldelight
+        packageName = 'data.db'
+        sourceFolders = ["sqldelight"]
+
+    }
+}
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 15
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        //This is for MultiplatformSettings
+        debug {
+            // MPP libraries don't currently get this resolution automatically
+            matchingFallbacks = ['release']
+        }
+    }
+}
 
 
 kotlin {
@@ -18,7 +56,7 @@ kotlin {
             }
         }
 
-        fromPreset(presets.jvm, 'android')
+        fromPreset(presets.android, 'android')
     }
 
     sourceSets {
@@ -77,15 +115,6 @@ kotlin {
     }
 }
 
-sqldelight {
-    iDoctorDatabase {
-        //The package where all entities will be generated in
-        //More options https://github.com/square/sqldelight
-        packageName = 'com.example.mpp'
-        sourceFolders = ["sqldelight"]
-
-    }
-}
 
 // workaround for https://youtrack.jetbrains.com/issue/KT-27170
 configurations {

@@ -17,10 +17,10 @@ class ChatListPresenter(
         view.showLoading()
     }
 
-    fun onLoadChats(token: String) {
+    fun onLoadChats(token: String, connection: Boolean) {
         scope.launch {
             getChatList(
-                params = token,
+                params = Pair(token, connection),
                 onSuccess = { view?.showChats(it) },
                 onFailure = { view?.showLoadFailed(it) }
             )

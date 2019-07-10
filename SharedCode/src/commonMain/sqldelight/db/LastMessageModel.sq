@@ -1,0 +1,19 @@
+
+
+CREATE TABLE LastMessageModel(
+    id INTEGER UNIQUE NOT NULL,
+    chat_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    message TEXT NOT NULL,
+    created_at TEXT DEFAULT NULL,
+    updated_at TEXT DEFAULT NULL
+);
+
+selectAll:
+SELECT * FROM LastMessageModel  ORDER BY updated_at DESC;
+
+selectByChatId:
+SELECT * FROM LastMessageModel WHERE chat_id = ? ORDER BY updated_at DESC;
+
+insertItem:
+INSERT OR FAIL INTO LastMessageModel(id, chat_id, user_id, message, created_at,updated_at) VALUES (?, ?, ?, ?, ?, ?);

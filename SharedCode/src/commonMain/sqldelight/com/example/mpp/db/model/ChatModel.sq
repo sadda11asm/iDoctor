@@ -1,6 +1,0 @@
-
-
-CREATE TABLE ChatModel(
-    id INT
-
-)

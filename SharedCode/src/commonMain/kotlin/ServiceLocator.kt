@@ -1,8 +1,12 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
 package org.kotlin.mpp.mobile
+import com.squareup.sqldelight.db.SqlDriver
 import data.ChatListApi
 import data.DoctorApi
+import data.db.ChatShortDao
+import data.db.createDatabase
+import data.repository.ChatRepository
 import io.ktor.client.engine.HttpClientEngine
 import org.kotlin.mpp.mobile.data.ChatFullApi
 import org.kotlin.mpp.mobile.data.LoginApi
@@ -22,6 +26,12 @@ import kotlin.native.concurrent.ThreadLocal
 @ThreadLocal
 object ServiceLocator {
 
+    /**
+     * Database
+     */
+
+
+    val database by lazy { createDatabase(PlatformServiceLocator.driver) }
     /**
      * Load doctors
      */
@@ -63,8 +73,13 @@ object ServiceLocator {
 
     val chatListApi by lazy { ChatListApi(PlatformServiceLocator.httpClientEngine)}
 
+    val chatShortDao by lazy {ChatShortDao(database)}
+
+    val chatRepository by lazy { ChatRepository(chatListApi, chatShortDao)}
+
     val getChatList: GetChatList
-        get() = GetChatList(chatListApi)
+        get() = GetChatList(chatRepository)
+
     val chatListPresenter: ChatListPresenter
         get() = ChatListPresenter(getChatList)
 
@@ -75,5 +90,6 @@ object ServiceLocator {
  */
 expect object PlatformServiceLocator {
 
+    val driver: SqlDriver
     val httpClientEngine: HttpClientEngine
 }
