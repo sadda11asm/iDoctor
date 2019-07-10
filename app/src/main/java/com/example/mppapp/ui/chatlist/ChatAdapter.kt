@@ -13,7 +13,6 @@ import com.example.mppapp.ui.doctors_list.DoctorAdapter
 import com.example.mppapp.util.ItemClickListener
 import data.entity.Chat
 import kotlinx.android.synthetic.main.item_chat_list.view.*
-import kotlinx.android.synthetic.main.item_doctor_list.view.*
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import java.text.SimpleDateFormat
 

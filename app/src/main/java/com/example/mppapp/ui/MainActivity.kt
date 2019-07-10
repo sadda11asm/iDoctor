@@ -17,11 +17,11 @@ class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, ChatListFragment())
-            .commit()
+//
+//        supportFragmentManager
+//            .beginTransaction()
+//            .replace(R.id.container, ChatListFragment())
+//            .commit()
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -35,11 +35,12 @@ class MainActivity: AppCompatActivity() {
                         .replace(R.id.container, ChatListFragment())
                         .commit()
                 }
-//                R.id.action_carwashes -> {
-//                    navigationController.navigateToCarWashes()
-//                    container.visibility = View.VISIBLE
-//                    Toast.makeText(this, "carwashes", Toast.LENGTH_SHORT).show()
-//                }
+                R.id.navigation_doctors -> {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, DoctorListFragment())
+                        .commit()
+                }
 //                R.id.action_profile -> {
 ////                    navigationController.navigateToProfile()
 //                }

@@ -7,11 +7,11 @@ import db.ChatShortModel
 import org.kotlin.mpp.mobile.data.entity.Message
 
 fun encodeOne(mes: Message): String {
-    return "${mes.text}$${mes.author}$${mes.created_at}$${mes.is_read}|"
+    return "${mes.text}$${mes.createdAt}$${mes.updatedAt}$${mes.text}|"
 }
 fun decodeOne(str: String): Message {
     val values = str.split('$')
-    return Message(values[0], values[1], values[2], values[3].toBoolean())
+    return Message(values[0].toInt(), values[1].toInt(), values[2].toInt(), values[3], values[4], values[5])
 }
 
 fun createDatabase(driver: SqlDriver): MyDatabase {
