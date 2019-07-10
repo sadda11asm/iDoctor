@@ -14,7 +14,6 @@ import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.ui.doctor_page.DoctorDetailsActivity
 import com.example.mppapp.util.getAccessToken
 import kotlinx.android.synthetic.main.fragment_doctor_list.*
-import kotlinx.coroutines.delay
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import org.kotlin.mpp.mobile.data.entity.DoctorResponse

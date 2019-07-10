@@ -18,4 +18,5 @@
 	<string name="profile">Профиль</string>
 	<string name="search_doctor">Поиск врача</string>
 	<string name="load_error_message">Не удалось загрузить данные</string>
+	<string name="anonymous">Аноним</string>
 </resources>

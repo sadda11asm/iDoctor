@@ -28,7 +28,7 @@ class DoctorListPresenter(
     fun loadDoctors() {
         scope.launch {
             getDoctors(
-                params = DoctorRequest(token, page),
+                params = DoctorRequest(token, page), // TODO check for memory leak
                 onSuccess = { if (isFirstLoad) view?.showDoctors(it) else view?.showMoreDoctors(it) },
                 onFailure = { view?.showLoadFailed() }
             )

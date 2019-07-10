@@ -23,7 +23,6 @@ class DoctorApi(engine: HttpClientEngine) {
         install(JsonFeature) {
             serializer = KotlinxSerializer().ignoreOutgoingContent()
         }
-
     }
 
     suspend fun getDoctors(token: String, page: Int): DoctorResponse {

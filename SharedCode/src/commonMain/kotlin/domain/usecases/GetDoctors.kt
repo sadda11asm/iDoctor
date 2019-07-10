@@ -8,7 +8,7 @@ import org.kotlin.mpp.mobile.domain.model.Either
 import org.kotlin.mpp.mobile.domain.model.Failure
 import org.kotlin.mpp.mobile.domain.model.Success
 
-class GetDoctors(private val doctorApi: DoctorApi): UseCase<DoctorResponse, DoctorRequest>() {
+class GetDoctors(private val doctorApi: DoctorApi) : UseCase<DoctorResponse, DoctorRequest>() {
     override suspend fun run(params: DoctorRequest): Either<Exception, DoctorResponse> {
         return try {
             val response = doctorApi.getDoctors(params.token, params.page)

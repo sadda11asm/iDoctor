@@ -1,14 +1,14 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
 package org.kotlin.mpp.mobile
-import data.ChatListApi
 import data.DoctorApi
 import io.ktor.client.engine.HttpClientEngine
+import org.kotlin.mpp.mobile.data.ChatFullApi
 import org.kotlin.mpp.mobile.data.LoginApi
 import org.kotlin.mpp.mobile.domain.usecases.AuthorizeUser
-import org.kotlin.mpp.mobile.domain.usecases.GetChatList
+import org.kotlin.mpp.mobile.domain.usecases.GetChatFull
 import org.kotlin.mpp.mobile.domain.usecases.GetDoctors
-import presentation.chatlist.ChatListPresenter
+import org.kotlin.mpp.mobile.presentation.chat.ChatPresenter
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListPresenter
 import org.kotlin.mpp.mobile.presentation.login.LoginPresenter
 import kotlin.native.concurrent.ThreadLocal
@@ -44,16 +44,16 @@ object ServiceLocator {
         get() = LoginPresenter(authorizeUser)
 
     /**
-     * Get chat list
+     * Get chat full
      */
 
-    val chatListApi by lazy { ChatListApi(PlatformServiceLocator.httpClientEngine)}
+    val chatFullApi by lazy { ChatFullApi(PlatformServiceLocator.httpClientEngine) }
 
-    val getChatList: GetChatList
-        get() = GetChatList(chatListApi)
-    val chatListPresenter: ChatListPresenter
-        get() = ChatListPresenter(getChatList)
+    val getChatFull: GetChatFull
+        get() = GetChatFull(chatFullApi)
 
+    val chatPresenter : ChatPresenter
+        get() = ChatPresenter(getChatFull)
 }
 
 /**

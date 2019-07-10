@@ -11,7 +11,7 @@ import org.kotlin.mpp.mobile.data.entity.Message
 import java.lang.IllegalArgumentException
 
 class MessageAdapter(
-    private val messages: List<Message>,
+    private val messages: MutableList<Message>,
     private val context: Context
 ) : RecyclerView.Adapter<MessageAdapter.MessageHolder>() {
 
@@ -19,7 +19,7 @@ class MessageAdapter(
         val layout = when (viewType) {
             MessageType.SENT_MESSAGE.type() -> R.layout.item_sent_message
             MessageType.RECEIVED_MESSAGE.type() -> R.layout.item_received_message
-            else -> throw IllegalArgumentException("Did not match") // TODO refactor
+            else -> throw IllegalArgumentException("Did not match")
         }
         return MessageHolder(
             LayoutInflater.from(context).inflate(
