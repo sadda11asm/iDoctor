@@ -18,7 +18,8 @@ class DoctorDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_details)
 
-        val binding: ActivityDoctorDetailsBinding = DataBindingUtil.setContentView(this,
+        val binding: ActivityDoctorDetailsBinding = DataBindingUtil.setContentView(
+            this,
             R.layout.activity_doctor_details
         )
 
@@ -35,7 +36,6 @@ class DoctorDetailsActivity : AppCompatActivity() {
             .into(binding.iconDoctorDetail)
 
         title = doctor.name
-
 
 
     }

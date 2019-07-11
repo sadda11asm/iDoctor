@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DoctorResponse(
-    val data: List<Doctor>
+    val data: MutableList<Doctor>
 )

@@ -10,7 +10,7 @@ import kotlin.coroutines.CoroutineContext
 
 class LoginPresenter(
     private val authorizeUser: AuthorizeUser,
-    private val coroutineContext: CoroutineContext = defaultDispatcher
+    coroutineContext: CoroutineContext = defaultDispatcher
 ): BasePresenter<LoginView>(coroutineContext) {
 
     override fun onViewAttached(view: LoginView) {

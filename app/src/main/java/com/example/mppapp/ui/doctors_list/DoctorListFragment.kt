@@ -5,13 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mppapp.R
 import com.example.mppapp.model.to
 import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.ui.doctor_page.DoctorDetailsActivity
-import com.orhanobut.hawk.Hawk
+import com.example.mppapp.util.getAccessToken
 import kotlinx.android.synthetic.main.fragment_doctor_list.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.Doctor
@@ -27,6 +28,14 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
 
     private lateinit var adapter: DoctorAdapter
 
+    private lateinit var layoutManager: LinearLayoutManager
+
+    private var isFirstLoad = true
+
+    private var isLastPage = false
+
+    private var isLoading = false
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_doctor_list, container, false)
@@ -35,28 +44,68 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
-        activity?.title = "Поиск врача" // TODO change hardcoded string
+        activity?.title = resources.getString(R.string.search_doctor)
+        swipeRefresh.setOnRefreshListener { presenter.refreshDoctors() }
     }
 
     override fun onClick(data: Doctor) {
-        Log.d(TAG, "onClick(doctor)")
         this.context?.let { DoctorDetailsActivity.open(it, data.to()) }
     }
 
-    override fun showLoading() {
-        Log.d(TAG, "showLoading()")
-        presenter.onLoadDoctors(Hawk.get<String>("access_token")) // TODO replace with utils call
-    }
+    override fun token() = getAccessToken()
+
+    /**
+     * @property isFirstLoad distinguishes between actual firstLoad and
+     * refreshing adapter with new data set
+     */
 
     override fun showDoctors(doctorResponse: DoctorResponse) {
-        Log.d(TAG, doctorResponse.toString())
+        if(isFirstLoad) {
+            setupAdapter(doctorResponse)
+            isFirstLoad = false
+        } else {
+            adapter.updateDataSet(doctorResponse.data)
+            swipeRefresh.isRefreshing = false
+        }
+    }
+
+    override fun showMoreDoctors(doctorResponse: DoctorResponse) {
+        adapter.removeLoader()
+        adapter.addItems(doctorResponse.data)
+        isLoading = false
+    }
+
+    override fun showNoDoctors() {
+        TODO("not implemented")
+    }
+
+    override fun showLoadFailed() {
+        Toast.makeText(context, resources.getString(R.string.load_error_message), Toast.LENGTH_SHORT).show()
+        adapter.removeLoader()
+        isLoading = false
+        swipeRefresh.isRefreshing = false
+    }
+
+    private fun setupAdapter(doctorResponse: DoctorResponse) {
         adapter = DoctorAdapter(doctorResponse.data, context!!, this)
-        recyclerDoctors.layoutManager = LinearLayoutManager(context)
+        layoutManager = LinearLayoutManager(context)
+
+        progressLoading.visibility = View.GONE
+
+        recyclerDoctors.visibility = View.VISIBLE
+        recyclerDoctors.layoutManager = layoutManager
         recyclerDoctors.adapter = adapter
-    }
 
-    override fun showLoadFailed(e: Exception) {
-        Log.d(TAG, "ERROR ${e.message}")
-    }
+        recyclerDoctors.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
+            override fun loadMoreItems() {
+                isLoading = true
+                adapter.addLoader()
+                presenter.loadDoctors()
+            }
 
+            override fun isLoading() = isLoading
+
+            override fun isLastPage() = isLastPage
+        })
+    }
 }

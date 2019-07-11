@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AuthorizationRequest(
+    // TODO change property names in accordance with convention
     val client_id: Int,
     val username: String,
     val password: String,

@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mppapp.R
+import kotlinx.android.synthetic.main.item_sent_message.view.*
 import org.kotlin.mpp.mobile.data.entity.Message
 import java.lang.IllegalArgumentException
 
 class MessageAdapter(
-    private val messages: List<Message>,
+    private val messages: MutableList<Message>,
     private val context: Context
 ) : RecyclerView.Adapter<MessageAdapter.MessageHolder>() {
 
@@ -18,7 +19,7 @@ class MessageAdapter(
         val layout = when (viewType) {
             MessageType.SENT_MESSAGE.type() -> R.layout.item_sent_message
             MessageType.RECEIVED_MESSAGE.type() -> R.layout.item_received_message
-            else -> throw IllegalArgumentException("Did not match") // TODO refactor
+            else -> throw IllegalArgumentException("Did not match")
         }
         return MessageHolder(
             LayoutInflater.from(context).inflate(
@@ -41,8 +42,8 @@ class MessageAdapter(
 
 
     inner class MessageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(message: Message) {
-            //TODO implement
+        fun bind(message: Message) = with(itemView) {
+            textMessage.text = message.text
         }
     }
 }

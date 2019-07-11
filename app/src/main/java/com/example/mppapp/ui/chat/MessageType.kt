@@ -1,6 +1,5 @@
 package com.example.mppapp.ui.chat
 
-
 enum class MessageType {
 
     SENT_MESSAGE {
@@ -12,5 +11,4 @@ enum class MessageType {
     };
 
     abstract fun type(): Int
-
 }
