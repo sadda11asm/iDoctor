@@ -3,19 +3,25 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:layout_marginTop="2dp"
+	android:layout_marginTop="4dp"
 	android:layout_marginStart="4dp"
 	android:layout_marginLeft="4dp"
 	android:layout_marginEnd="4dp"
 	android:layout_marginRight="4dp"
-	android:background="@drawable/rounded_chat_message"
+	android:background="@drawable/rounded_sent_message"
 	android:padding="4dp">
 
 	<TextView
 		android:id="@+id/textMessage"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Hello"
+		android:layout_marginStart="4dp"
+		android:layout_marginLeft="4dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginRight="8dp"
+		android:textColor="@android:color/black"
+		android:textSize="16sp"
+		app:layout_constraintEnd_toStartOf="@id/textSentDate"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,21 +29,21 @@
 		android:id="@+id/textSentDate"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="2dp"
-		android:layout_marginLeft="2dp"
-		android:text="12:35"
-		android:textSize="8sp"
+		android:layout_marginEnd="4dp"
+		android:layout_marginRight="4dp"
+		android:alpha="0.7"
+		android:textSize="12sp"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toEndOf="@id/textMessage" />
+		app:layout_constraintEnd_toStartOf="@id/imageIsRead" />
 
 	<ImageView
 		android:id="@+id/imageIsRead"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="2dp"
-		android:layout_marginLeft="2dp"
+		android:layout_width="16dp"
+		android:layout_height="16dp"
+		android:layout_marginEnd="4dp"
+		android:layout_marginRight="4dp"
 		android:src="@drawable/ic_message_read_color_primary_12dp"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toEndOf="@id/textSentDate" />
+		app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
