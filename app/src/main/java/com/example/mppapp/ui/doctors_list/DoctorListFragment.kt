@@ -79,9 +79,8 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
         TODO("not implemented")
     }
 
-    override fun showLoadFailed() {
-        Toast.makeText(context, resources.getString(R.string.load_error_message), Toast.LENGTH_SHORT).show()
-        adapter.removeLoader()
+    override fun showLoadFailed(e:Exception) {
+        Log.v("DoctorApi", e.toString())
         isLoading = false
         swipeRefresh.isRefreshing = false
     }

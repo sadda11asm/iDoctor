@@ -18,10 +18,10 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 //
-//        supportFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.container, ChatListFragment())
-//            .commit()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, DoctorListFragment())
+            .commit()
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)

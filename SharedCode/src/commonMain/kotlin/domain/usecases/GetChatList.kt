@@ -1,12 +1,8 @@
 package org.kotlin.mpp.mobile.domain.usecases
 
 import UseCase
-import data.ChatListApi
-import data.DoctorApi
 import data.entity.Chat
-import data.entity.ChatResponse
 import data.repository.ChatRepository
-import org.kotlin.mpp.mobile.data.entity.DoctorResponse
 import org.kotlin.mpp.mobile.domain.model.Either
 import org.kotlin.mpp.mobile.domain.model.Failure
 import org.kotlin.mpp.mobile.domain.model.Success

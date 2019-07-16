@@ -1,22 +1,19 @@
 package data
 
 import data.entity.Chat
-import data.entity.ChatResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.JsonSerializer
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.response.HttpResponse
 import io.ktor.client.response.readText
 import io.ktor.http.URLProtocol
-import io.ktor.http.content.OutgoingContent
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
-import org.kotlin.mpp.mobile.data.entity.DoctorResponse
 import org.kotlin.mpp.mobile.data.entity.ignoreOutgoingContent
+import org.kotlin.mpp.mobile.util.constants.TEMP_URL
 import org.kotlin.mpp.mobile.util.log
 
 class ChatListApi(engine: HttpClientEngine) {
@@ -32,8 +29,8 @@ class ChatListApi(engine: HttpClientEngine) {
         val response = client.get<HttpResponse> {
             url {
                 protocol = URLProtocol.HTTP
-                host = BASE_URL
-                encodedPath = ENCODED_PATH
+                host = TEMP_URL
+                encodedPath = "/"
                 header(HEADER_CONTENT, CONTENT_TYPE)
                 header(HEADER_AUTHORIZATION, "Bearer $token")
             }

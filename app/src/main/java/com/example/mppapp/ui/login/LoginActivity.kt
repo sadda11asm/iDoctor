@@ -1,6 +1,7 @@
 package com.example.mppapp.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +10,10 @@ import com.crashlytics.android.Crashlytics
 import com.example.mppapp.R
 import com.example.mppapp.databinding.ActivityLoginBinding
 import com.example.mppapp.ui.MainActivity
+import com.example.mppapp.util.putAuthResponse
+import com.example.mppapp.util.putUser
 import com.orhanobut.hawk.Hawk
+import data.entity.UserFull
 import io.fabric.sdk.android.Fabric
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.AuthorizationResponse
@@ -33,15 +37,14 @@ class LoginActivity: AppCompatActivity(), LoginView {
         }
     }
 
-    override fun showFailedLogin() {
-        Toast.makeText(this, "Error occurred", Toast.LENGTH_LONG).show()
+    override fun showFailedLogin(e: Exception) {
+        Log.v("LoginActivity", e.toString())
+        Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
     }
 
-    override fun showSuccessfulLogin(response: AuthorizationResponse) {
-        Hawk.put("access_token", response.access_token)
-        Hawk.put("refresh_token", response.refresh_token)
-        Hawk.put("expire_in", response.expires_in)
-        Hawk.put("token_type", response.token_type)
+    override fun showSuccessfulLogin(response: AuthorizationResponse, user: UserFull) {
+        putAuthResponse(response)
+        putUser(user)
         MainActivity.open(this)
         finish()
     }

@@ -11,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.mppapp.R
 import com.example.mppapp.ui.doctors_list.DoctorAdapter
 import com.example.mppapp.util.ItemClickListener
+import com.example.mppapp.util.getName
 import data.entity.Chat
 import kotlinx.android.synthetic.main.item_chat_list.view.*
 import org.kotlin.mpp.mobile.data.entity.Doctor
@@ -48,12 +49,19 @@ class ChatAdapter(
             currentChat = chat
             if (chat.title=="anonymous user" || chat.title =="anonym" || chat.title == null)
                 chatName.text = "Анонимный юзер :)"
-            else chatName.text = chat.title
+            else {
+                if (chat.users.size==2) {
+                    chatName.text = chat.title
+                } else {
+                    val names = chat.title!!.split(',')
+                    chatName.text = if (names[0] == getName()) names[1] else names[0]
+                }
+            }
 
             last_message.text = chat.lastMessage?.message ?: "Пока нет сообщений в этом чате"
             var lastMesTime = chat.lastMessage?.updatedAt
             if (lastMesTime == null)
-                time.text = "Недавно"
+                time.text = ""
             else {
                 lastMesTime = lastMesTime.substring(0, 10)
                 val arr = lastMesTime.split('-')
@@ -64,10 +72,20 @@ class ChatAdapter(
                 itemClickListener.onClick(currentChat)
             }
 
-            Glide
+            if (chat.avatar == null)
+                Glide
                 .with(context)
-                .load(R.drawable.idoctor)
-                .centerCrop()
+                .load(R.drawable.default_avatar)
+                .apply(RequestOptions.circleCropTransform())
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(image_chat)
+            else
+                Glide
+                    .with(context)
+                    .load(chat.avatar)
+                    .apply(RequestOptions.circleCropTransform())
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(image_chat)
         }
 
         override fun onClick(view: View?) {

@@ -6,11 +6,12 @@ CREATE TABLE ChatShortModel(
     created_at TEXT DEFAULT NULL,
     updated_at TEXT DEFAULT NULL,
     deleted_at TEXT DEFAULT NULL,
-    users TEXT as List<Int>
+    users TEXT as List<Int>,
+    avatar TEXT
 );
 
 selectAll:
 SELECT * FROM ChatShortModel;
 
 insertItem:
-INSERT OR REPLACE INTO ChatShortModel(id, title, created_at, updated_at, deleted_at, users) VALUES (?, ?, ?, ?, ?, ?);
+INSERT OR REPLACE INTO ChatShortModel(id, title, created_at, updated_at, deleted_at, users, avatar) VALUES (?, ?, ?, ?, ?, ?, ?);

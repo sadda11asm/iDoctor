@@ -1,7 +1,7 @@
 package org.kotlin.mpp.mobile.domain.usecases
 
 import UseCase
-import data.DoctorApi
+import data.api.DoctorApi
 import org.kotlin.mpp.mobile.data.entity.DoctorRequest
 import org.kotlin.mpp.mobile.data.entity.DoctorResponse
 import org.kotlin.mpp.mobile.domain.model.Either
