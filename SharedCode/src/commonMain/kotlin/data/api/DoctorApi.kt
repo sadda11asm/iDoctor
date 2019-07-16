@@ -1,4 +1,4 @@
-package data
+package data.api
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine

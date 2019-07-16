@@ -1,10 +1,8 @@
 package data.repository
 
-import com.squareup.sqldelight.db.SqlDriver
-import data.ChatListApi
+import data.api.ChatListApi
 import data.db.ChatShortDao
 import data.entity.Chat
-import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.util.log
 
 class ChatRepository(

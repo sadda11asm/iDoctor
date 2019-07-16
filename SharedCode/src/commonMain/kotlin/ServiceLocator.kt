@@ -3,8 +3,8 @@
 package org.kotlin.mpp.mobile
 
 import com.squareup.sqldelight.db.SqlDriver
-import data.ChatListApi
-import data.DoctorApi
+import data.api.ChatListApi
+import data.api.DoctorApi
 import data.api.MessageApi
 import data.db.ChatShortDao
 import data.db.createDatabase
@@ -15,7 +15,7 @@ import io.ktor.client.engine.HttpClientEngine
 import org.kotlin.mpp.mobile.data.ChatFullApi
 import org.kotlin.mpp.mobile.data.LoginApi
 import org.kotlin.mpp.mobile.domain.usecases.AuthorizeUser
-import org.kotlin.mpp.mobile.domain.usecases.GetChat
+import org.kotlin.mpp.mobile.domain.usecases.GetChatFull
 import org.kotlin.mpp.mobile.domain.usecases.GetChatList
 import org.kotlin.mpp.mobile.domain.usecases.GetDoctors
 import org.kotlin.mpp.mobile.presentation.chat.ChatPresenter
@@ -69,11 +69,11 @@ object ServiceLocator {
 
     val chatFullApi by lazy { ChatFullApi(PlatformServiceLocator.httpClientEngine) }
 
-    val getChat: GetChat
-        get() = GetChat(chatFullApi)
+    val getChatFull: GetChatFull
+        get() = GetChatFull(chatFullApi)
 
     val chatPresenter: ChatPresenter
-        get() = ChatPresenter(getChat, sendMessage, markMessageAsRead)
+        get() = ChatPresenter(getChatFull, sendMessage, markMessageAsRead)
 
     /**
      * Get chat list

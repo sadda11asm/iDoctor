@@ -8,13 +8,13 @@ import kotlinx.coroutines.launch
 import org.kotlin.mpp.mobile.data.entity.ChatFullRequest
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
-import org.kotlin.mpp.mobile.domain.usecases.GetChat
+import org.kotlin.mpp.mobile.domain.usecases.GetChatFull
 import org.kotlin.mpp.mobile.presentation.BasePresenter
 import org.kotlin.mpp.mobile.util.log
 import kotlin.coroutines.CoroutineContext
 
 class ChatPresenter(
-    private val getChat: GetChat,
+    private val getChatFull: GetChatFull,
     private val sendMessage: SendMessage,
     private val markMessageAsRead: MarkMessageAsRead,
     private val coroutineContext: CoroutineContext = defaultDispatcher
@@ -32,7 +32,7 @@ class ChatPresenter(
 
     fun loadChat() {
         scope.launch {
-            getChat(
+            getChatFull(
                 params = ChatFullRequest(token, chatId),
                 onSuccess = { view?.showChat(it) },
                 onFailure = { view?.showChatLoadError(it) }
