@@ -15,6 +15,7 @@ class ChatRepository(
             try {
                fetchChatList(token)
             } catch (e: Exception) {
+                log("chatRepository", e.toString())
                 selectFromDb()
             }
 

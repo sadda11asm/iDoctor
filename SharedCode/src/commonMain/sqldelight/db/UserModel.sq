@@ -1,0 +1,23 @@
+import data.entity.EventDate;
+
+CREATE TABLE UserModel(
+    id INTEGER UNIQUE NOT NULL,
+    firstname TEXT NOT NULL,
+    lastname TEXT NOT NULL,
+    patronymic TEXT,
+    phone TEXT NOT NULL,
+    email TEXT NOT NULL,
+    created_at TEXT as EventDate,
+    updated_at TEXT as EventDate,
+    verified INTEGER NOT NULL,
+    doctor_id TEXT
+);
+
+selectAll:
+SELECT * FROM UserModel;
+
+selectById:
+SELECT * FROM UserModel WHERE id = ?;
+
+insertItem:
+INSERT OR REPLACE INTO UserModel(id, firstname, lastname, patronymic, phone, email, created_at, updated_at, verified, doctor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);

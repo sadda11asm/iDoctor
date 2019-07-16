@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 data class ServicePivot(
     @SerialName("doctor_id") val doctorId: Long,
     @SerialName("service_id") val serviceId: Long,
-    val price: Long = 0
+    val price: Long? = 0
 )

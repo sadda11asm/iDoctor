@@ -5,12 +5,18 @@ package org.kotlin.mpp.mobile
 import com.squareup.sqldelight.db.SqlDriver
 import data.api.ChatListApi
 import data.api.DoctorApi
+import data.api.UserApi
 import data.api.MessageApi
 import data.db.ChatShortDao
+import data.db.UserDao
 import data.db.createDatabase
+import data.repository.ChatFullRepository
 import data.repository.ChatRepository
 import domain.usecases.MarkMessageAsRead
 import domain.usecases.SendMessage
+import data.repository.UserRepository
+import domain.usecases.CreateChat
+import domain.usecases.GetUserInfo
 import io.ktor.client.engine.HttpClientEngine
 import org.kotlin.mpp.mobile.data.ChatFullApi
 import org.kotlin.mpp.mobile.data.LoginApi
@@ -22,6 +28,7 @@ import org.kotlin.mpp.mobile.presentation.chat.ChatPresenter
 import presentation.chatlist.ChatListPresenter
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListPresenter
 import org.kotlin.mpp.mobile.presentation.login.LoginPresenter
+import presentation.doctorpage.DoctorPagePresenter
 import kotlin.native.concurrent.ThreadLocal
 
 /**
@@ -35,7 +42,6 @@ object ServiceLocator {
     /**
      * Database
      */
-
 
     val database by lazy { createDatabase(PlatformServiceLocator.driver) }
 
@@ -52,6 +58,19 @@ object ServiceLocator {
         get() = DoctorListPresenter(getDoctors)
 
     /**
+    * Get User
+    */
+
+    val userApi by lazy {UserApi(PlatformServiceLocator.httpClientEngine)}
+
+    val userDao by lazy {UserDao(database) }
+
+    val userRepository by lazy { UserRepository(userApi, userDao) }
+
+    val getUserInfo: GetUserInfo
+        get() = GetUserInfo(userRepository)
+
+    /**
      * Authorize
      */
 
@@ -61,16 +80,18 @@ object ServiceLocator {
         get() = AuthorizeUser(loginApi)
 
     val loginPresenter: LoginPresenter
-        get() = LoginPresenter(authorizeUser)
+        get() = LoginPresenter(authorizeUser, getUserInfo)
 
     /**
-     * Get chat
+     * Get chat full
      */
 
     val chatFullApi by lazy { ChatFullApi(PlatformServiceLocator.httpClientEngine) }
 
+    val chatFullRepository by lazy{ ChatFullRepository(chatFullApi)}
+
     val getChatFull: GetChatFull
-        get() = GetChatFull(chatFullApi)
+        get() = GetChatFull(chatFullRepository)
 
     val chatPresenter: ChatPresenter
         get() = ChatPresenter(getChatFull, sendMessage, markMessageAsRead)
@@ -106,6 +127,16 @@ object ServiceLocator {
 
     val markMessageAsRead: MarkMessageAsRead
         get() = MarkMessageAsRead(messageApi)
+    /**
+     *   Create Chat
+     */
+
+    val createChat: CreateChat
+        get() = CreateChat(chatFullRepository)
+
+    val doctorPagePresenter: DoctorPagePresenter
+        get() = DoctorPagePresenter(createChat)
+
 }
 
 /**
