@@ -11,6 +11,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.mppapp.R
 import com.example.mppapp.util.getAccessToken
+import com.example.mppapp.util.getUserId
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.ChatFullResponse
@@ -21,58 +22,82 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     private val presenter by lazy { ServiceLocator.chatPresenter }
 
-//    private val userId = intent.getIntExtra(EXTRA_USER_ID, 0)
-//
-//    private val chatId = intent.getIntExtra(EXTRA_CHAT_ID, 0)
-//
-//    private val avatar = intent.getStringExtra(EXTRA_AVATAR)
+    private lateinit var adapter: MessageAdapter
+
+    private val layoutManager = LinearLayoutManager(this)
+
+    private var isMessageSend = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
         presenter.attachView(this)
-
-//        // TODO remove
-//        val mockMessages = mutableListOf(
-//            Message(1, 2, 3, "new message", "b", "b"),
-//            Message(1, 2, 3, "new 2", "b", "b")
-//        )
-//        recyclerMessages.layoutManager = LinearLayoutManager(this)
-//        recyclerMessages.adapter = MessageAdapter(mockMessages, this)
     }
 
     override fun token() = getAccessToken()
 
-    override fun showChat(chatFullResponse: ChatFullResponse) {
-        Log.d("Chat", "ShowChat()")
-        setupToolbar(chatFullResponse.data.title)
-        setupAdapter(chatFullResponse.data.messages)
+    override fun chatId() = intent.getIntExtra(EXTRA_CHAT_ID, 28)
+
+    override fun showMessage(message: Message) {
+        adapter.addItem(message)
     }
 
-    override fun showError(e: Exception) {
-        Log.d("Chat", "${e.stackTrace}")
+    override fun showChat(chatFullResponse: ChatFullResponse) {
+        setupToolbar(chatFullResponse.data.title)
+        setupRecycler(chatFullResponse.data.messages)
+        setListeners()
+    }
+
+    override fun showChatLoadError(e: Exception) {
+        Log.d("Chat", "${e.message}")
+    }
+
+    private fun setListeners() {
+        fabSend.setOnClickListener { sendMessage() }
+        recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            // TODO change position init logic
+            val position = if(isMessageSend) adapter.itemCount else adapter.itemCount - 1
+            isMessageSend = false
+            layoutManager.scrollToPosition(position)
+        }
     }
 
     private fun setupToolbar(title: String?) {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        textTitle.text = title
+        loadIntoAvatar()
+    }
 
-        textTitle.text = title ?: resources.getString(R.string.anonymous)
+    private fun setupRecycler(messages: MutableList<Message>) {
+        val userId = getUserId()
+        adapter = MessageAdapter(this, messages, userId)
+        recyclerMessages.addOnScrollListener(object : ScrollStopListener(layoutManager) {
+            override fun performAction(position: Int) {
+                presenter.markMessageAsRead(position)
+            }
+        })
+        recyclerMessages.layoutManager = layoutManager
+        recyclerMessages.adapter = adapter
+    }
 
-        Glide
-            .with(this)
-            .load("https://i.pinimg.com/originals/a6/3b/80/a63b807cc485fe11b685746134e07607.jpg")
+    private fun loadIntoAvatar() {
+        val avatar = intent.getStringExtra(EXTRA_AVATAR)
+        Glide.with(this)
+            .load(avatar)
             .error(R.drawable.default_avatar)
             .apply(RequestOptions.circleCropTransform())
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(imageAvatar)
     }
 
-    private fun setupAdapter(messages: MutableList<Message>) {
-        recyclerMessages.layoutManager = LinearLayoutManager(this)
-        recyclerMessages.adapter = MessageAdapter(messages, this)
+    private fun sendMessage() {
+        val messageText = editMessage.text.toString()
+        isMessageSend = true
+        editMessage.text = null
+        presenter.sendMessage(messageText)
     }
 
     companion object {

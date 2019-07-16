@@ -39,7 +39,7 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
 
-        activity?.title = "Чаты"
+        activity?.title = "Чаты" // TODO change to resourse inv
     }
 
     override fun onClick(data: Chat) {
@@ -50,14 +50,17 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
     override fun showLoading() {
         Log.d(TAG, "showLoading()")
 
-        presenter.onLoadChats(Hawk.get<String>("access_token"), verifyAvailableNetwork()) // TODO replace with utils call
+        presenter.onLoadChats(
+            Hawk.get<String>("access_token"),
+            verifyAvailableNetwork()
+        ) // TODO replace with utils call
     }
 
 
-    private fun verifyAvailableNetwork():Boolean{
-        val connectivityManager= activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo=connectivityManager.activeNetworkInfo
-        return  networkInfo!=null && networkInfo.isConnected
+    private fun verifyAvailableNetwork(): Boolean {
+        val connectivityManager = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 
     override fun showChats(chats: List<Chat>) {

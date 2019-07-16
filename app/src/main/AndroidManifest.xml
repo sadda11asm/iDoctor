@@ -17,7 +17,8 @@
 		tools:ignore="GoogleAppIndexingWarning">
 		<activity
 			android:name=".ui.chat.ChatActivity"
-			android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+			android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+			android:windowSoftInputMode="adjustResize">
 		</activity>
 		<activity android:name=".ui.doctor_page.DoctorDetailsActivity" />
 		<activity android:name=".ui.MainActivity">
@@ -29,7 +30,6 @@
 
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
-
 		</activity>
 
 		<meta-data

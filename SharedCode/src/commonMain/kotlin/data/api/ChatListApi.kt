@@ -1,4 +1,4 @@
-package data
+package data.api
 
 import data.entity.Chat
 import io.ktor.client.HttpClient

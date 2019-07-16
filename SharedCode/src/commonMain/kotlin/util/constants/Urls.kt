@@ -18,3 +18,12 @@ const val TEMP_URL = "172.20.23.221:8000"
 
 const val AUTH_URL = "$BASE_URL/oauth"
 const val AUTH_TOKEN = "/token"
+
+/**
+ * CHAT URLs
+ */
+
+const val CHAT_URL = "172.20.23.221:8000"
+const val API_CHAT = "/chat"
+const val CHAT_MESSAGE = "/message"
+const val CHAT_READ = "/read"

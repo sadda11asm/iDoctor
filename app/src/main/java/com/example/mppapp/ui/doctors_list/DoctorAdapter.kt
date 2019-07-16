@@ -78,8 +78,8 @@ class DoctorAdapter(
             doctor = doctors[position]
             textName.text = doctor.name
             textSkills.text = doctor.specializations
-            textExperience.text = "Стаж ${doctor.experience}" // TODO refactor
-            textAddress.text = doctor.city!!.name
+            textExperience.text = resources.getString(R.string.experience, doctor.experience)
+            textAddress.text = doctor.city.name
 
             // TODO move Glide to separate method
             Glide

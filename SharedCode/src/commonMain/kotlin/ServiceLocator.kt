@@ -1,15 +1,19 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
 package org.kotlin.mpp.mobile
+
 import com.squareup.sqldelight.db.SqlDriver
-import data.ChatListApi
+import data.api.ChatListApi
 import data.api.DoctorApi
 import data.api.UserApi
+import data.api.MessageApi
 import data.db.ChatShortDao
 import data.db.UserDao
 import data.db.createDatabase
 import data.repository.ChatFullRepository
 import data.repository.ChatRepository
+import domain.usecases.MarkMessageAsRead
+import domain.usecases.SendMessage
 import data.repository.UserRepository
 import domain.usecases.CreateChat
 import domain.usecases.GetUserInfo
@@ -33,14 +37,13 @@ import kotlin.native.concurrent.ThreadLocal
 @ThreadLocal
 object ServiceLocator {
 
+    // TODO change comments to APIs, Presenters, UseCases etc.
+
     /**
      * Database
      */
 
-
     val database by lazy { createDatabase(PlatformServiceLocator.driver) }
-
-
 
     /**
      * Load doctors
@@ -90,18 +93,18 @@ object ServiceLocator {
     val getChatFull: GetChatFull
         get() = GetChatFull(chatFullRepository)
 
-    val chatPresenter : ChatPresenter
-        get() = ChatPresenter(getChatFull)
+    val chatPresenter: ChatPresenter
+        get() = ChatPresenter(getChatFull, sendMessage, markMessageAsRead)
 
     /**
      * Get chat list
      */
 
-    val chatListApi by lazy { ChatListApi(PlatformServiceLocator.httpClientEngine)}
+    val chatListApi by lazy { ChatListApi(PlatformServiceLocator.httpClientEngine) }
 
-    val chatShortDao by lazy {ChatShortDao(database)}
+    val chatShortDao by lazy { ChatShortDao(database) }
 
-    val chatRepository by lazy { ChatRepository(chatListApi, chatShortDao)}
+    val chatRepository by lazy { ChatRepository(chatListApi, chatShortDao) }
 
     val getChatList: GetChatList
         get() = GetChatList(chatRepository)
@@ -109,6 +112,21 @@ object ServiceLocator {
     val chatListPresenter: ChatListPresenter
         get() = ChatListPresenter(getChatList)
 
+    /**
+     * Send message
+     */
+
+    val messageApi by lazy { MessageApi(PlatformServiceLocator.httpClientEngine) }
+
+    val sendMessage: SendMessage
+        get() = SendMessage(messageApi)
+
+    /**
+     * Mark message as Read
+     */
+
+    val markMessageAsRead: MarkMessageAsRead
+        get() = MarkMessageAsRead(messageApi)
     /**
      *   Create Chat
      */
