@@ -1,5 +1,7 @@
 package org.kotlin.mpp.mobile.presentation.login
 
+import data.entity.UserFull
+import domain.usecases.GetUserInfo
 import kotlinx.coroutines.launch
 import org.kotlin.mpp.mobile.data.entity.AuthorizationResponse
 import org.kotlin.mpp.mobile.data.entity.User
@@ -10,6 +12,7 @@ import kotlin.coroutines.CoroutineContext
 
 class LoginPresenter(
     private val authorizeUser: AuthorizeUser,
+    private val getUserInfo: GetUserInfo,
     coroutineContext: CoroutineContext = defaultDispatcher
 ): BasePresenter<LoginView>(coroutineContext) {
 
@@ -25,8 +28,19 @@ class LoginPresenter(
                     username,
                     password
                 ),
-                onSuccess = { view?.showSuccessfulLogin(it) },
-                onFailure = { view?.showFailedLogin() }
+                onSuccess = { getUserInfo(it) },
+//                onSuccess = { view?.showSuccessfulLogin(it, null) },
+                onFailure = { view?.showFailedLogin(it) }
+            )
+        }
+    }
+
+    fun getUserInfo(response: AuthorizationResponse) {
+        scope.launch {
+            getUserInfo(
+                response.access_token,
+                onSuccess = { view?.showSuccessfulLogin(response, it)},
+                onFailure = {view?.showFailedLogin(it)}
             )
         }
     }
@@ -34,6 +48,7 @@ class LoginPresenter(
 
 interface LoginView {
     fun showLoadingVisible(visible: Boolean)
-    fun showFailedLogin()
-    fun showSuccessfulLogin(response: AuthorizationResponse)
+    fun showFailedLogin(e: Exception)
+    fun showSuccessfulLogin(response: AuthorizationResponse, user: UserFull)
+
 }

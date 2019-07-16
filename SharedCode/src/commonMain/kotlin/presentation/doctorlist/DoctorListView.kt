@@ -12,5 +12,5 @@ interface DoctorListView {
 
     fun showNoDoctors()
 
-    fun showLoadFailed()
+    fun showLoadFailed(e:Exception)
 }

@@ -76,13 +76,11 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     companion object {
-        const val EXTRA_USER_ID = "extra_user_id"
         const val EXTRA_CHAT_ID = "extra_chat_id"
         const val EXTRA_AVATAR = "extra_avatar"
 
-        fun open(context: Context, userId: Int, chatId: Int, avatar: String) {
+        fun open(context: Context, chatId: Int, avatar: String?) {
             val intent = Intent(context, ChatActivity::class.java)
-            intent.putExtra(EXTRA_USER_ID, userId)
             intent.putExtra(EXTRA_CHAT_ID, chatId)
             intent.putExtra(EXTRA_AVATAR, avatar)
             context.startActivity(intent)

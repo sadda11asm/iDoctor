@@ -2,7 +2,6 @@ package org.kotlin.mpp.mobile.presentation.doctorlist
 
 import kotlinx.coroutines.launch
 import org.kotlin.mpp.mobile.data.entity.DoctorRequest
-import org.kotlin.mpp.mobile.data.entity.DoctorResponse
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
 import org.kotlin.mpp.mobile.domain.usecases.GetDoctors
 import org.kotlin.mpp.mobile.presentation.BasePresenter
@@ -30,7 +29,7 @@ class DoctorListPresenter(
             getDoctors(
                 params = DoctorRequest(token, page), // TODO check for memory leak
                 onSuccess = { if (isFirstLoad) view?.showDoctors(it) else view?.showMoreDoctors(it) },
-                onFailure = { view?.showLoadFailed() }
+                onFailure = { view?.showLoadFailed(it) }
             )
             isFirstLoad = false
             page++

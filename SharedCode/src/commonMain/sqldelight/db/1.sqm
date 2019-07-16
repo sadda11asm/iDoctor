@@ -1,0 +1,1 @@
+ALTER TABLE ChatShortModel ADD COLUMN avatar TEXT;

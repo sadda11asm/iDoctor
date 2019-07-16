@@ -14,7 +14,8 @@ data class Chat(
     @SerialName("updated_at") var updatedAt: String?,
     @SerialName("deleted_at") var deletedAt: String?,
     val users: List<Int>,
-    val lastMessage: LastMessage?
+    val lastMessage: LastMessage?,
+    val avatar: String?
 )
 
 @Serializable
@@ -46,5 +47,7 @@ fun toChat(chatShortModel: ChatShortModel, lastMessage: LastMessage?): Chat {
         chatShortModel.updated_at,
         chatShortModel.deleted_at,
         chatShortModel.users!!,
-        lastMessage = lastMessage)
+        lastMessage,
+        chatShortModel.avatar
+    )
 }

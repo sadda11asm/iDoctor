@@ -20,7 +20,8 @@ class ChatShortDao(database: MyDatabase) {
             item.createdAt,
             item.updatedAt,
             item.deletedAt,
-            item.users
+            item.users,
+            item.avatar
         )
         if (item.lastMessage != null)
             dbMes.insertItem(
