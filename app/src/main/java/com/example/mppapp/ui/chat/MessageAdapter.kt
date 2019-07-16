@@ -11,8 +11,9 @@ import org.kotlin.mpp.mobile.data.entity.Message
 import java.lang.IllegalArgumentException
 
 class MessageAdapter(
+    private val context: Context,
     private val messages: MutableList<Message>,
-    private val context: Context
+    private val userId: Int
 ) : RecyclerView.Adapter<MessageAdapter.MessageHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageHolder {
@@ -31,7 +32,7 @@ class MessageAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position % 2 == 0) MessageType.SENT_MESSAGE.type() else MessageType.RECEIVED_MESSAGE.type()
+        return if (messages[position].userId == userId) MessageType.SENT_MESSAGE.type() else MessageType.RECEIVED_MESSAGE.type()
     }
 
     override fun onBindViewHolder(holder: MessageHolder, position: Int) {
@@ -40,10 +41,15 @@ class MessageAdapter(
 
     override fun getItemCount() = messages.size
 
+    fun addItem(message: Message) {
+        messages.add(message)
+        notifyItemInserted(messages.size - 1)
+    }
 
     inner class MessageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(message: Message) = with(itemView) {
             textMessage.text = message.text
+            textSentDate.text = message.createdAt?.substring(11, 16) // TODO better implementation?
         }
     }
 }

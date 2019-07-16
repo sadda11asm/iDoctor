@@ -10,10 +10,14 @@ private const val REFRESH_TOKEN = "refresh_token"
 
 private const val EXPIRES_IN = "expires_in"
 
+private const val USER_ID = "user_id"
+
 
 fun getAccessToken() : String = Hawk.get<String>(ACCESS_TOKEN)
 
 fun isTokenPresent() = Hawk.contains(ACCESS_TOKEN)
+
+fun getUserId() = Hawk.get<Int>(USER_ID)
 
 fun putAuthResponse(response: AuthorizationResponse) = with(response) {
     Hawk.put(ACCESS_TOKEN, access_token)

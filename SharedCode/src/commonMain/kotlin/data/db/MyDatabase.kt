@@ -28,9 +28,9 @@ fun createDatabase(driver: SqlDriver): MyDatabase {
 
         override fun encode(msgs: List<Message>): String {
             if (msgs.isEmpty()) return ""
-            var ans=""
+            var ans = ""
             for (msg in msgs) {
-                ans+=encodeOne(msg)
+                ans += encodeOne(msg)
             }
             ans.dropLast(1)
             return ans
@@ -39,7 +39,7 @@ fun createDatabase(driver: SqlDriver): MyDatabase {
 
     val usersAdapter = object : ColumnAdapter<List<Int>, String> {
         override fun decode(databaseValue: String): List<Int> {
-            val list:MutableList<Int> = mutableListOf()
+            val list: MutableList<Int> = mutableListOf()
             val arr = databaseValue.split(',')
             for (value in arr)
                 if (value.isNotEmpty())
@@ -48,10 +48,10 @@ fun createDatabase(driver: SqlDriver): MyDatabase {
         }
 
         override fun encode(msgs: List<Int>): String {
-            var ans=""
-            for (msg in msgs){
-                ans+=msg.toString()
-                ans+=","
+            var ans = ""
+            for (msg in msgs) {
+                ans += msg.toString()
+                ans += ","
             }
             ans.dropLast(1)
             return ans

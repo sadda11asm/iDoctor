@@ -3,7 +3,6 @@ package data
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.JsonSerializer
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
 import io.ktor.client.request.header
@@ -11,7 +10,6 @@ import io.ktor.client.request.parameter
 import io.ktor.client.response.HttpResponse
 import io.ktor.client.response.readText
 import io.ktor.http.URLProtocol
-import io.ktor.http.content.OutgoingContent
 import kotlinx.serialization.json.Json
 import org.kotlin.mpp.mobile.data.entity.DoctorResponse
 import org.kotlin.mpp.mobile.data.entity.ignoreOutgoingContent

@@ -8,7 +8,7 @@ import org.kotlin.mpp.mobile.domain.model.Either
 import org.kotlin.mpp.mobile.domain.model.Failure
 import org.kotlin.mpp.mobile.domain.model.Success
 
-class GetChatFull(private val chatFullApi: ChatFullApi) : UseCase<ChatFullResponse, ChatFullRequest>() {
+class GetChat(private val chatFullApi: ChatFullApi) : UseCase<ChatFullResponse, ChatFullRequest>() {
     override suspend fun run(params: ChatFullRequest): Either<Exception, ChatFullResponse> {
         return try {
             val response = chatFullApi.getChatFull(params.token, params.chatId)

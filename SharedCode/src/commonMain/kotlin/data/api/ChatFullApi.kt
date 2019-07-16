@@ -11,12 +11,9 @@ import io.ktor.client.response.readText
 import io.ktor.http.URLProtocol
 import kotlinx.serialization.json.Json
 import org.kotlin.mpp.mobile.data.entity.ChatFullResponse
-import org.kotlin.mpp.mobile.data.entity.DoctorResponse
 import org.kotlin.mpp.mobile.data.entity.ignoreOutgoingContent
-import org.kotlin.mpp.mobile.util.constants.CONTENT_TYPE
-import org.kotlin.mpp.mobile.util.constants.HEADER_AUTHORIZATION
-import org.kotlin.mpp.mobile.util.constants.HEADER_CONTENT
-import org.kotlin.mpp.mobile.util.constants.TOKEN_TYPE
+import org.kotlin.mpp.mobile.util.constants.*
+import org.kotlin.mpp.mobile.util.log
 
 class ChatFullApi(engine: HttpClientEngine) {
 
@@ -29,14 +26,14 @@ class ChatFullApi(engine: HttpClientEngine) {
     suspend fun getChatFull(token: String, chatId: Int): ChatFullResponse {
         val response = client.get<HttpResponse> {
             url {
-                protocol = URLProtocol.HTTP
-                host = "172.20.21.164:8000/"
-                encodedPath = "chat/$chatId"
+                protocol = URLProtocol.HTTP // TODO change to HTTPS (future)
+                host = CHAT_URL
+                encodedPath = "$API_CHAT/$chatId"
                 header(HEADER_CONTENT, CONTENT_TYPE)
                 header(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
             }
         }
         val jsonBody = response.readText()
-        return Json.nonstrict.parse(ChatFullResponse.serializer(), jsonBody) // TODO remove nonstrict
+        return Json.parse(ChatFullResponse.serializer(), jsonBody)
     }
 }
