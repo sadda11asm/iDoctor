@@ -1,13 +1,19 @@
 package org.kotlin.mpp.mobile.data
 
+import data.entity.CreateChatRequest
+import data.entity.CreateChatResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.defaultSerializer
 import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.request.accept
 import io.ktor.client.request.get
 import io.ktor.client.request.header
+import io.ktor.client.request.post
 import io.ktor.client.response.HttpResponse
 import io.ktor.client.response.readText
+import io.ktor.http.ContentType
 import io.ktor.http.URLProtocol
 import kotlinx.serialization.json.Json
 import org.kotlin.mpp.mobile.data.entity.ChatFullResponse
@@ -36,4 +42,21 @@ class ChatFullApi(engine: HttpClientEngine) {
         val jsonBody = response.readText()
         return Json.parse(ChatFullResponse.serializer(), jsonBody)
     }
+
+    suspend fun createChat(token: String, title: String, userId: Int, anonymous: Boolean, doctorId: Int?):Int {
+            val json = defaultSerializer()
+            val response = client.post<HttpResponse> {
+                url{
+                    protocol = URLProtocol.HTTP
+                    host = TEMP_URL
+                    encodedPath = "/chat"
+                    header(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
+                }
+                body = json.write(CreateChatRequest(title, userId, anonymous, doctorId))
+                accept(ContentType.Application.Json)
+            }
+            val jsonBody = response.readText()
+            log("CREATE-CHAT", jsonBody)
+            return Json.nonstrict.parse(CreateChatResponse.serializer(), jsonBody).chatId
+        }
 }

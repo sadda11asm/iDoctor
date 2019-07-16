@@ -11,6 +11,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.mppapp.R
 import com.example.mppapp.util.getAccessToken
+import com.example.mppapp.util.getUserId
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.ChatFullResponse
@@ -36,7 +37,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     override fun token() = getAccessToken()
 
-    override fun chatId() = intent.getIntExtra(EXTRA_CHAT_ID, 28) // TODO change default value to 0
+    override fun chatId() = intent.getIntExtra(EXTRA_CHAT_ID, 28)
 
     override fun showMessage(message: Message) {
         adapter.addItem(message)
@@ -71,8 +72,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     private fun setupRecycler(messages: MutableList<Message>) {
-//        val userId = getUserId()
-        val userId = 1167 // TODO change hardcoded userId
+        val userId = getUserId()
         adapter = MessageAdapter(this, messages, userId)
         recyclerMessages.addOnScrollListener(object : ScrollStopListener(layoutManager) {
             override fun performAction(position: Int) {
@@ -84,10 +84,9 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     private fun loadIntoAvatar() {
-//        val avatar = intent.getStringExtra(EXTRA_AVATAR)
-        // TODO change hardcoded string url
+        val avatar = intent.getStringExtra(EXTRA_AVATAR)
         Glide.with(this)
-            .load("https://i.pinimg.com/originals/a6/3b/80/a63b807cc485fe11b685746134e07607.jpg")
+            .load(avatar)
             .error(R.drawable.default_avatar)
             .apply(RequestOptions.circleCropTransform())
             .transition(DrawableTransitionOptions.withCrossFade())
@@ -105,7 +104,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
         const val EXTRA_CHAT_ID = "extra_chat_id"
         const val EXTRA_AVATAR = "extra_avatar"
 
-        fun open(context: Context, chatId: Int, avatar: String) {
+        fun open(context: Context, chatId: Int, avatar: String?) {
             val intent = Intent(context, ChatActivity::class.java)
             intent.putExtra(EXTRA_CHAT_ID, chatId)
             intent.putExtra(EXTRA_AVATAR, avatar)
