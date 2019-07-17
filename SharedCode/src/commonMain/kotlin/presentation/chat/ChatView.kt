@@ -9,9 +9,9 @@ interface ChatView {
 
     fun chatId(): Int
 
+    fun showChat(chatFull: ChatFull)
     fun userId(): Int
 
-    fun showChat(chatFull: ChatFull)
     fun userId(): Int
 
     fun showChatLoadError(e: Exception)
