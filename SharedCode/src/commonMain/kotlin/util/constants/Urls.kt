@@ -10,7 +10,7 @@ const val API_URL = "$BASE_URL/api"
 const val API_DOCTORS = "/doctors"
 const val API_USER = "/my"
 
-const val TEMP_URL = "172.20.23.221:8000"
+const val TEMP_URL = "statistic.idoctor.kz"
 
 /**
  * AUTH URLs
@@ -23,7 +23,7 @@ const val AUTH_TOKEN = "/token"
  * CHAT URLs
  */
 
-const val CHAT_URL = "172.20.23.221:8000"
+const val CHAT_URL = "statistic.idoctor.kz"
 const val API_CHAT = "/chat"
 const val CHAT_MESSAGE = "/message"
 const val CHAT_READ = "/read"

@@ -63,6 +63,11 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
         return networkInfo != null && networkInfo.isConnected
     }
 
+    override fun onStop() {
+        super.onStop()
+        presenter.detachView()
+    }
+
     override fun showChats(chats: List<Chat>) {
         Log.d(TAG, chats.toString())
         adapter = ChatAdapter(chats, context!!, this)
