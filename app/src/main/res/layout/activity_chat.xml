@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="#CCC"
+	android:background="@drawable/chat_background"
 	tools:context=".ui.chat.ChatActivity">
 
 	<androidx.appcompat.widget.Toolbar
@@ -39,7 +39,6 @@
 		android:id="@+id/recyclerMessages"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:layout_marginBottom="4dp"
 		app:layout_constraintBottom_toTopOf="@+id/containerMessage"
 		app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
@@ -47,14 +46,10 @@
 		android:id="@+id/containerMessage"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="4dp"
-		android:layout_marginLeft="4dp"
-		android:layout_marginEnd="4dp"
-		android:layout_marginRight="4dp"
-		android:layout_marginBottom="4dp"
-		android:background="@drawable/rounded_edit_text"
+		android:background="@android:color/white"
+		android:padding="4dp"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toStartOf="@id/fabSend"
+		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent">
 
 
@@ -77,8 +72,20 @@
 			android:layout_marginEnd="16dp"
 			android:layout_marginRight="16dp"
 			android:src="@drawable/ic_photo_camera_color_primary_24dp"
-			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintEnd_toStartOf="@id/imageSend"
 			app:layout_constraintTop_toTopOf="parent" />
+
+		<ImageView
+			android:id="@+id/imageSend"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:layout_marginEnd="16dp"
+			android:layout_marginRight="16dp"
+			android:src="@drawable/ic_send_color_primary_24dp"
+			android:visibility="gone"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
 
 		<com.google.android.material.textfield.TextInputEditText
 			android:id="@+id/editMessage"
@@ -89,7 +96,9 @@
 			android:background="@android:color/transparent"
 			android:hint="@string/type_text"
 			android:isScrollContainer="true"
-			android:maxLines="5"
+			android:scrollbars="vertical"
+			android:maxLines="6"
+			android:inputType="textMultiLine|textCapSentences"
 			android:focusable="true"
 			android:paddingStart="16dp"
 			android:paddingLeft="16dp"
@@ -102,17 +111,4 @@
 			app:layout_constraintStart_toStartOf="parent" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
-
-	<com.google.android.material.floatingactionbutton.FloatingActionButton
-		android:id="@+id/fabSend"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="4dp"
-		android:layout_marginEnd="4dp"
-		android:layout_marginRight="4dp"
-		android:src="@drawable/ic_send_white_24dp"
-		app:backgroundTint="@color/colorPrimary"
-		app:fabSize="mini"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/recyclerMessages" />
 </androidx.constraintlayout.widget.ConstraintLayout>
