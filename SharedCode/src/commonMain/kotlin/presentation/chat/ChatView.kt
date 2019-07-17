@@ -9,6 +9,8 @@ interface ChatView {
 
     fun chatId(): Int
 
+    fun userId(): Int
+
     fun showChat(chatFull: ChatFull)
     fun userId(): Int
 

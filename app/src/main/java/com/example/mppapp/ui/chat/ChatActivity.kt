@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,8 +23,8 @@ import org.kotlin.mpp.mobile.data.entity.ChatFull
 import org.kotlin.mpp.mobile.data.entity.ChatFullResponse
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.presentation.chat.ChatView
-import org.kotlin.mpp.mobile.util.constants.BASE_URL
 import org.kotlin.mpp.mobile.util.log
+import org.kotlin.mpp.mobile.util.constants.BASE_URL
 
 class ChatActivity : AppCompatActivity(), ChatView {
 
