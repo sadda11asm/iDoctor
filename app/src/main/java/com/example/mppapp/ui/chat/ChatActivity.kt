@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -19,6 +22,7 @@ import org.kotlin.mpp.mobile.data.entity.ChatFullResponse
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.presentation.chat.ChatView
 import org.kotlin.mpp.mobile.util.constants.BASE_URL
+import org.kotlin.mpp.mobile.util.log
 
 class ChatActivity : AppCompatActivity(), ChatView {
 
@@ -69,14 +73,34 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     private fun setListeners() {
-        fabSend.setOnClickListener { sendMessage() }
+        imageSend.setOnClickListener { sendMessage() }
         recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             // TODO change position init logic
             val position = if(isMessageSend) adapter.itemCount else adapter.itemCount - 1
             isMessageSend = false
             layoutManager.scrollToPosition(position)
         }
+        editMessage.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) { }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+
+            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+                if(count == 1 && before == 0 && start == 0) {
+                    setVisibilities(View.VISIBLE, View.GONE, View.GONE)
+                } else if(count == 0 && before != 0 && start == 0) {
+                    setVisibilities(View.GONE, View.VISIBLE, View.VISIBLE)
+                }
+            }
+        })
     }
+
+    private fun setVisibilities(send: Int, attachment: Int, camera: Int) {
+        imageSend.visibility = send
+        imageAttachment.visibility = attachment
+        imageCamera.visibility = camera
+    }
+
 
     private fun setupToolbar(title: String?) {
         textTitle.text = title
