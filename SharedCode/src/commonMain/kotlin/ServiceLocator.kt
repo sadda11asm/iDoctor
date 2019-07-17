@@ -7,6 +7,7 @@ import data.api.ChatListApi
 import data.api.DoctorApi
 import data.api.UserApi
 import data.api.MessageApi
+import data.db.ChatFullDao
 import data.db.ChatShortDao
 import data.db.UserDao
 import data.db.createDatabase
@@ -88,7 +89,9 @@ object ServiceLocator {
 
     val chatFullApi by lazy { ChatFullApi(PlatformServiceLocator.httpClientEngine) }
 
-    val chatFullRepository by lazy{ ChatFullRepository(chatFullApi)}
+    val chatFullDao by lazy { ChatFullDao(database)}
+
+    val chatFullRepository by lazy{ ChatFullRepository(chatFullApi, chatFullDao)}
 
     val getChatFull: GetChatFull
         get() = GetChatFull(chatFullRepository)

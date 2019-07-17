@@ -15,9 +15,11 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.mppapp.R
 import com.example.mppapp.util.getAccessToken
+import com.example.mppapp.util.getNetworkConnection
 import com.example.mppapp.util.getUserId
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.kotlin.mpp.mobile.ServiceLocator
+import org.kotlin.mpp.mobile.data.entity.ChatFull
 import org.kotlin.mpp.mobile.data.entity.ChatFullResponse
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.presentation.chat.ChatView
@@ -61,9 +63,9 @@ class ChatActivity : AppCompatActivity(), ChatView {
         adapter.addMessage(message)
     }
 
-    override fun showChat(chatFullResponse: ChatFullResponse) {
-        setupToolbar(chatFullResponse.data.title)
-        setupRecycler(chatFullResponse.data.messages)
+    override fun showChat(chatFull: ChatFull) {
+        setupToolbar(chatFull.title)
+        setupRecycler(chatFull.messages)
         setListeners()
         presenter.markMessageAsRead(adapter.getMessageId(adapter.itemCount - 1))
     }
@@ -136,6 +138,10 @@ class ChatActivity : AppCompatActivity(), ChatView {
         isMessageSend = true
         editMessage.text = null
         presenter.sendMessage(messageText)
+    }
+
+    override fun getConnection(): Boolean {
+        return getNetworkConnection(this)
     }
 
     companion object {

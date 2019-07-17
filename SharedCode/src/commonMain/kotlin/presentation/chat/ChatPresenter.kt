@@ -29,13 +29,13 @@ class ChatPresenter(
     override fun onViewAttached(view: ChatView) {
         super.onViewAttached(view)
         token = view.token()
-        loadChat()
+        loadChat(view.getConnection())
     }
 
-    fun loadChat() {
+    fun loadChat(connection: Boolean) {
         scope.launch {
             getChatFull(
-                params = ChatFullRequest(token, chatId),
+                params = ChatFullRequest(token, chatId, connection),
                 onSuccess = { view?.showChat(it) },
                 onFailure = { view?.showChatLoadError(it) }
             )

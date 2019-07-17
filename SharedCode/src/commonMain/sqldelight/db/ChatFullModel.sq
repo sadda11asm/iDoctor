@@ -2,15 +2,13 @@ import org.kotlin.mpp.mobile.data.entity.Message;
 
 CREATE TABLE ChatFullModel(
     id INTEGER UNIQUE NOT NULL,
-    title TEXT NOT NULL DEFAULT 'anonym',
-    created_at TEXT DEFAULT NULL,
-    updated_at TEXT DEFAULT NULL,
-    deleted_at TEXT DEFAULT NULL,
-    messages TEXT as List<Message>
-);
+    title TEXT DEFAULT 'anonym',
+    updated TEXT NOT NULL,
+    anonymous INTEGER NOT NULL,
+    avatar TEXT);
 
-selectAll:
-SELECT * FROM ChatFullModel;
+select:
+SELECT * FROM ChatFullModel WHERE id = ?;
 
 insertItem:
-INSERT OR REPLACE INTO ChatFullModel(id, title, created_at, updated_at, deleted_at, messages) VALUES (?, ?, ?, ?, ?, ?);
+INSERT OR REPLACE INTO ChatFullModel(id, title, updated, anonymous, avatar) VALUES (?, ?, ?, ?, ?);

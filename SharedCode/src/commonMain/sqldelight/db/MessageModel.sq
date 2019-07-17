@@ -1,0 +1,19 @@
+
+
+CREATE TABLE MessageModel(
+    id INTEGER UNIQUE NOT NULL,
+    chat_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    text TEXT NOT NULL,
+    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+);
+
+selectAll:
+SELECT * FROM MessageModel  ORDER BY updated_at DESC;
+
+selectByChatId:
+SELECT * FROM MessageModel WHERE chat_id = ? ORDER BY updated_at DESC;
+
+insertItem:
+INSERT OR REPLACE INTO MessageModel(id, chat_id, user_id, text, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?);

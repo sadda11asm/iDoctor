@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mppapp.R
 import com.example.mppapp.ui.chat.ChatActivity
 import com.example.mppapp.util.ItemClickListener
+import com.example.mppapp.util.getNetworkConnection
 import com.orhanobut.hawk.Hawk
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
@@ -52,15 +53,8 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
 
         presenter.onLoadChats(
             Hawk.get<String>("access_token"),
-            verifyAvailableNetwork()
+            getNetworkConnection(activity)
         ) // TODO replace with utils call
-    }
-
-
-    private fun verifyAvailableNetwork(): Boolean {
-        val connectivityManager = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo != null && networkInfo.isConnected
     }
 
     override fun onStop() {

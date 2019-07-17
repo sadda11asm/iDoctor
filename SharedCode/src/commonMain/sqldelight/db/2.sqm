@@ -1,0 +1,4 @@
+ALTER TABLE ChatFullModel DELETE COLUMN updated_at;
+ALTER TABLE ChatFullModel DELETE COLUMN deleted_at;
+ALTER TABLE ChatFullModel DELETE COLUMN created_at;
+ALTER TABLE ChatFullModel ADD COLUMN updated TEXT;
