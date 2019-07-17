@@ -39,9 +39,11 @@ data class Doctor(
     @SerialName("feedback_link") var feedbackLink: String
 ) {
 
+    //TODO remove optional annotations and test
+
     @Optional
     val experience: String
-        get() = (getYear - worksSinceYear.toInt()).toString() + " лет"
+        get() = (getYear - worksSinceYear.toInt()).toString() + " лет" // TODO refactor
 
     @Optional
     val specializations: String?
@@ -72,6 +74,7 @@ data class Doctor(
     val rating: Int?
         get() = avgRate.toInt()
 
+    // TODO replace with string constant
     val imageLink: String
         get() = "https://cabinet.idoctor.kz$avatar"
 

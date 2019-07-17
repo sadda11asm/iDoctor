@@ -1,6 +1,6 @@
 package org.kotlin.mpp.mobile.util.constants
 
-private const val BASE_URL = "cabinet.idoctor.kz"
+const val BASE_URL = "cabinet.idoctor.kz"
 
 /**
  * API URLs

@@ -24,6 +24,8 @@ class ChatPresenter(
 
     private val chatId by lazy { view!!.chatId() }
 
+    private val userId by lazy { view!!.userId() }
+
     override fun onViewAttached(view: ChatView) {
         super.onViewAttached(view)
         token = view.token()
@@ -41,19 +43,18 @@ class ChatPresenter(
     }
 
     fun sendMessage(messageText: String) {
-        view?.showMessage(Message(-1, chatId, 1167, messageText))
+        view?.showMessage(Message(-1, chatId, userId, messageText))
         scope.launch {
-            log("Chat", "PRESENTER: Making sendMessage() request")
             sendMessage(
                 params = SendMessageRequest(token, chatId, messageText),
-                // TODO remove logs
-                onSuccess = { log("Chat", "onSuccess ${it.messageId}") },
-                onFailure = { log("Chat", "PRESENTER: onFailure() ${it.message}") }
+                onSuccess = {},
+                onFailure = {}
             )
         }
     }
 
     fun markMessageAsRead(messageId: Int) {
+        log("Chat", "MESSAGE ID: $messageId")
         scope.launch {
             markMessageAsRead(
                 params = MarkMessageRequest(token, chatId, messageId),

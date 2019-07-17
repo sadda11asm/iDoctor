@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ChatFullData(
+data class ChatFull(
     val title: String?,
     var updated: String,
     @SerialName("isAnonymous") var anonymous: Int,

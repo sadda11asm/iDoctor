@@ -26,7 +26,7 @@ class MessageApi(engine: HttpClientEngine) {
         }
     }
 
-     suspend fun sendMessage(sendMessageRequest: SendMessageRequest) : MessageResponse {
+    suspend fun sendMessage(sendMessageRequest: SendMessageRequest): MessageResponse {
         val json = defaultSerializer()
         val response = client.post<HttpResponse> {
             url {
@@ -36,21 +36,26 @@ class MessageApi(engine: HttpClientEngine) {
                 header(HEADER_CONTENT, CONTENT_TYPE)
                 header(HEADER_AUTHORIZATION, "$TOKEN_TYPE ${sendMessageRequest.token}")
             }
-            body = json.write(sendMessageRequest) }
+            body = json.write(sendMessageRequest)
+        }
         val jsonBody = response.readText()
         return Json.parse(MessageResponse.serializer(), jsonBody)
     }
 
-    suspend fun markMessageAsRead(markMessageRequest: MarkMessageRequest) {
+    suspend fun markMessageAsRead(markMessageRequest: MarkMessageRequest) : MessageResponse {
         val json = defaultSerializer()
-        client.post<HttpResponse> {
+        val response = client.post<HttpResponse> {
             url {
                 protocol = URLProtocol.HTTP // TODO change to HTTPS (future)
                 host = CHAT_URL
-                encodedPath = "/${markMessageRequest.chatId}/$CHAT_MESSAGE$CHAT_READ"
+                encodedPath = "/${markMessageRequest.chatId}$CHAT_MESSAGE$CHAT_READ"
                 header(HEADER_AUTHORIZATION, "$TOKEN_TYPE ${markMessageRequest.token}")
             }
-            body = json.write(markMessageRequest.messageId)
+            body = json.write(markMessageRequest)
+            log("Chat", "$body")
         }
+        val jsonBody = response.readText()
+        log("Chat", jsonBody)
+        return Json.parse(MessageResponse.serializer(), jsonBody)
     }
 }
