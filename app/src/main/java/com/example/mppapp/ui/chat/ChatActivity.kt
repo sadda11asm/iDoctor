@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -17,6 +18,7 @@ import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.ChatFullResponse
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.presentation.chat.ChatView
+import org.kotlin.mpp.mobile.util.constants.BASE_URL
 
 class ChatActivity : AppCompatActivity(), ChatView {
 
@@ -32,21 +34,34 @@ class ChatActivity : AppCompatActivity(), ChatView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         presenter.attachView(this)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item?.itemId == android.R.id.home) { finish() }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun token() = getAccessToken()
 
-    override fun chatId() = intent.getIntExtra(EXTRA_CHAT_ID, 28)
+    override fun userId() = getUserId()
+
+    override fun chatId() = intent.getIntExtra(EXTRA_CHAT_ID, 0)
 
     override fun showMessage(message: Message) {
-        adapter.addItem(message)
+        adapter.addMessage(message)
     }
 
     override fun showChat(chatFullResponse: ChatFullResponse) {
         setupToolbar(chatFullResponse.data.title)
         setupRecycler(chatFullResponse.data.messages)
         setListeners()
+        presenter.markMessageAsRead(adapter.getMessageId(adapter.itemCount - 1))
     }
 
     override fun showChatLoadError(e: Exception) {
@@ -64,9 +79,6 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     private fun setupToolbar(title: String?) {
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
         textTitle.text = title
         loadIntoAvatar()
     }
@@ -74,17 +86,19 @@ class ChatActivity : AppCompatActivity(), ChatView {
     private fun setupRecycler(messages: MutableList<Message>) {
         val userId = getUserId()
         adapter = MessageAdapter(this, messages, userId)
-        recyclerMessages.addOnScrollListener(object : ScrollStopListener(layoutManager) {
-            override fun performAction(position: Int) {
-                presenter.markMessageAsRead(position)
-            }
-        })
+        // TODO implement
+//        recyclerMessages.addOnScrollListener(object : ScrollStopListener(layoutManager) {
+//            override fun performAction(position: Int) {
+//                val messageId = adapter.getMessageId(position)
+//                presenter.markMessageAsRead(messageId)
+//            }
+//        })
         recyclerMessages.layoutManager = layoutManager
         recyclerMessages.adapter = adapter
     }
 
     private fun loadIntoAvatar() {
-        val avatar = intent.getStringExtra(EXTRA_AVATAR)
+        val avatar = "$BASE_URL${intent.getStringExtra(EXTRA_AVATAR)}"
         Glide.with(this)
             .load(avatar)
             .error(R.drawable.default_avatar)

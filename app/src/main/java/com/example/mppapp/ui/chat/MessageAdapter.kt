@@ -41,10 +41,13 @@ class MessageAdapter(
 
     override fun getItemCount() = messages.size
 
-    fun addItem(message: Message) {
+    fun addMessage(message: Message) {
         messages.add(message)
         notifyItemInserted(messages.size - 1)
     }
+
+    fun getMessageId(position: Int) = messages[position].id
+
 
     inner class MessageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(message: Message) = with(itemView) {
