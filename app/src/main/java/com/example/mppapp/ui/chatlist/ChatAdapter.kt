@@ -50,7 +50,7 @@ class ChatAdapter(
             if (chat.title=="anonymous user" || chat.title =="anonym" || chat.title == null)
                 chatName.text = "Анонимный юзер :)"
             else {
-                if (chat.users.size==2) {
+                if (chat.users.size>2) {
                     chatName.text = chat.title
                 } else {
                     val names = chat.title!!.split(',')

@@ -36,6 +36,11 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
 
     private var isLoading = false
 
+    override fun onStop() {
+        super.onStop()
+        presenter.detachView()
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_doctor_list, container, false)
