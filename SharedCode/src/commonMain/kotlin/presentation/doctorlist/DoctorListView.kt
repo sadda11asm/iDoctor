@@ -10,7 +10,7 @@ interface DoctorListView {
 
     fun showMoreDoctors(doctorResponse: DoctorResponse)
 
-    fun showNoDoctors()
+    fun showNoConnection()
 
     fun showLoadFailed(e:Exception)
 }

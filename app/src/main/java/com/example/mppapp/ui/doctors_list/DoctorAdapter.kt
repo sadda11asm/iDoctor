@@ -1,6 +1,7 @@
 package com.example.mppapp.ui.doctors_list
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,8 @@ class DoctorAdapter(
     private val context: Context,
     private val itemClickListener: ItemClickListener<Doctor>
 ) : RecyclerView.Adapter<BaseHolder>() {
+
+    private val TAG = "DoctorList"
 
     private var isLoaderVisible = false
 
@@ -49,6 +52,7 @@ class DoctorAdapter(
         if (position == doctors.size - 1 && isLoaderVisible) ViewType.LOADER.type() else ViewType.DOCTOR.type()
 
     fun addLoader() {
+        Log.d(TAG, "DoctorAdapter: addLoader()")
         isLoaderVisible = true
         doctors.add(doctors[doctors.size - 1])
         notifyItemInserted(doctors.size - 1)
@@ -57,15 +61,18 @@ class DoctorAdapter(
     fun addItems(doctors: MutableList<Doctor>) {
         this.doctors.addAll(doctors)
         notifyItemRangeInserted(this.doctors.size, doctors.size)
+        Log.d(TAG, "DoctorAdapter: addItems() $itemCount")
     }
 
     fun removeLoader() {
+        Log.d(TAG, "DoctorAdapter: removeLoader()")
         isLoaderVisible = false
         doctors.removeAt(doctors.size - 1)
         notifyItemRemoved(doctors.size)
     }
 
     fun updateDataSet(doctors: MutableList<Doctor>) {
+        Log.d(TAG, "DoctorAdapter: updateDataSet()")
         this.doctors = doctors
         notifyDataSetChanged()
     }
@@ -79,7 +86,7 @@ class DoctorAdapter(
             textName.text = doctor.name
             textSkills.text = doctor.specializations
             textExperience.text = resources.getString(R.string.experience, doctor.experience)
-            textAddress.text = doctor.city.name
+            textAddress.text = doctor.city?.name
 
             // TODO move Glide to separate method
             Glide

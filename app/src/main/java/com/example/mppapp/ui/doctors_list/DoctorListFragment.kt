@@ -22,7 +22,7 @@ import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListView
 class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor> {
 
 
-    private val TAG = "DoctorListFragment"
+    private val TAG = "DoctorList"
 
     private val presenter by lazy { ServiceLocator.doctorListPresenter }
 
@@ -36,11 +36,6 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
 
     private var isLoading = false
 
-    override fun onStop() {
-        super.onStop()
-        presenter.detachView()
-    }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_doctor_list, container, false)
@@ -51,6 +46,11 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
         presenter.attachView(this)
         activity?.title = resources.getString(R.string.search_doctor)
         swipeRefresh.setOnRefreshListener { presenter.refreshDoctors() }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.detachView()
     }
 
     override fun onClick(data: Doctor) {
@@ -65,7 +65,7 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
      */
 
     override fun showDoctors(doctorResponse: DoctorResponse) {
-        if(isFirstLoad) {
+        if (isFirstLoad) {
             setupAdapter(doctorResponse)
             isFirstLoad = false
         } else {
@@ -76,18 +76,19 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
 
     override fun showMoreDoctors(doctorResponse: DoctorResponse) {
         adapter.removeLoader()
-        adapter.addItems(doctorResponse.data)
         isLoading = false
+        adapter.addItems(doctorResponse.data)
     }
 
-    override fun showNoDoctors() {
+    override fun showNoConnection() {
         TODO("not implemented")
     }
 
-    override fun showLoadFailed(e:Exception) {
-        Log.v("DoctorApi", e.toString())
+    override fun showLoadFailed(e: Exception) {
         isLoading = false
         swipeRefresh.isRefreshing = false
+        adapter.removeLoader()
+        Toast.makeText(context, R.string.load_error_message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setupAdapter(doctorResponse: DoctorResponse) {
@@ -102,6 +103,7 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
 
         recyclerDoctors.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
             override fun loadMoreItems() {
+                Log.d(TAG, "DoctorListFragment: loadMoreItems()")
                 isLoading = true
                 adapter.addLoader()
                 presenter.loadDoctors()
