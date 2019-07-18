@@ -12,7 +12,6 @@ interface ChatView {
     fun chatSize(): Int
 
     fun showChat(chatFull: ChatFull)
-    fun userId(): Int
 
     fun userId(): Int
 
