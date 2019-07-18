@@ -1,6 +1,7 @@
 package org.kotlin.mpp.mobile.presentation.doctorlist
 
 import kotlinx.coroutines.launch
+import org.kotlin.mpp.mobile.data.entity.Doctor
 import org.kotlin.mpp.mobile.data.entity.DoctorRequest
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
 import org.kotlin.mpp.mobile.domain.usecases.GetDoctors
@@ -13,34 +14,63 @@ class DoctorListPresenter(
     private val coroutineContext: CoroutineContext = defaultDispatcher
 ) : BasePresenter<DoctorListView>(coroutineContext) {
 
-    private lateinit var token : String
+    private val token by lazy { view!!.token() }
 
     private var isFirstLoad = true
 
     private var page = 1
 
-    override fun onViewAttached(view: DoctorListView) {
-        super.onViewAttached(view)
-        token = view.token()
-        loadDoctors()
+    fun start() {
+        if(view!!.isConnectedToNetwork()) {
+            loadDoctors()
+        } else {
+            view?.showNoConnection()
+        }
     }
 
     fun loadDoctors() {
-        log("DoctorList", "PAGE START REQUEST: $page")
         scope.launch {
             getDoctors(
-                params = DoctorRequest(token, page), // TODO check for memory leak
-                onSuccess = { if (isFirstLoad) view?.showDoctors(it) else view?.showMoreDoctors(it); page++ },
-                onFailure = { view?.showLoadFailed(it) }
+                params = DoctorRequest(token, page),
+                onSuccess = { onDoctorsLoadSuccess(it.data) },
+                onFailure = { onDoctorsLoadFailure() }
             )
-            log("DoctorList", "PAGE END REQUEST: $page")
-            isFirstLoad = false
         }
     }
 
     fun refreshDoctors() {
-        isFirstLoad = true
         page = 1
-        loadDoctors()
+        scope.launch {
+            getDoctors(
+                params = DoctorRequest(token, page),
+                onSuccess = { onDoctorsRefreshSuccess(it.data) },
+                onFailure = { view?.showRefreshingFailed() }
+            )
+        }
+    }
+
+    private fun onDoctorsRefreshSuccess(doctors: MutableList<Doctor>) {
+        view?.showRefreshedDoctors(doctors)
+        isFirstLoad = false
+        page++
+    }
+
+    private fun onDoctorsLoadSuccess(doctors: MutableList<Doctor>) {
+        if(isFirstLoad) {
+            view?.hideLoading()
+            isFirstLoad = false
+        } else {
+            view?.hidePaging()
+        }
+        view?.showDoctors(doctors)
+        page++
+    }
+
+    private fun onDoctorsLoadFailure() {
+        if(isFirstLoad) {
+            view?.showLoadingFailed()
+        } else {
+            view?.showPagingFailed()
+        }
     }
 }

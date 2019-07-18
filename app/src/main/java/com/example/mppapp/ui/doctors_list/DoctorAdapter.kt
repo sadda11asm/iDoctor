@@ -16,9 +16,9 @@ import org.kotlin.mpp.mobile.data.entity.Doctor
 import java.lang.IllegalArgumentException
 
 class DoctorAdapter(
-    private var doctors: MutableList<Doctor>,
     private val context: Context,
-    private val itemClickListener: ItemClickListener<Doctor>
+    private val itemClickListener: ItemClickListener<Doctor>,
+    private var doctors: MutableList<Doctor> = mutableListOf()
 ) : RecyclerView.Adapter<BaseHolder>() {
 
     private val TAG = "DoctorList"

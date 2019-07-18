@@ -17,7 +17,10 @@
 	<string name="chats">Чаты</string>
 	<string name="profile">Профиль</string>
 	<string name="search_doctor">Поиск врача</string>
-	<string name="load_error_message">Не удалось загрузить данные</string>
+	<string name="toast_load_error_message">Не удалось загрузить данные</string>
+	<string name="doctors_refresh_error">Не удалось обновить данные</string>
+	<string name="doctors_no_connection">Нет подключения к интернету. Потяние вниз чтобы обновить страницу.</string>
+	<string name="doctors_load_error_message">Произошла ошибка во время загрузки данных. Потяните вниз чтобы попробовать еще раз.</string>
 	<string name="anonymous">Аноним</string>
 	<string name="experience">Стаж %s</string>
 </resources>
