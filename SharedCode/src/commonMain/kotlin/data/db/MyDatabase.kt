@@ -6,6 +6,7 @@ import data.entity.EventDate
 import db.ChatFullModel
 import db.ChatShortModel
 import db.UserModel
+import org.kotlin.mpp.mobile.data.entity.ChatFullResponse
 import org.kotlin.mpp.mobile.data.entity.Message
 
 //fun encodeOne(mes: Message): String {

@@ -72,20 +72,13 @@ class ChatAdapter(
                 itemClickListener.onClick(currentChat)
             }
 
-            if (chat.avatar == null)
-                Glide
+            Glide
                 .with(context)
-                .load(R.drawable.default_avatar)
+                .load(chat.avatar)
+                .error(R.drawable.ava)
                 .apply(RequestOptions.circleCropTransform())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(image_chat)
-            else
-                Glide
-                    .with(context)
-                    .load(chat.avatar)
-                    .apply(RequestOptions.circleCropTransform())
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(image_chat)
         }
 
         override fun onClick(view: View?) {

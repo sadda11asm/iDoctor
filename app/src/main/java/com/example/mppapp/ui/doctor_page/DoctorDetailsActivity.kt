@@ -61,7 +61,7 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
 
     override fun goToChat(chatId: Int, avatar: String) {
         Log.v("Details", "chatId: $chatId")
-        ChatActivity.open(this, chatId, avatar)
+        ChatActivity.open(this, chatId, avatar, 2)
     }
     override fun getFullName():String {
         return getName()

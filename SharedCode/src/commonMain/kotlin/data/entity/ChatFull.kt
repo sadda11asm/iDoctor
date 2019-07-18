@@ -9,7 +9,7 @@ data class ChatFull(
     var updated: String,
     @SerialName("isAnonymous") var anonymous: Int,
     var avatar: String?,
-    var lastReadMessage: List<LastReadMessage>?,
+    var lastReadMessage: Int?,
     val messages: MutableList<Message>,
     var id: Int = -1
 )

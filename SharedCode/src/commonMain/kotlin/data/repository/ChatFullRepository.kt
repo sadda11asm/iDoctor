@@ -11,12 +11,21 @@ class ChatFullRepository(
     private val chatFullDao: ChatFullDao
 ) {
     suspend fun getChatFull(token: String, chatId: Int, connection: Boolean): ChatFull {
-        return if (connection) fetchChatFull(token, chatId)
+        return if (connection) {
+            try {
+                fetchChatFull(token, chatId)
+            } catch (e: Exception) {
+                selectFromDb(chatId)
+            }
+        }
         else selectFromDb(chatId)
     }
 
     private suspend fun fetchChatFull(token: String, chatId: Int): ChatFull {
-        return chatFullApi.getChatFull(token, chatId).data
+        val chatFull =  chatFullApi.getChatFull(token, chatId).data
+        chatFull.id = chatId
+        chatFullDao.insertChatFull(chatFull)
+        return chatFull
     }
 
     private fun selectFromDb(chatId: Int): ChatFull {

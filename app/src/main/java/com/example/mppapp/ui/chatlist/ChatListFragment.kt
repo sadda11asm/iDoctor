@@ -44,7 +44,7 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
     }
 
     override fun onClick(data: Chat) {
-        ChatActivity.open(this.context!!, data.id, data.avatar)
+        ChatActivity.open(this.context!!, data.id, data.avatar, data.users.size)
 //        this.context?.let { ChatActivity.open(it, data.id) }
     }
 

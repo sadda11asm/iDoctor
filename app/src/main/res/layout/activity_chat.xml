@@ -27,6 +27,7 @@
 		<TextView
 			android:id="@+id/textTitle"
 			style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+			android:fontFamily="@font/blogger_sans_bold"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="16dp"

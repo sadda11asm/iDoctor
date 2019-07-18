@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.mppapp.R
 import com.example.mppapp.util.getAccessToken
+import com.example.mppapp.util.getName
 import com.example.mppapp.util.getNetworkConnection
 import com.example.mppapp.util.getUserId
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -59,6 +60,8 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     override fun chatId() = intent.getIntExtra(EXTRA_CHAT_ID, 0)
 
+    override fun chatSize() = intent.getIntExtra(EXTRA_CHAT_SIZE, 2)
+
     override fun showMessage(message: Message) {
         adapter.addMessage(message)
     }
@@ -67,7 +70,8 @@ class ChatActivity : AppCompatActivity(), ChatView {
         setupToolbar(chatFull.title)
         setupRecycler(chatFull.messages)
         setListeners()
-        presenter.markMessageAsRead(adapter.getMessageId(adapter.itemCount - 1))
+        if (adapter.itemCount>0)
+            presenter.markMessageAsRead(adapter.getMessageId(adapter.itemCount - 1))
     }
 
     override fun showChatLoadError(e: Exception) {
@@ -105,7 +109,19 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
 
     private fun setupToolbar(title: String?) {
-        textTitle.text = title
+        if (chatSize()>2)
+            textTitle.text = title
+        else {
+            val names = title!!.split(',')
+            if (names.size<2) {
+                textTitle.text = title
+            } else {
+                if (names[0] == getName())
+                    textTitle.text = names[1]
+                else
+                    textTitle.text = names[2]
+            }
+        }
         loadIntoAvatar()
     }
 
@@ -147,11 +163,14 @@ class ChatActivity : AppCompatActivity(), ChatView {
     companion object {
         const val EXTRA_CHAT_ID = "extra_chat_id"
         const val EXTRA_AVATAR = "extra_avatar"
+        const val EXTRA_CHAT_SIZE = "extra_chat_size"
 
-        fun open(context: Context, chatId: Int, avatar: String?) {
+
+        fun open(context: Context, chatId: Int, avatar: String?, chatSize: Int) {
             val intent = Intent(context, ChatActivity::class.java)
             intent.putExtra(EXTRA_CHAT_ID, chatId)
             intent.putExtra(EXTRA_AVATAR, avatar)
+            intent.putExtra(EXTRA_CHAT_SIZE, chatSize)
             context.startActivity(intent)
         }
     }
