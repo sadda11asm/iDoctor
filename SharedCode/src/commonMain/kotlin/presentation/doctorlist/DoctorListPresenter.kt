@@ -5,6 +5,7 @@ import org.kotlin.mpp.mobile.data.entity.DoctorRequest
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
 import org.kotlin.mpp.mobile.domain.usecases.GetDoctors
 import org.kotlin.mpp.mobile.presentation.BasePresenter
+import org.kotlin.mpp.mobile.util.log
 import kotlin.coroutines.CoroutineContext
 
 class DoctorListPresenter(
@@ -25,14 +26,15 @@ class DoctorListPresenter(
     }
 
     fun loadDoctors() {
+        log("DoctorList", "PAGE START REQUEST: $page")
         scope.launch {
             getDoctors(
                 params = DoctorRequest(token, page), // TODO check for memory leak
-                onSuccess = { if (isFirstLoad) view?.showDoctors(it) else view?.showMoreDoctors(it) },
+                onSuccess = { if (isFirstLoad) view?.showDoctors(it) else view?.showMoreDoctors(it); page++ },
                 onFailure = { view?.showLoadFailed(it) }
             )
+            log("DoctorList", "PAGE END REQUEST: $page")
             isFirstLoad = false
-            page++
         }
     }
 

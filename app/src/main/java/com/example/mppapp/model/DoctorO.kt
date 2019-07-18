@@ -1,7 +1,6 @@
 package com.example.mppapp.model
 
 
-
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import org.kotlin.mpp.mobile.util.getYear
 import java.io.Serializable
@@ -14,7 +13,7 @@ data class DoctorO(
     var phone: String?,
     var email: String?,
     var avatar: String,
-    var city: CityO,
+    var city: CityO?,
     val qualifications: List<QualificationO>,
     val skills: List<SkillO>,
     val worksSinceYear: String,
@@ -37,7 +36,7 @@ data class DoctorO(
     var communityText: String?,
     var certsText: String?,
     var feedbackLink: String
-):Serializable {
+) : Serializable {
     val experience: String
         get() = (getYear - worksSinceYear.toInt()).toString() + " лет"
 
@@ -46,26 +45,26 @@ data class DoctorO(
 
             var result = ""
             for (skill in skills) {
-                result+=skill.name
-                result+=", "
+                result += skill.name
+                result += ", "
             }
             if (skills.isEmpty()) return result
-            return result.substring(0, result.length-2)
+            return result.substring(0, result.length - 2)
         }
 
     val getIllnesses: String
         get() {
             var result = ""
             for (illness in illnesses) {
-                result+=illness.name
-                result+=", "
+                result += illness.name
+                result += ", "
             }
             if (illnesses.isEmpty()) return result
-            return result.substring(0, result.length-2)
+            return result.substring(0, result.length - 2)
         }
 
     val rating: Int
-        get()  = avgRate.toInt()
+        get() = avgRate.toInt()
 
     val imageLink: String
         get() = "https://cabinet.idoctor.kz$avatar"
@@ -87,5 +86,35 @@ data class DoctorO(
 
 }
 
-fun Doctor.to() = DoctorO(id, name, alias, userId, phone, email, avatar, city.to(), qualifications.map{it.to()}, skills.map{it.to()}, worksSinceYear, illnesses.map{it.to()},
-    services?.map{it.to()}, child, childMinAge, childMaxAge, ambulatory, ambulatoryPrice, price, showingPhone, showPhone, status, avgRate, aboutText, treatmentText, gradText, expText, communityText, certsText, feedbackLink)
+fun Doctor.to() = DoctorO(
+    id,
+    name,
+    alias,
+    userId,
+    phone,
+    email,
+    avatar,
+    city?.to(),
+    qualifications.map { it.to() },
+    skills.map { it.to() },
+    worksSinceYear,
+    illnesses.map { it.to() },
+    services?.map { it.to() },
+    child,
+    childMinAge,
+    childMaxAge,
+    ambulatory,
+    ambulatoryPrice,
+    price,
+    showingPhone,
+    showPhone,
+    status,
+    avgRate,
+    aboutText,
+    treatmentText,
+    gradText,
+    expText,
+    communityText,
+    certsText,
+    feedbackLink
+)

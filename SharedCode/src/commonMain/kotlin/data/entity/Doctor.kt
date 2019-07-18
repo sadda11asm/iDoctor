@@ -14,7 +14,7 @@ data class Doctor(
     var phone: String?,
     var email: String?,
     var avatar: String,
-    var city: City,
+    var city: City?,
     val qualifications: List<Qualification>,
     val skills: List<Skill>,
     @SerialName("works_since_year") val worksSinceYear: String,
