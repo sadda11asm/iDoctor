@@ -1,4 +1,4 @@
-package com.example.mppapp.ui.chat
+package com.example.mppapp.util
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

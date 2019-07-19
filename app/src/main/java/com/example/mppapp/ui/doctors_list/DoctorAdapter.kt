@@ -10,7 +10,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.mppapp.R
+import com.example.mppapp.util.BaseAdapter
+import com.example.mppapp.util.BaseHolder
 import com.example.mppapp.util.ItemClickListener
+import com.example.mppapp.util.PageableAdapter
 import kotlinx.android.synthetic.main.item_doctor_card.view.*
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import java.lang.IllegalArgumentException
@@ -19,12 +22,7 @@ class DoctorAdapter(
     private val context: Context,
     private val itemClickListener: ItemClickListener<Doctor>,
     private var doctors: MutableList<Doctor> = mutableListOf()
-) : RecyclerView.Adapter<BaseHolder>() {
-
-    private val TAG = "DoctorList"
-
-    private var isLoaderVisible = false
-
+) : PageableAdapter<Doctor>(doctors) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder {
         return when (viewType) {
@@ -42,40 +40,9 @@ class DoctorAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: BaseHolder, position: Int) {
-        holder.bind(position)
-    }
-
-    override fun getItemCount() = doctors.size
-
     override fun getItemViewType(position: Int) =
         if (position == doctors.size - 1 && isLoaderVisible) ViewType.LOADER.type() else ViewType.DOCTOR.type()
 
-    fun addLoader() {
-        Log.d(TAG, "DoctorAdapter: addLoader()")
-        isLoaderVisible = true
-        doctors.add(doctors[doctors.size - 1])
-        notifyItemInserted(doctors.size - 1)
-    }
-
-    fun addItems(doctors: MutableList<Doctor>) {
-        this.doctors.addAll(doctors)
-        notifyItemRangeInserted(this.doctors.size, doctors.size)
-        Log.d(TAG, "DoctorAdapter: addItems() $itemCount")
-    }
-
-    fun removeLoader() {
-        Log.d(TAG, "DoctorAdapter: removeLoader()")
-        isLoaderVisible = false
-        doctors.removeAt(doctors.size - 1)
-        notifyItemRemoved(doctors.size)
-    }
-
-    fun updateDataSet(doctors: MutableList<Doctor>) {
-        Log.d(TAG, "DoctorAdapter: updateDataSet()")
-        this.doctors = doctors
-        notifyDataSetChanged()
-    }
 
     inner class DoctorHolder(itemView: View) : BaseHolder(itemView), View.OnClickListener {
 
