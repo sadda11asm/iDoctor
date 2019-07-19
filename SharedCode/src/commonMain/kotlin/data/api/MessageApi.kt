@@ -39,6 +39,7 @@ class MessageApi(engine: HttpClientEngine) {
             body = json.write(sendMessageRequest)
         }
         val jsonBody = response.readText()
+        log("Message", "$jsonBody")
         return Json.parse(MessageResponse.serializer(), jsonBody)
     }
 

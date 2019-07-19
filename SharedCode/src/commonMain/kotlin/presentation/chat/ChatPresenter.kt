@@ -36,14 +36,14 @@ class ChatPresenter(
         scope.launch {
             getChatFull(
                 params = ChatFullRequest(token, chatId, connection),
-                onSuccess = { view?.showChat(it) },
+                onSuccess = { view?.showChat(it); log("Chat", "onSuccess") },
                 onFailure = { view?.showChatLoadError(it) }
             )
         }
     }
 
     fun sendMessage(messageText: String) {
-        view?.showMessage(Message(-1, chatId, userId, messageText))
+        view?.showMessage(Message(-1, userId, messageText))
         scope.launch {
             sendMessage(
                 params = SendMessageRequest(token, chatId, messageText),

@@ -37,7 +37,6 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     private var isMessageSend = false
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -70,12 +69,13 @@ class ChatActivity : AppCompatActivity(), ChatView {
         setupToolbar(chatFull.title)
         setupRecycler(chatFull.messages)
         setListeners()
-        if (adapter.itemCount>0)
+        // TODO refactor
+        if (adapter.itemCount > 0)
             presenter.markMessageAsRead(adapter.getMessageId(adapter.itemCount - 1))
     }
 
     override fun showChatLoadError(e: Exception) {
-        Log.d("Chat", "${e.message}")
+        Log.d("Chat", " showChatLoadError() ${e.message}")
     }
 
     private fun setListeners() {
@@ -109,17 +109,17 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
 
     private fun setupToolbar(title: String?) {
-        if (chatSize()>2)
+        if (chatSize() > 2)
             textTitle.text = title
         else {
             val names = title!!.split(',')
-            if (names.size<2) {
+            if (names.size < 2) {
                 textTitle.text = title
             } else {
                 if (names[0] == getName())
-                    textTitle.text = names[1]
+                    textTitle.text = names[0]
                 else
-                    textTitle.text = names[2]
+                    textTitle.text = names[1]
             }
         }
         loadIntoAvatar()
@@ -128,13 +128,6 @@ class ChatActivity : AppCompatActivity(), ChatView {
     private fun setupRecycler(messages: MutableList<Message>) {
         val userId = getUserId()
         adapter = MessageAdapter(this, messages, userId)
-        // TODO implement
-//        recyclerMessages.addOnScrollListener(object : ScrollStopListener(layoutManager) {
-//            override fun performAction(position: Int) {
-//                val messageId = adapter.getMessageId(position)
-//                presenter.markMessageAsRead(messageId)
-//            }
-//        })
         recyclerMessages.layoutManager = layoutManager
         recyclerMessages.adapter = adapter
     }

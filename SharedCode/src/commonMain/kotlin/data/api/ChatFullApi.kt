@@ -40,23 +40,24 @@ class ChatFullApi(engine: HttpClientEngine) {
             }
         }
         val jsonBody = response.readText()
+        log("Chat API", jsonBody)
         return Json.nonstrict.parse(ChatFullResponse.serializer(), jsonBody)
     }
 
-    suspend fun createChat(token: String, title: String, userId: Int, anonymous: Boolean, doctorId: Int?):Int {
-            val json = defaultSerializer()
-            val response = client.post<HttpResponse> {
-                url{
-                    protocol = URLProtocol.HTTP
-                    host = TEMP_URL
-                    encodedPath = "/chat"
-                    header(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
-                }
-                body = json.write(CreateChatRequest(title, userId, anonymous, doctorId))
-                accept(ContentType.Application.Json)
+    suspend fun createChat(token: String, title: String, userId: Int, anonymous: Boolean, doctorId: Int?): Int {
+        val json = defaultSerializer()
+        val response = client.post<HttpResponse> {
+            url {
+                protocol = URLProtocol.HTTP
+                host = TEMP_URL
+                encodedPath = "/chat"
+                header(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
             }
-            val jsonBody = response.readText()
-            log("CREATE-CHAT", jsonBody)
-            return Json.nonstrict.parse(CreateChatResponse.serializer(), jsonBody).chatId
+            body = json.write(CreateChatRequest(title, userId, anonymous, doctorId))
+            accept(ContentType.Application.Json)
         }
+        val jsonBody = response.readText()
+        log("CREATE-CHAT", jsonBody)
+        return Json.nonstrict.parse(CreateChatResponse.serializer(), jsonBody).chatId
+    }
 }
