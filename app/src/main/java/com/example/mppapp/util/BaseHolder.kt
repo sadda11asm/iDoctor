@@ -1,4 +1,4 @@
-package com.example.mppapp.ui.doctors_list
+package com.example.mppapp.util
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

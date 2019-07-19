@@ -1,24 +1,22 @@
 package com.example.mppapp.ui.doctors_list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mppapp.R
 import com.example.mppapp.model.to
 import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.ui.doctor_page.DoctorDetailsActivity
+import com.example.mppapp.util.PaginationScrollListener
 import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getNetworkConnection
 import kotlinx.android.synthetic.main.fragment_doctor_list.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.Doctor
-import org.kotlin.mpp.mobile.data.entity.DoctorResponse
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListView
 
 class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor> {
