@@ -6,7 +6,7 @@ import android.net.ConnectivityManager
 import androidx.fragment.app.FragmentActivity
 
 fun getNetworkConnection(activity: FragmentActivity?): Boolean {
-return verifyAvailableNetwork(activity)
+    return verifyAvailableNetwork(activity)
 }
 
 private fun verifyAvailableNetwork(activity: FragmentActivity?): Boolean {

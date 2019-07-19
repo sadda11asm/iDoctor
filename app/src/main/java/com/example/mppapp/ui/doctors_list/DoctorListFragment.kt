@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mppapp.R
 import com.example.mppapp.model.to
 import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.ui.doctor_page.DoctorDetailsActivity
 import com.example.mppapp.util.getAccessToken
+import com.example.mppapp.util.getNetworkConnection
 import kotlinx.android.synthetic.main.fragment_doctor_list.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.Doctor
@@ -21,16 +23,11 @@ import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListView
 
 class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor> {
 
-
-    private val TAG = "DoctorList"
-
     private val presenter by lazy { ServiceLocator.doctorListPresenter }
 
-    private lateinit var adapter: DoctorAdapter
+    private val adapter by lazy { DoctorAdapter(context!!,this) }
 
-    private lateinit var layoutManager: LinearLayoutManager
-
-    private var isFirstLoad = true
+    private val layoutManager by lazy { LinearLayoutManager(context) }
 
     private var isLastPage = false
 
@@ -43,9 +40,17 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.attachView(this)
         activity?.title = resources.getString(R.string.search_doctor)
         swipeRefresh.setOnRefreshListener { presenter.refreshDoctors() }
+        setupRecycler()
+        presenter.attachView(this)
+        presenter.start()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.attachView(this)
+        swipeRefresh.isRefreshing = false
     }
 
     override fun onStop() {
@@ -53,57 +58,60 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
         presenter.detachView()
     }
 
-    override fun onClick(data: Doctor) {
-        this.context?.let { DoctorDetailsActivity.open(it, data.to()) }
-    }
+    override fun onClick(data: Doctor) { this.context?.let { DoctorDetailsActivity.open(it, data.to()) } }
 
     override fun token() = getAccessToken()
 
-    /**
-     * @property isFirstLoad distinguishes between actual firstLoad and
-     * refreshing adapter with new data set
-     */
+    override fun isConnectedToNetwork() = getNetworkConnection(activity)
 
-    override fun showDoctors(doctorResponse: DoctorResponse) {
-        if (isFirstLoad) {
-            setupAdapter(doctorResponse)
-            isFirstLoad = false
-        } else {
-            adapter.updateDataSet(doctorResponse.data)
-            swipeRefresh.isRefreshing = false
-        }
+    override fun showDoctors(doctors: MutableList<Doctor>) { adapter.addItems(doctors) }
+
+    override fun showRefreshedDoctors(doctors: MutableList<Doctor>) {
+        recyclerDoctors.visibility = View.VISIBLE
+        swipeRefresh.isRefreshing = false
+        textError.visibility = View.GONE
+        adapter.updateDataSet(doctors)
     }
 
-    override fun showMoreDoctors(doctorResponse: DoctorResponse) {
+    override fun showRefreshingFailed() {
+        swipeRefresh.isRefreshing = false
+        Toast.makeText(context, R.string.toast_load_error_message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun hideLoading() {
+        progressLoading.visibility = View.GONE
+        recyclerDoctors.visibility = View.VISIBLE
+    }
+
+    override fun hidePaging() {
         adapter.removeLoader()
         isLoading = false
-        adapter.addItems(doctorResponse.data)
     }
 
     override fun showNoConnection() {
-        TODO("not implemented")
-    }
-
-    override fun showLoadFailed(e: Exception) {
-        isLoading = false
-        swipeRefresh.isRefreshing = false
-        adapter.removeLoader()
-        Toast.makeText(context, R.string.load_error_message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun setupAdapter(doctorResponse: DoctorResponse) {
-        adapter = DoctorAdapter(doctorResponse.data, context!!, this)
-        layoutManager = LinearLayoutManager(context)
-
         progressLoading.visibility = View.GONE
+        textError.visibility = View.VISIBLE
+        textError.text = resources.getString(R.string.doctors_no_connection)
+    }
 
-        recyclerDoctors.visibility = View.VISIBLE
+    override fun showLoadingFailed() {
+        progressLoading.visibility = View.GONE
+        textError.visibility = View.VISIBLE
+        textError.text = resources.getString(R.string.doctors_load_error_message)
+    }
+
+    override fun showPagingFailed() {
+        isLoading = false
+        adapter.removeLoader()
+        Toast.makeText(context, R.string.toast_load_error_message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setupRecycler() {
         recyclerDoctors.layoutManager = layoutManager
         recyclerDoctors.adapter = adapter
 
         recyclerDoctors.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
             override fun loadMoreItems() {
-                Log.d(TAG, "DoctorListFragment: loadMoreItems()")
                 isLoading = true
                 adapter.addLoader()
                 presenter.loadDoctors()

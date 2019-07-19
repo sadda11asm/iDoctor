@@ -9,11 +9,10 @@ class iDoctorApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Stetho.initializeWithDefaults(this)
-
         appContext = this
 
-        Hawk.init(this).build()
+        Stetho.initializeWithDefaults(this)
 
+        Hawk.init(this).build()
     }
 }

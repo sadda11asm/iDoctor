@@ -31,7 +31,7 @@
 			android:layout_marginRight="8dp"
 			android:textColor="@android:color/black"
 			android:textSize="16sp"
-			android:fontFamily="@font/blogger_sans"
+			app:fontFamily="@font/blogger_sans"
 			android:ellipsize="end"
 			app:layout_constrainedWidth="true"
 			app:layout_constraintEnd_toStartOf="@+id/textSentDate"
@@ -45,7 +45,7 @@
 			android:layout_marginEnd="4dp"
 			android:layout_marginRight="4dp"
 			android:alpha="0.7"
-			android:fontFamily="@font/blogger_sans"
+			app:fontFamily="@font/blogger_sans"
 			android:textSize="12sp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toStartOf="@id/imageIsRead" />
