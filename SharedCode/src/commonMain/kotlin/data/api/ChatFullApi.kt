@@ -40,7 +40,7 @@ class ChatFullApi(engine: HttpClientEngine) {
             }
         }
         val jsonBody = response.readText()
-        return Json.parse(ChatFullResponse.serializer(), jsonBody)
+        return Json.nonstrict.parse(ChatFullResponse.serializer(), jsonBody)
     }
 
     suspend fun createChat(token: String, title: String, userId: Int, anonymous: Boolean, doctorId: Int?):Int {

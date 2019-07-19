@@ -134,8 +134,8 @@
 
 			<ImageView
 				android:id="@+id/icon__doctor_detail"
-				android:layout_width="100dp"
-				android:layout_height="100dp"
+				android:layout_width="129dp"
+				android:layout_height="123dp"
 				android:layout_marginStart="8dp"
 				android:layout_marginLeft="8dp"
 				android:layout_marginTop="24dp"

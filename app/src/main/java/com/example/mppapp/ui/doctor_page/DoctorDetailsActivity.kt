@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -13,6 +14,7 @@ import com.example.mppapp.R
 import com.example.mppapp.databinding.ActivityDoctorDetailsBinding
 import com.example.mppapp.model.DoctorO
 import com.example.mppapp.ui.chat.ChatActivity
+import com.example.mppapp.util.ProgressDialogFragment
 import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getName
 import org.kotlin.mpp.mobile.ServiceLocator
@@ -24,6 +26,7 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
 
 
     private val presenter by lazy { ServiceLocator.doctorPagePresenter }
+    private lateinit var progressDialog : ProgressDialogFragment
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,8 +43,12 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
         val doctor: DoctorO = intent.getSerializableExtra("doctor") as DoctorO
         binding.doctor = doctor
 
+
+
         binding.button.setOnClickListener{
             val title = getFullName() + "," + doctor.name
+
+            progressDialog  = ProgressDialogFragment.show(supportFragmentManager)
             Log.d("Details", title)
             startChat(token(), title, doctor.userId?.toInt()!!, false, doctor.id?.toInt()!!, doctor.avatar)
         }
@@ -61,6 +68,7 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
 
     override fun goToChat(chatId: Int, avatar: String) {
         Log.v("Details", "chatId: $chatId")
+        progressDialog.dismiss()
         ChatActivity.open(this, chatId, avatar, 2)
     }
     override fun getFullName():String {
@@ -77,6 +85,8 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
 
     override fun showError(e: Exception) {
         Log.v("Details", e.toString())
+        Toast.makeText(this, R.string.load_error_message, Toast.LENGTH_SHORT).show()
+        progressDialog.dismiss()
     }
 
 
