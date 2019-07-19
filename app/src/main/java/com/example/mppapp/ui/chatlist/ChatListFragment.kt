@@ -1,7 +1,5 @@
 package com.example.mppapp.ui.chatlist
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,11 +12,7 @@ import com.example.mppapp.ui.chat.ChatActivity
 import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.util.getNetworkConnection
 import com.orhanobut.hawk.Hawk
-import com.squareup.sqldelight.android.AndroidSqliteDriver
-import com.squareup.sqldelight.db.SqlDriver
-import data.db.MyDatabase
 import data.entity.Chat
-import data.entity.ChatResponse
 import kotlinx.android.synthetic.main.fragment_chat_list.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import presentation.chatlist.ChatListView
@@ -41,20 +35,35 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
         presenter.attachView(this)
 
         activity?.title = "Чаты" // TODO change to resourse inv
+
+        chatListSwipe.setOnRefreshListener {
+            presenter.onLoadChats(
+            Hawk.get<String>("access_token"),
+            getNetworkConnection(activity))
+        }
     }
 
     override fun onClick(data: Chat) {
         ChatActivity.open(this.context!!, data.id, data.avatar, data.users.size)
-//        this.context?.let { ChatActivity.open(it, data.id) }
     }
 
-    override fun showLoading() {
+    override fun showLoading(loading: Boolean) {
         Log.d(TAG, "showLoading()")
 
-        presenter.onLoadChats(
-            Hawk.get<String>("access_token"),
-            getNetworkConnection(activity)
-        ) // TODO replace with utils call
+        if (loading) {
+            recyclerChats.visibility = View.INVISIBLE
+            chatListProgress.visibility = View.VISIBLE
+
+            presenter.onLoadChats(
+                Hawk.get<String>("access_token"),
+                getNetworkConnection(activity))
+        } else {
+            recyclerChats.visibility = View.VISIBLE
+            chatListProgress.visibility = View.INVISIBLE
+            chatListSwipe.isRefreshing = false
+        }
+
+
     }
 
     override fun onStop() {

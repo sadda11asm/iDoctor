@@ -14,22 +14,26 @@ class ChatListPresenter(
 
     override fun onViewAttached(view: ChatListView) {
         super.onViewAttached(view)
-        view.showLoading()
+        view.showLoading(true)
     }
 
     fun onLoadChats(token: String, connection: Boolean) {
         scope.launch {
             getChatList(
                 params = Pair(token, connection),
-                onSuccess = { view?.showChats(it) },
-                onFailure = { view?.showLoadFailed(it) }
+                onSuccess = { view?.showChats(it)
+                    view?.showLoading(false)
+                },
+                onFailure = { view?.showLoadFailed(it)
+                    view?.showLoading(false)
+                }
             )
         }
     }
 }
 
 interface ChatListView {
-    fun showLoading() // TODO add boolean loading param
+    fun showLoading(loading: Boolean) // TODO add boolean loading param
     fun showChats (chats: List<Chat>)
     fun showLoadFailed(e: Exception)
 }

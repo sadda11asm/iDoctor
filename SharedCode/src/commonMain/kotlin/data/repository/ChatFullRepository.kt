@@ -5,6 +5,7 @@ import data.entity.Chat
 import org.kotlin.mpp.mobile.data.ChatFullApi
 import org.kotlin.mpp.mobile.data.entity.ChatFull
 import org.kotlin.mpp.mobile.data.entity.ChatFullResponse
+import org.kotlin.mpp.mobile.util.log
 
 class ChatFullRepository(
     private val chatFullApi: ChatFullApi,
@@ -13,8 +14,10 @@ class ChatFullRepository(
     suspend fun getChatFull(token: String, chatId: Int, connection: Boolean): ChatFull {
         return if (connection) {
             try {
+                log("Chat", "api")
                 fetchChatFull(token, chatId)
             } catch (e: Exception) {
+                log("Chat", e.toString())
                 selectFromDb(chatId)
             }
         }

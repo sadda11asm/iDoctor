@@ -26,16 +26,18 @@ class ChatRepository(
 
 
     private suspend fun fetchChatList(token: String): List<Chat> {
-        val result = chatListApi.getChatList(token)
+        val result = chatListApi.getChatList(token).toMutableList()
         log("CHATLIST", result.toString())
         for (chat in result) {
             chatShortDao.insert(chat)
         }
+        result.sortByDescending { it.lastMessage?.updatedAt }
         return result
     }
 
     private fun selectFromDb(): List<Chat> {
-        val chats = chatShortDao.selectAll().toList()
+        val chats = chatShortDao.selectAll().toMutableList()
+        chats.sortByDescending { it.lastMessage?.updatedAt }
         log("ChatRepository", chats.toString())
         return chats
     }
