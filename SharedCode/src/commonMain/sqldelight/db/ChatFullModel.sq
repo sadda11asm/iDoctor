@@ -5,7 +5,8 @@ CREATE TABLE ChatFullModel(
     title TEXT DEFAULT 'anonym',
     updated TEXT NOT NULL,
     anonymous INTEGER NOT NULL,
-    avatar TEXT);
+    avatar TEXT
+    );
 
 select:
 SELECT * FROM ChatFullModel WHERE id = ?;

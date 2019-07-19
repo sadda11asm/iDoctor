@@ -18,14 +18,14 @@ data class Chat(
     val avatar: String?
 )
 
-@Serializable
-data class Member(
-    @SerialName("user_id") var userId: Int,
-    @SerialName("user_name") var userName: String?,
-    @SerialName("lastReadMsg") var lastReadMes: Int,
-    val lastAttempt: String,
-    @SerialName("unread_count") var unreadCount: Int
-)
+//@Serializable
+//data class Member(
+//    @SerialName("user_id") var userId: Int,
+//    @SerialName("user_name") var userName: String?,
+//    @SerialName("lastReadMsg") var lastReadMes: Int,
+//    val lastAttempt: String,
+//    @SerialName("unread_count") var unreadCount: Int
+//)
 
 @Serializable
 data class LastMessage(

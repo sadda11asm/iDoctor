@@ -28,7 +28,7 @@ class ChatFullRepository(
         log("Chat", "fetchChatFull")
         val chatFull =  chatFullApi.getChatFull(token, chatId).data
         chatFull.id = chatId
-//        chatFullDao.insertChatFull(chatFull)
+        chatFullDao.insertChatFull(chatFull)
         log("Chat", "fetchChatFull $chatFull")
         return chatFull
     }

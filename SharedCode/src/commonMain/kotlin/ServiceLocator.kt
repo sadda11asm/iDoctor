@@ -7,12 +7,10 @@ import data.api.ChatListApi
 import data.api.DoctorApi
 import data.api.UserApi
 import data.api.MessageApi
-import data.db.ChatFullDao
-import data.db.ChatShortDao
-import data.db.UserDao
-import data.db.createDatabase
+import data.db.*
 import data.repository.ChatFullRepository
 import data.repository.ChatRepository
+import data.repository.MessageRepository
 import domain.usecases.MarkMessageAsRead
 import domain.usecases.SendMessage
 import data.repository.UserRepository
@@ -121,8 +119,12 @@ object ServiceLocator {
 
     val messageApi by lazy { MessageApi(PlatformServiceLocator.httpClientEngine) }
 
+    val messageDao: MessageDao by lazy { MessageDao(database)}
+
+    val messageRepository: MessageRepository by lazy { MessageRepository(messageApi, messageDao)}
+
     val sendMessage: SendMessage
-        get() = SendMessage(messageApi)
+        get() = SendMessage(messageRepository)
 
     /**
      * Mark message as Read

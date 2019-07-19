@@ -7,5 +7,6 @@ import kotlinx.serialization.Serializable
 data class SendMessageRequest(
     val token: String,
     val chatId: Int,
-    @SerialName("message") val messageText: String
+    @SerialName("message") val messageText: String,
+    val userId: Int
 )

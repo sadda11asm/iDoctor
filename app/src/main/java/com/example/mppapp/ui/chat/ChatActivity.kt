@@ -117,9 +117,9 @@ class ChatActivity : AppCompatActivity(), ChatView {
                 textTitle.text = title
             } else {
                 if (names[0] == getName())
-                    textTitle.text = names[0]
-                else
                     textTitle.text = names[1]
+                else
+                    textTitle.text = names[0]
             }
         }
         loadIntoAvatar()

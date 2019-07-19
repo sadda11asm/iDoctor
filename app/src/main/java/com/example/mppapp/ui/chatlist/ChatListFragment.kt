@@ -36,11 +36,7 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
 
         activity?.title = "Чаты" // TODO change to resourse inv
 
-        chatListSwipe.setOnRefreshListener {
-            presenter.onLoadChats(
-            Hawk.get<String>("access_token"),
-            getNetworkConnection(activity))
-        }
+        setSwipeListener()
     }
 
     override fun onClick(data: Chat) {
@@ -66,6 +62,13 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.v("Chat", "ONRESUME")
+        presenter.attachView(this)
+
+    }
+
     override fun onStop() {
         super.onStop()
         presenter.detachView()
@@ -82,4 +85,12 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
         Log.d(TAG, "ERROR ${e.message}")
     }
 
+
+    fun setSwipeListener() {
+        chatListSwipe.setOnRefreshListener {
+            presenter.onLoadChats(
+                Hawk.get<String>("access_token"),
+                getNetworkConnection(activity))
+        }
+    }
 }

@@ -48,10 +48,10 @@ class ChatShortDao(database: MyDatabase) {
         val ansList: MutableList<Chat> = mutableListOf()
         for (chat in chats) {
             val lastMessage = dbMes.selectByChatId(chat.id)
-            val memberModels = dbMember.selectById(chat.id).executeAsList()
             val mes = if (lastMessage.executeAsList().isNotEmpty())
                 lastMessage.executeAsList()[0].to()
             else null
+            val memberModels = dbMember.selectById(chat.id).executeAsList()
             val members = mutableListOf<Member>()
             for (member in memberModels)
                 members.add(member.to())

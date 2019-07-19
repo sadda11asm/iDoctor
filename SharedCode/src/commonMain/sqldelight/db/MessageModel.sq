@@ -16,4 +16,7 @@ selectByChatId:
 SELECT * FROM MessageModel WHERE chat_id = ? ORDER BY updated_at DESC;
 
 insertItem:
-INSERT OR REPLACE INTO MessageModel(id, chat_id, user_id, text, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?);
+INSERT OR REPLACE INTO MessageModel(id, chat_id, user_id, text, created_at) VALUES (?, ?, ?, ?, ?);
+
+insertNewItem:
+INSERT OR REPLACE INTO MessageModel(id, chat_id, user_id, text) VALUES (?, ?, ?, ?);
