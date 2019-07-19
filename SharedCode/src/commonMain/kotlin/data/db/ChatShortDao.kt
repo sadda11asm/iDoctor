@@ -1,10 +1,7 @@
 package data.db
 
 import com.squareup.sqldelight.Query
-import data.entity.Chat
-import data.entity.LastMessage
-import data.entity.to
-import data.entity.toChat
+import data.entity.*
 import db.ChatShortModel
 import org.kotlin.mpp.mobile.util.log
 
@@ -12,17 +9,25 @@ class ChatShortDao(database: MyDatabase) {
 
     private val dbChat = database.chatShortModelQueries
     private val dbMes = database.lastMessageModelQueries
+    private val dbMember = database.memberModelQueries
 
     internal fun insert(item: Chat) {
         dbChat.insertItem(
             item.id.toLong(),
             item.title ?: "anonymous user",
-            item.createdAt,
-            item.updatedAt,
-            item.deletedAt,
-            item.users,
+            item.updated,
+            item.isAnonymous.toLong(),
             item.avatar
         )
+        for (member in item.members)
+            dbMember.insertItem(
+                member.userId.toLong(),
+                member.userName,
+                item.id.toLong(),
+                member.lastReadMes.toLong(),
+                member.lastAttempt,
+                member.unreadCount.toLong()
+            )
         if (item.lastMessage != null)
             dbMes.insertItem(
                 item.lastMessage.id.toLong(),
@@ -33,6 +38,7 @@ class ChatShortDao(database: MyDatabase) {
                 item.lastMessage.updatedAt
             )
 
+
     }
 
 
@@ -42,10 +48,14 @@ class ChatShortDao(database: MyDatabase) {
         val ansList: MutableList<Chat> = mutableListOf()
         for (chat in chats) {
             val lastMessage = dbMes.selectByChatId(chat.id)
+            val memberModels = dbMember.selectById(chat.id).executeAsList()
             val mes = if (lastMessage.executeAsList().isNotEmpty())
                 lastMessage.executeAsList()[0].to()
             else null
-            ansList.add(toChat(chat, mes))
+            val members = mutableListOf<Member>()
+            for (member in memberModels)
+                members.add(member.to())
+            ansList.add(toChat(chat, mes, members))
         }
         return ansList
     }

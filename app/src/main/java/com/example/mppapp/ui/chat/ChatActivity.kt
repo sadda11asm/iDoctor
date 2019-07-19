@@ -166,11 +166,9 @@ class ChatActivity : AppCompatActivity(), ChatView {
         const val EXTRA_CHAT_SIZE = "extra_chat_size"
 
 
-        fun open(context: Context, chatId: Int, avatar: String?, chatSize: Int) {
+        fun open(context: Context, chatId: Int) {
             val intent = Intent(context, ChatActivity::class.java)
             intent.putExtra(EXTRA_CHAT_ID, chatId)
-            intent.putExtra(EXTRA_AVATAR, avatar)
-            intent.putExtra(EXTRA_CHAT_SIZE, chatSize)
             context.startActivity(intent)
         }
     }

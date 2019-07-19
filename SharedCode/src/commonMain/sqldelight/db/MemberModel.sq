@@ -1,0 +1,18 @@
+
+CREATE TABLE MemberModel(
+    user_id INTEGER UNIQUE NOT NULL,
+    user_name TEXT,
+    chat_id INTEGER NOT NULL,
+    lastReadMes INTEGER NOT NULL,
+    lastAttempt TEXT NOT NULL,
+    unreadCount INTEGER NOT NULL
+);
+
+selectAll:
+SELECT * FROM MemberModel;
+
+selectById:
+SELECT * FROM MemberModel WHERE chat_id = ?;
+
+insertItem:
+INSERT OR REPLACE INTO MemberModel VALUES (?, ?, ?, ?, ?, ?);
