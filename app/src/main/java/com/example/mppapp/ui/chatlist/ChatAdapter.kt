@@ -9,13 +9,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.mppapp.R
-import com.example.mppapp.ui.doctors_list.DoctorAdapter
 import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.util.getName
+import com.example.mppapp.util.getUserId
 import data.entity.Chat
 import kotlinx.android.synthetic.main.item_chat_list.view.*
-import org.kotlin.mpp.mobile.data.entity.Doctor
-import java.text.SimpleDateFormat
 
 class ChatAdapter(
     private val chats: List<Chat>,
@@ -48,24 +46,40 @@ class ChatAdapter(
         fun bind(chat: Chat) = with(itemView) {
             currentChat = chat
             if (chat.title=="anonymous user" || chat.title =="anonym" || chat.title == null)
-                chatName.text = "Анонимный юзер :)"
+                chatNameView.text = "Анонимный юзер :)"
             else {
-                if (chat.users.size>2) {
-                    chatName.text = chat.title
+                if (chat.members.size>2) {
+                    chatNameView.text = chat.title
                 } else {
                     val names = chat.title!!.split(',')
-                    chatName.text = if (names[0] == getName()) names[1] else names[0]
+                    chatNameView.text = if (names[0] == getName()) names[1] else names[0]
                 }
             }
+            for (member in chat.members)
+                if (member.userId == getUserId()) {
+                    if (member.unreadCount!=0)
+                        unreadCountView.text = member.unreadCount.toString()
+                    else unreadCountView.visibility = View.INVISIBLE
 
-            last_message.text = chat.lastMessage?.message ?: "Пока нет сообщений в этом чате"
+                }
+
+
+            var mes = if (chat.lastMessage?.userId == getUserId()) "Вы: "
+            else ""
+
+            if (chat.lastMessage!=null)
+                mes+= chat.lastMessage!!.message
+            else mes = "Пока нет сообщений в этом чате"
+
+            lastMessageView.text = mes
+
             var lastMesTime = chat.lastMessage?.updatedAt
             if (lastMesTime == null)
                 time.text = ""
             else {
                 lastMesTime = lastMesTime.substring(0, 10)
                 val arr = lastMesTime.split('-')
-                time.text = arr[2]+'.'+arr[1]
+                time.text = arr[2]+ "." + arr[1]
             }
 
             setOnClickListener {
@@ -78,7 +92,7 @@ class ChatAdapter(
                 .error(R.drawable.ava)
                 .apply(RequestOptions.circleCropTransform())
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(image_chat)
+                .into(imageCountView)
         }
 
         override fun onClick(view: View?) {

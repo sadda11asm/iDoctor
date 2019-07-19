@@ -44,7 +44,7 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
     }
 
     override fun onClick(data: Chat) {
-        ChatActivity.open(this.context!!, data.id, data.avatar, data.users.size)
+        ChatActivity.open(this.context!!, data.id)
     }
 
     override fun showLoading(loading: Boolean) {

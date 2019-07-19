@@ -3,6 +3,7 @@ package data.entity
 
 import db.ChatShortModel
 import db.LastMessageModel
+import db.MemberModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -10,12 +11,20 @@ import kotlinx.serialization.Serializable
 data class Chat(
     val id: Int,
     val title: String?,
-    @SerialName("created_at") var createdAt: String?,
-    @SerialName("updated_at") var updatedAt: String?,
-    @SerialName("deleted_at") var deletedAt: String?,
-    val users: List<Int>,
+    @SerialName("updated") var updated: String?,
+    val isAnonymous: Int,
+    val members: List<Member>,
     val lastMessage: LastMessage?,
     val avatar: String?
+)
+
+@Serializable
+data class Member(
+    @SerialName("user_id") var userId: Int,
+    @SerialName("user_name") var userName: String?,
+    @SerialName("lastReadMsg") var lastReadMes: Int,
+    val lastAttempt: String,
+    @SerialName("unread_count") var unreadCount: Int
 )
 
 @Serializable
@@ -28,6 +37,16 @@ data class LastMessage(
     @SerialName("updated_at") var updatedAt: String?
     )
 
+fun MemberModel.to(): Member {
+    return Member(
+        user_id.toInt(),
+        user_name,
+        lastReadMes.toInt(),
+        lastAttempt,
+        unreadCount.toInt()
+    )
+}
+
 fun LastMessageModel.to(): LastMessage {
     return LastMessage(
         id.toInt(),
@@ -39,14 +58,13 @@ fun LastMessageModel.to(): LastMessage {
 
     )
 }
-fun toChat(chatShortModel: ChatShortModel, lastMessage: LastMessage?): Chat {
+fun toChat(chatShortModel: ChatShortModel, lastMessage: LastMessage?, members: List<Member>): Chat {
     return Chat(
         chatShortModel.id.toInt(),
         chatShortModel.title,
-        chatShortModel.created_at,
-        chatShortModel.updated_at,
-        chatShortModel.deleted_at,
-        chatShortModel.users!!,
+        chatShortModel.updated,
+        chatShortModel.isAnonymous?.toInt()!!,
+        members,
         lastMessage,
         chatShortModel.avatar
     )

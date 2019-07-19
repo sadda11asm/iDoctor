@@ -69,7 +69,7 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
     override fun goToChat(chatId: Int, avatar: String) {
         Log.v("Details", "chatId: $chatId")
         progressDialog.dismiss()
-        ChatActivity.open(this, chatId, avatar, 2)
+        ChatActivity.open(this, chatId)
     }
     override fun getFullName():String {
         return getName()
@@ -85,7 +85,7 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
 
     override fun showError(e: Exception) {
         Log.v("Details", e.toString())
-        Toast.makeText(this, R.string.load_error_message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.doctors_load_error_message, Toast.LENGTH_SHORT).show()
         progressDialog.dismiss()
     }
 
