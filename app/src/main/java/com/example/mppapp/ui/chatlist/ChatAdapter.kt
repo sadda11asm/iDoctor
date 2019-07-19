@@ -55,13 +55,15 @@ class ChatAdapter(
                     chatNameView.text = if (names[0] == getName()) names[1] else names[0]
                 }
             }
+            var ok = 0
             for (member in chat.members)
                 if (member.userId == getUserId()) {
                     if (member.unreadCount!=0)
                         unreadCountView.text = member.unreadCount.toString()
                     else unreadCountView.visibility = View.INVISIBLE
-
+                    ok = 1
                 }
+            if (ok==0) unreadCountView.visibility = View.INVISIBLE
 
 
             var mes = if (chat.lastMessage?.userId == getUserId()) "Вы: "

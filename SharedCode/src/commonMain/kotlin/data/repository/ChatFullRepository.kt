@@ -25,9 +25,11 @@ class ChatFullRepository(
     }
 
     private suspend fun fetchChatFull(token: String, chatId: Int): ChatFull {
+        log("Chat", "fetchChatFull")
         val chatFull =  chatFullApi.getChatFull(token, chatId).data
         chatFull.id = chatId
         chatFullDao.insertChatFull(chatFull)
+        log("Chat", "fetchChatFull $chatFull")
         return chatFull
     }
 

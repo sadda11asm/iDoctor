@@ -12,6 +12,7 @@ import org.kotlin.mpp.mobile.domain.usecases.GetChatFull
 import org.kotlin.mpp.mobile.presentation.BasePresenter
 import org.kotlin.mpp.mobile.util.log
 import kotlin.coroutines.CoroutineContext
+import kotlin.math.log
 
 class ChatPresenter(
     private val getChatFull: GetChatFull,
@@ -36,19 +37,19 @@ class ChatPresenter(
         scope.launch {
             getChatFull(
                 params = ChatFullRequest(token, chatId, connection),
-                onSuccess = { view?.showChat(it) },
+                onSuccess = { view?.showChat(it); log("Chat", "onSuccess") },
                 onFailure = { view?.showChatLoadError(it) }
             )
         }
     }
 
     fun sendMessage(messageText: String) {
-        view?.showMessage(Message(-1, chatId, userId, messageText))
+        view?.showMessage(Message(-1, userId, messageText))
         scope.launch {
             sendMessage(
-                params = SendMessageRequest(token, chatId, messageText),
+                params = SendMessageRequest(token, chatId, messageText, userId),
                 onSuccess = {},
-                onFailure = {}
+                onFailure = {log("SEND", it.message!!)}
             )
         }
     }

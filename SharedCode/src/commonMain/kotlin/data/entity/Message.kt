@@ -7,9 +7,7 @@ import org.kotlin.mpp.mobile.util.currentTime
 @Serializable
 data class Message(
     val id: Int,
-    @SerialName("chat_id") val chatId: Int,
-    @SerialName("user_id") val userId: Int,
+    @SerialName("author") val userId: Int,
     @SerialName("message") val text: String,
-    @SerialName("created_at") var createdAt: String? = currentTime,
-    @SerialName("updated_at") var updatedAt: String? = currentTime
+    @SerialName("created") var createdAt: String? = currentTime
 )

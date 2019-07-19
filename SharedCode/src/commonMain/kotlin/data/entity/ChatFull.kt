@@ -1,21 +1,16 @@
 package org.kotlin.mpp.mobile.data.entity
 
+import data.entity.Member
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ChatFull(
+    var id: Int,
     val title: String?,
     var updated: String,
     @SerialName("isAnonymous") var anonymous: Int,
     var avatar: String?,
-    var lastReadMessage: Int?,
-    val messages: MutableList<Message>,
-    var id: Int = -1
-)
-
-@Serializable
-data class LastReadMessage(
-    @SerialName("user_id") var userId: Int,
-    @SerialName("mes_id") var mesId: Int
+    val members: MutableList<Member>,
+    val messages: MutableList<Message>
 )
