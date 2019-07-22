@@ -26,7 +26,7 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
 
 
     private val presenter by lazy { ServiceLocator.doctorPagePresenter }
-    private lateinit var progressDialog : ProgressDialogFragment
+    private lateinit var progressDialog: ProgressDialogFragment
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,10 +45,10 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
 
 
 
-        binding.button.setOnClickListener{
+        binding.button.setOnClickListener {
             val title = getFullName() + "," + doctor.name
 
-            progressDialog  = ProgressDialogFragment.show(supportFragmentManager)
+            progressDialog = ProgressDialogFragment.show(supportFragmentManager)
             Log.d("Details", title)
             startChat(token(), title, doctor.userId?.toInt()!!, false, doctor.id?.toInt()!!, doctor.avatar)
         }
@@ -71,7 +71,8 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
         progressDialog.dismiss()
         ChatActivity.open(this, chatId)
     }
-    override fun getFullName():String {
+
+    override fun getFullName(): String {
         return getName()
     }
 
@@ -79,7 +80,14 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
         return getAccessToken()
     }
 
-    override fun startChat(token:String, title:String, userId: Int, anonymous: Boolean, doctorId: Int, avatar: String) {
+    override fun startChat(
+        token: String,
+        title: String,
+        userId: Int,
+        anonymous: Boolean,
+        doctorId: Int,
+        avatar: String
+    ) {
         presenter.createChat(token, title, userId, anonymous, doctorId, avatar)
     }
 
