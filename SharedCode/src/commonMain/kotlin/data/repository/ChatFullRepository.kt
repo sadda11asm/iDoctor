@@ -1,10 +1,9 @@
 package data.repository
 
 import data.db.ChatFullDao
-import data.entity.Chat
 import org.kotlin.mpp.mobile.data.ChatFullApi
 import org.kotlin.mpp.mobile.data.entity.ChatFull
-import org.kotlin.mpp.mobile.data.entity.ChatFullResponse
+import util.convertTime
 import org.kotlin.mpp.mobile.util.log
 
 class ChatFullRepository(
@@ -28,6 +27,10 @@ class ChatFullRepository(
         log("Chat", "fetchChatFull")
         val chatFull =  chatFullApi.getChatFull(token, chatId).data
         chatFull.id = chatId
+        for (message in chatFull.messages) {
+            message.createdAt = convertTime(message.createdAt)
+            log("SEND", message.createdAt.toString())
+        }
         chatFullDao.insertChatFull(chatFull)
         log("Chat", "fetchChatFull $chatFull")
         return chatFull

@@ -2,7 +2,7 @@ package com.example.mppapp.model
 
 
 import org.kotlin.mpp.mobile.data.entity.Doctor
-import org.kotlin.mpp.mobile.util.getYear
+import util.getYear
 import java.io.Serializable
 
 data class DoctorO(
