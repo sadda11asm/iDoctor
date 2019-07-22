@@ -12,12 +12,12 @@ class DoctorPagePresenter (
     private val coroutineContext: CoroutineContext = defaultDispatcher
 ): BasePresenter<DoctorPageView>(coroutineContext) {
 
-    fun createChat(token : String, title: String, userId: Int, anonymous: Boolean, doctorId: Int?, avatar: String) {
+    fun createChat(token: String, title: String, userId: Int, anonymous: Boolean, doctorId: Int?, avatar: String) {
         scope.launch {
             createChat(
                 CreateChatParams(token, title, userId, anonymous, doctorId),
-                onSuccess = {view?.goToChat(it, avatar)},
-                onFailure = {view?.showError(it)}
+                onSuccess = { view?.goToChat(it, avatar) },
+                onFailure = { view?.showError(it) }
             )
         }
     }

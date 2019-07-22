@@ -25,7 +25,8 @@ abstract class PageableAdapter<T>(
     }
 
     open fun updateDataSet(list: MutableList<T>) {
-        this.list = list
+        this.list.clear()
+        this.list.addAll(list)
         notifyDataSetChanged()
     }
 }

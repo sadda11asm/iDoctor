@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_doctor_list.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListView
+import org.kotlin.mpp.mobile.util.log
 
 class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor> {
 
@@ -39,8 +40,8 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.title = resources.getString(R.string.search_doctor)
-        swipeRefresh.setOnRefreshListener { presenter.refreshDoctors() }
         setupRecycler()
+        swipeRefresh.setOnRefreshListener { presenter.refreshDoctors() }
         presenter.attachView(this)
         presenter.start()
     }
@@ -65,6 +66,7 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
     override fun showDoctors(doctors: MutableList<Doctor>) { adapter.addItems(doctors) }
 
     override fun showRefreshedDoctors(doctors: MutableList<Doctor>) {
+        log(value = "DoctorListFragment: showRefreshedDoctors()")
         recyclerDoctors.visibility = View.VISIBLE
         swipeRefresh.isRefreshing = false
         textError.visibility = View.GONE
