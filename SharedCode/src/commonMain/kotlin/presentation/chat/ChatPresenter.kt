@@ -10,9 +10,10 @@ import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
 import org.kotlin.mpp.mobile.domain.usecases.GetChatFull
 import org.kotlin.mpp.mobile.presentation.BasePresenter
+import util.getTimeZoneOffset
 import org.kotlin.mpp.mobile.util.log
+import util.currentTime
 import kotlin.coroutines.CoroutineContext
-import kotlin.math.log
 
 class ChatPresenter(
     private val getChatFull: GetChatFull,
@@ -48,7 +49,7 @@ class ChatPresenter(
         scope.launch {
             sendMessage(
                 params = SendMessageRequest(token, chatId, messageText, userId),
-                onSuccess = {},
+                onSuccess = {log("SEND", currentTime)},
                 onFailure = {log("SEND", it.message!!)}
             )
         }

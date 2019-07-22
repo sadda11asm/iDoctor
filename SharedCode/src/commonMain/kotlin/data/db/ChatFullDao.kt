@@ -5,6 +5,8 @@ import data.entity.to
 import db.ChatFullModel
 import org.kotlin.mpp.mobile.data.entity.ChatFull
 import org.kotlin.mpp.mobile.data.entity.Message
+import org.kotlin.mpp.mobile.util.log
+import kotlin.math.log
 
 class ChatFullDao (database: MyDatabase) {
     private val dbChatFull = database.chatFullModelQueries
@@ -17,6 +19,9 @@ class ChatFullDao (database: MyDatabase) {
         for (mes in vals) {
             messages.add(Message(mes.id.toInt(), mes.user_id.toInt(), mes.text, mes.created_at))
         }
+        messages.sortBy { it.createdAt }
+        for (message in messages)
+            log("SEND", message.createdAt!!)
         val chat =  dbChatFull.select(chatId.toLong()).executeAsOne()
         val memberModels = dbMember.selectById(chatId.toLong()).executeAsList()
         val members = mutableListOf<Member>()

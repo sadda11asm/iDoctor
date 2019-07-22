@@ -10,13 +10,10 @@ CREATE TABLE MessageModel(
 );
 
 selectAll:
-SELECT * FROM MessageModel  ORDER BY updated_at DESC;
+SELECT * FROM MessageModel  ORDER BY created_at DESC;
 
 selectByChatId:
-SELECT * FROM MessageModel WHERE chat_id = ? ORDER BY updated_at DESC;
+SELECT * FROM MessageModel WHERE chat_id = ? ORDER BY created_at DESC;
 
 insertItem:
 INSERT OR REPLACE INTO MessageModel(id, chat_id, user_id, text, created_at) VALUES (?, ?, ?, ?, ?);
-
-insertNewItem:
-INSERT OR REPLACE INTO MessageModel(id, chat_id, user_id, text) VALUES (?, ?, ?, ?);

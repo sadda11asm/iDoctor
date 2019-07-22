@@ -25,5 +25,6 @@ class MessageRepository (
     private fun insertToDb(request: SendMessageRequest, id: Int) {
         log("SEND", request.toString())
         messageDao.insert(request, id)
+        messageDao.insertLastMes(request, id)
     }
 }

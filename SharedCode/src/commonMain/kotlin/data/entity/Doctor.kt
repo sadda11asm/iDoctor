@@ -3,7 +3,7 @@ package org.kotlin.mpp.mobile.data.entity
 import kotlinx.serialization.Optional
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.kotlin.mpp.mobile.util.getYear
+import util.getYear
 
 @Serializable
 data class Doctor(
