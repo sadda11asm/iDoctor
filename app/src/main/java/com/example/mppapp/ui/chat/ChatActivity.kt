@@ -21,7 +21,6 @@ import com.example.mppapp.util.getUserId
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.ChatFull
-import org.kotlin.mpp.mobile.data.entity.ChatFullResponse
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.presentation.chat.ChatView
 import org.kotlin.mpp.mobile.util.log
@@ -35,8 +34,6 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     private val layoutManager = LinearLayoutManager(this)
 
-    private var isMessageSend = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -49,7 +46,9 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item?.itemId == android.R.id.home) { finish() }
+        if (item?.itemId == android.R.id.home) {
+            finish()
+        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -70,8 +69,9 @@ class ChatActivity : AppCompatActivity(), ChatView {
         setupRecycler(chatFull.messages)
         setListeners()
         // TODO refactor
-        if (adapter.itemCount > 0)
+        if (adapter.itemCount > 0) {
             presenter.markMessageAsRead(adapter.getMessageId(adapter.itemCount - 1))
+        }
     }
 
     override fun showChatLoadError(e: Exception) {
@@ -81,20 +81,21 @@ class ChatActivity : AppCompatActivity(), ChatView {
     private fun setListeners() {
         imageSend.setOnClickListener { sendMessage() }
         recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            // TODO change position init logic
-            val position = if(isMessageSend) adapter.itemCount else adapter.itemCount - 1
-            isMessageSend = false
-            layoutManager.scrollToPosition(position)
+            Log.d("Messages", "LAST ITEM: ${layoutManager.findLastVisibleItemPosition()}")
+            Log.d("Messages", "FIRST ITEM: ${layoutManager.findFirstVisibleItemPosition()}")
+            Log.d("Messages", "TOTAL: ${layoutManager.itemCount}")
+            Log.d("Messages", "VISIBLE: ${layoutManager.childCount}")
+            Log.d("Messages", "-----------------------------")
         }
         editMessage.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) { }
+            override fun afterTextChanged(p0: Editable?) {}
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-                if(count == 1 && before == 0 && start == 0) {
+                if (count == 1 && before == 0 && start == 0) {
                     setVisibilities(View.VISIBLE, View.GONE, View.GONE)
-                } else if(count == 0 && before != 0 && start == 0) {
+                } else if (count == 0 && before != 0 && start == 0) {
                     setVisibilities(View.GONE, View.VISIBLE, View.VISIBLE)
                 }
             }
@@ -109,9 +110,9 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
 
     private fun setupToolbar(title: String?) {
-        if (chatSize() > 2)
+        if (chatSize() > 2) {
             textTitle.text = title
-        else {
+        } else {
             val names = title!!.split(',')
             if (names.size < 2) {
                 textTitle.text = title
@@ -136,15 +137,14 @@ class ChatActivity : AppCompatActivity(), ChatView {
         val avatar = "$BASE_URL${intent.getStringExtra(EXTRA_AVATAR)}"
         Glide.with(this)
             .load(avatar)
-            .error(R.drawable.default_avatar)
             .apply(RequestOptions.circleCropTransform())
             .transition(DrawableTransitionOptions.withCrossFade())
+            .error(R.drawable.default_avatar)
             .into(imageAvatar)
     }
 
     private fun sendMessage() {
         val messageText = editMessage.text.toString()
-        isMessageSend = true
         editMessage.text = null
         presenter.sendMessage(messageText)
     }
