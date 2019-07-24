@@ -18,6 +18,7 @@ import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getName
 import com.example.mppapp.util.getNetworkConnection
 import com.example.mppapp.util.getUserId
+import com.r0adkll.slidr.Slidr
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.ChatFull
@@ -45,6 +46,18 @@ class ChatActivity : AppCompatActivity(), ChatView {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        Slidr.attach(this)
+
+        presenter.attachView(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.detachView()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
         presenter.attachView(this)
     }
 
@@ -152,6 +165,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
     override fun getConnection(): Boolean {
         return getNetworkConnection(this)
     }
+
 
     companion object {
         const val EXTRA_CHAT_ID = "extra_chat_id"

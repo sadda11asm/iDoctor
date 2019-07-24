@@ -13,4 +13,5 @@ actual object PlatformServiceLocator {
 
     actual val httpClientEngine: HttpClientEngine by lazy { Ios.create() }
     actual val driver: SqlDriver = NativeSqliteDriver(MyDatabase.Schema, "idoctor.db")
+    actual val cioEngine: HttpClientEngine by lazy { Ios.create() }
 }

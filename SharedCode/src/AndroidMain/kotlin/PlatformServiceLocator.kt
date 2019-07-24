@@ -7,6 +7,7 @@ import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttp
 //import okhttp3.logging.HttpLoggingInterceptor
 import android.content.Context
+import io.ktor.client.engine.cio.CIO
 
 
 /**
@@ -24,10 +25,11 @@ actual object PlatformServiceLocator {
 //            val networkInterceptor = HttpLoggingInterceptor().apply {
 //                level = HttpLoggingInterceptor.Level.BODY
 //            }
-            //addNetworkInterceptor(networkInterceptor)
+        //addNetworkInterceptor(networkInterceptor)
 //        }
     }
     actual val driver: SqlDriver
-       by lazy{ AndroidSqliteDriver(MyDatabase.Schema, appContext, "idoctor.db")}
+            by lazy { AndroidSqliteDriver(MyDatabase.Schema, appContext, "idoctor.db") }
 
+    actual val cioEngine: HttpClientEngine by lazy { CIO.create() }
 }
