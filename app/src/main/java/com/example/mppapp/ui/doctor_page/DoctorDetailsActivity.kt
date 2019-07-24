@@ -17,6 +17,7 @@ import com.example.mppapp.ui.chat.ChatActivity
 import com.example.mppapp.util.ProgressDialogFragment
 import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getName
+import com.r0adkll.slidr.Slidr
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import presentation.doctorpage.DoctorPagePresenter
@@ -62,6 +63,9 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
             .into(binding.iconDoctorDetail)
 
         title = doctor.name
+
+        Slidr.attach(this)
+
 
 
     }

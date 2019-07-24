@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_chat_list.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import presentation.chatlist.ChatListView
 
+
 class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
 
 

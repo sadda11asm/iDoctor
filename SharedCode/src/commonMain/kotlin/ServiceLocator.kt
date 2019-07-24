@@ -19,10 +19,7 @@ import domain.usecases.GetUserInfo
 import io.ktor.client.engine.HttpClientEngine
 import org.kotlin.mpp.mobile.data.ChatFullApi
 import org.kotlin.mpp.mobile.data.LoginApi
-import org.kotlin.mpp.mobile.domain.usecases.AuthorizeUser
-import org.kotlin.mpp.mobile.domain.usecases.GetChatFull
-import org.kotlin.mpp.mobile.domain.usecases.GetChatList
-import org.kotlin.mpp.mobile.domain.usecases.GetDoctors
+import org.kotlin.mpp.mobile.domain.usecases.*
 import org.kotlin.mpp.mobile.presentation.chat.ChatPresenter
 import presentation.chatlist.ChatListPresenter
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListPresenter
@@ -43,6 +40,17 @@ object ServiceLocator {
      */
 
     val database by lazy { createDatabase(PlatformServiceLocator.driver) }
+
+    /**
+     *  Socket
+     */
+
+    val sockets by lazy {Sockets(PlatformServiceLocator.cioEngine)}
+
+    val subscribe by lazy {Subscribe(sockets)}
+
+    val unsubscribe by lazy {Unsubscribe(sockets)}
+
 
     /**
      * Load doctors
@@ -95,7 +103,7 @@ object ServiceLocator {
         get() = GetChatFull(chatFullRepository)
 
     val chatPresenter: ChatPresenter
-        get() = ChatPresenter(getChatFull, sendMessage, markMessageAsRead)
+        get() = ChatPresenter(getChatFull, sendMessage, subscribe, unsubscribe, markMessageAsRead)
 
     /**
      * Get chat list
@@ -142,6 +150,8 @@ object ServiceLocator {
     val doctorPagePresenter: DoctorPagePresenter
         get() = DoctorPagePresenter(createChat)
 
+
+
 }
 
 /**
@@ -151,4 +161,5 @@ expect object PlatformServiceLocator {
 
     val driver: SqlDriver
     val httpClientEngine: HttpClientEngine
+    val cioEngine: HttpClientEngine
 }

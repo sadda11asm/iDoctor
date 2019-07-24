@@ -1,5 +1,6 @@
 package org.kotlin.mpp.mobile.presentation.chat
 
+import org.kotlin.mpp.mobile.SocketListener
 import org.kotlin.mpp.mobile.data.entity.ChatFull
 import org.kotlin.mpp.mobile.data.entity.Message
 
