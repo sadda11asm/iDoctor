@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@drawable/chat_background"
+	android:background="#f0f6ff"
 	tools:context=".ui.chat.ChatActivity">
 
 	<androidx.appcompat.widget.Toolbar
@@ -27,12 +27,12 @@
 		<TextView
 			android:id="@+id/textTitle"
 			style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-			android:fontFamily="@font/blogger_sans_bold"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="16dp"
 			android:layout_marginLeft="16dp"
-			android:maxLines="1" />
+			android:maxLines="1"
+			app:fontFamily="@font/blogger_sans_bold" />
 
 	</androidx.appcompat.widget.Toolbar>
 
@@ -48,7 +48,6 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:background="@android:color/white"
-		android:padding="4dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent">
@@ -56,37 +55,33 @@
 
 		<ImageView
 			android:id="@+id/imageAttachment"
+			style="@style/Widget.AppCompat.ActionButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
-			android:layout_marginEnd="16dp"
-			android:layout_marginRight="16dp"
 			android:src="@drawable/ic_attach_file_color_primary_24dp"
 			app:layout_constraintEnd_toStartOf="@id/imageCamera"
 			app:layout_constraintTop_toTopOf="parent" />
 
 		<ImageView
 			android:id="@+id/imageCamera"
+			style="@style/Widget.AppCompat.ActionButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
-			android:layout_marginEnd="16dp"
-			android:layout_marginRight="16dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginRight="8dp"
 			android:src="@drawable/ic_photo_camera_color_primary_24dp"
 			app:layout_constraintEnd_toStartOf="@id/imageSend"
 			app:layout_constraintTop_toTopOf="parent" />
 
 		<ImageView
 			android:id="@+id/imageSend"
+			style="@style/Widget.AppCompat.ActionButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
-			android:layout_marginEnd="16dp"
-			android:layout_marginRight="16dp"
 			android:src="@drawable/ic_send_color_primary_24dp"
 			android:visibility="gone"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent"/>
+			app:layout_constraintTop_toTopOf="parent" />
 
 		<com.google.android.material.textfield.TextInputEditText
 			android:id="@+id/editMessage"
@@ -95,18 +90,19 @@
 			android:layout_marginStart="8dp"
 			android:layout_marginLeft="8dp"
 			android:background="@android:color/transparent"
-			android:hint="@string/type_text"
-			android:isScrollContainer="true"
-			android:scrollbars="vertical"
-			android:maxLines="6"
-			android:inputType="textMultiLine|textCapSentences"
 			android:focusable="true"
+			android:hint="@string/type_text"
+			android:inputType="textMultiLine|textCapSentences"
+			android:isScrollContainer="true"
+			android:maxLines="6"
+			android:padding="12dp"
 			android:paddingStart="16dp"
 			android:paddingLeft="16dp"
 			android:paddingTop="8dp"
 			android:paddingEnd="16dp"
 			android:paddingRight="16dp"
 			android:paddingBottom="8dp"
+			android:scrollbars="vertical"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toStartOf="@id/imageAttachment"
 			app:layout_constraintStart_toStartOf="parent" />
