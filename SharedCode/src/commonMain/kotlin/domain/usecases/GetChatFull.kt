@@ -13,7 +13,7 @@ import org.kotlin.mpp.mobile.domain.model.Success
 class GetChatFull(private val chatFullRepository: ChatFullRepository) : UseCase<ChatFull, ChatFullRequest>() {
     override suspend fun run(params: ChatFullRequest): Either<Exception, ChatFull> {
         return try {
-            val response = chatFullRepository.getChatFull(params.token, params.chatId, params.connection)
+            val response = chatFullRepository.getChatFull(params.token, params.chatId, params.connection, params.cached)
             Success(response)
         } catch (e: Exception) {
             Failure(e)

@@ -1,8 +1,7 @@
 package org.kotlin.mpp.mobile.data.entity
 
-class ChatFullRequest(
-    val token: String,
-    val chatId: Int,
+class ChatListRequest (
+    var token: String,
     val connection: Boolean,
     val cached: Boolean
 )

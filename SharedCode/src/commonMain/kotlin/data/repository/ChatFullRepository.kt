@@ -10,7 +10,14 @@ class ChatFullRepository(
     private val chatFullApi: ChatFullApi,
     private val chatFullDao: ChatFullDao
 ) {
-    suspend fun getChatFull(token: String, chatId: Int, connection: Boolean): ChatFull {
+    suspend fun getChatFull(token: String, chatId: Int, connection: Boolean, cached: Boolean): ChatFull {
+        if (cached) {
+            return try {
+                selectFromDb(chatId)
+            } catch (e: Exception) {
+                fetchChatFull(token, chatId)
+            }
+        }
         return if (connection) {
             try {
                 log("Chat", "api")

@@ -37,7 +37,7 @@ class ChatPresenter(
     override fun onViewAttached(view: ChatView) {
         super.onViewAttached(view)
         token = view.token()
-        loadChat(view.getConnection())
+        loadCachedChat(view.getConnection())
     }
 
     override fun onViewDetached() {
@@ -70,10 +70,20 @@ class ChatPresenter(
             )
         }
     }
-    fun loadChat(connection: Boolean) {
+
+    private fun loadCachedChat(connection: Boolean) {
         scope.launch {
             getChatFull(
-                params = ChatFullRequest(token, chatId, connection),
+                params = ChatFullRequest(token, chatId, connection, true),
+                onSuccess = { view?.showChat(it); log("Chat", "onSuccess") ; loadChat(connection)},
+                onFailure = { view?.showChatLoadError(it) }
+            )
+        }
+    }
+    private fun loadChat(connection: Boolean) {
+        scope.launch {
+            getChatFull(
+                params = ChatFullRequest(token, chatId, connection, false),
                 onSuccess = { view?.showChat(it); log("Chat", "onSuccess") ; subscribeToSocket() },
                 onFailure = { view?.showChatLoadError(it) }
             )

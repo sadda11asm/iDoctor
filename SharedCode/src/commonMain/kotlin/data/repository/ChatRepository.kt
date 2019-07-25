@@ -10,7 +10,14 @@ class ChatRepository(
     private val chatShortDao: ChatShortDao
 ) {
 
-    suspend fun getChatList(token: String, connection: Boolean):List<Chat> {
+    suspend fun getChatList(token: String, connection: Boolean, cached: Boolean):List<Chat> {
+        if (cached) {
+            return try{
+                selectFromDb()
+            } catch (e: Exception) {
+                fetchChatList(token)
+            }
+        }
         return if (connection) {
             try {
                fetchChatList(token)
