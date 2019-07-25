@@ -51,7 +51,7 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
             recyclerChats.visibility = View.INVISIBLE
             chatListProgress.visibility = View.VISIBLE
 
-            presenter.onLoadChats(
+            presenter.onLoadCachedChats(
                 Hawk.get<String>("access_token"),
                 getNetworkConnection(activity))
         } else {
@@ -87,7 +87,7 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
     }
 
 
-    fun setSwipeListener() {
+    private fun setSwipeListener() {
         chatListSwipe.setOnRefreshListener {
             presenter.onLoadChats(
                 Hawk.get<String>("access_token"),
