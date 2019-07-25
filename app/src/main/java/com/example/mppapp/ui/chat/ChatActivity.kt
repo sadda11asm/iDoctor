@@ -75,6 +75,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     override fun showMessage(message: Message) {
         adapter.addMessage(message)
+        recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
     }
 
     override fun showChat(chatFull: ChatFull) {
@@ -99,6 +100,9 @@ class ChatActivity : AppCompatActivity(), ChatView {
             Log.d("Messages", "TOTAL: ${layoutManager.itemCount}")
             Log.d("Messages", "VISIBLE: ${layoutManager.childCount}")
             Log.d("Messages", "-----------------------------")
+            if(layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
+                recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
+            }
         }
         editMessage.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
