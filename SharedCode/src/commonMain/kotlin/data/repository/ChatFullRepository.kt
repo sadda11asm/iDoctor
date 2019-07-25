@@ -12,7 +12,11 @@ class ChatFullRepository(
 ) {
     suspend fun getChatFull(token: String, chatId: Int, connection: Boolean, cached: Boolean): ChatFull {
         if (cached) {
-            return selectFromDb(chatId)
+            return try {
+                selectFromDb(chatId)
+            } catch (e: Exception) {
+                fetchChatFull(token, chatId)
+            }
         }
         return if (connection) {
             try {
