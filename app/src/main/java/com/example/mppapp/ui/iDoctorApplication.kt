@@ -18,9 +18,5 @@ class iDoctorApplication : Application() {
         Stetho.initializeWithDefaults(this)
 
         Hawk.init(this).build()
-
-        GlobalScope.launch {
-            ServiceLocator.sockets.sendMess()
-        }
     }
 }
