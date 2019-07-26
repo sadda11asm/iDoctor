@@ -94,6 +94,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     private fun setListeners() {
         imageSend.setOnClickListener { sendMessage() }
+        fabDown.setOnClickListener { recyclerMessages.smoothScrollToPosition(adapter.itemCount - 1) }
         recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             if(layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
                 recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
@@ -143,14 +144,21 @@ class ChatActivity : AppCompatActivity(), ChatView {
         adapter = MessageAdapter(this, messages, userId)
         recyclerMessages.layoutManager = layoutManager
         recyclerMessages.adapter = adapter
+        recyclerMessages.addOnScrollListener(object : FabScrollListener(layoutManager) {
+            override fun changeFabState(isLastItem: Boolean) {
+                if(isLastItem) {
+                    fabDown.hide()
+                } else {
+                    fabDown.show()
+                }
+            }
+        })
     }
 
     private fun loadIntoAvatar() {
         val avatar = "$BASE_URL${intent.getStringExtra(EXTRA_AVATAR)}"
         Glide.with(this)
             .load(avatar)
-//            .apply(RequestOptions.circleCropTransform())
-//            .transition(DrawableTransitionOptions.withCrossFade())
             .error(R.drawable.default_avatar)
             .into(imageAvatar)
     }
