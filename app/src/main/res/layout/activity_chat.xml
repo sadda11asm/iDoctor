@@ -19,7 +19,7 @@
 		app:layout_constraintTop_toTopOf="parent"
 		app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-		<ImageView
+		<de.hdodenhof.circleimageview.CircleImageView
 			android:id="@+id/imageAvatar"
 			android:layout_width="42dp"
 			android:layout_height="42dp" />

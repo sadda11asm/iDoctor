@@ -95,11 +95,6 @@ class ChatActivity : AppCompatActivity(), ChatView {
     private fun setListeners() {
         imageSend.setOnClickListener { sendMessage() }
         recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            Log.d("Messages", "LAST ITEM: ${layoutManager.findLastVisibleItemPosition()}")
-            Log.d("Messages", "FIRST ITEM: ${layoutManager.findFirstVisibleItemPosition()}")
-            Log.d("Messages", "TOTAL: ${layoutManager.itemCount}")
-            Log.d("Messages", "VISIBLE: ${layoutManager.childCount}")
-            Log.d("Messages", "-----------------------------")
             if(layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
                 recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
             }
@@ -154,8 +149,8 @@ class ChatActivity : AppCompatActivity(), ChatView {
         val avatar = "$BASE_URL${intent.getStringExtra(EXTRA_AVATAR)}"
         Glide.with(this)
             .load(avatar)
-            .apply(RequestOptions.circleCropTransform())
-            .transition(DrawableTransitionOptions.withCrossFade())
+//            .apply(RequestOptions.circleCropTransform())
+//            .transition(DrawableTransitionOptions.withCrossFade())
             .error(R.drawable.default_avatar)
             .into(imageAvatar)
     }
@@ -170,12 +165,10 @@ class ChatActivity : AppCompatActivity(), ChatView {
         return getNetworkConnection(this)
     }
 
-
     companion object {
         const val EXTRA_CHAT_ID = "extra_chat_id"
         const val EXTRA_AVATAR = "extra_avatar"
         const val EXTRA_CHAT_SIZE = "extra_chat_size"
-
 
         fun open(context: Context, chatId: Int) {
             val intent = Intent(context, ChatActivity::class.java)
