@@ -45,16 +45,24 @@ object ServiceLocator {
      *  Socket
      */
 
+    var listener : SocketListener? = null
+
+    fun setSocketListener(listenPresenter: SocketListener?) {
+        listener = listenPresenter
+    }
+
+
     val sockets by lazy {Sockets(PlatformServiceLocator.cioEngine)}
 
-    val subscribe by lazy {Subscribe(sockets)}
+//    val subscribe by lazy {Subscribe(sockets)}
 
-    val unsubscribe by lazy {Unsubscribe(sockets)}
+//    val unsubscribe by lazy {Unsubscribe(sockets)}
 
 
     /**
      * Load doctors
      */
+
 
     val doctorApi by lazy { DoctorApi(PlatformServiceLocator.httpClientEngine) }
 
@@ -67,6 +75,13 @@ object ServiceLocator {
     /**
     * Get User
     */
+
+    /**
+     * Save Chat
+     */
+
+    val saveChat: SaveChat
+        get() = SaveChat(chatRepository)
 
     val userApi by lazy {UserApi(PlatformServiceLocator.httpClientEngine)}
 
@@ -103,7 +118,7 @@ object ServiceLocator {
         get() = GetChatFull(chatFullRepository)
 
     val chatPresenter: ChatPresenter
-        get() = ChatPresenter(getChatFull, sendMessage, subscribe, unsubscribe, markMessageAsRead)
+        get() = ChatPresenter(getChatFull, sendMessage, receiveMessage, markMessageAsRead)
 
     /**
      * Get chat list
@@ -119,7 +134,8 @@ object ServiceLocator {
         get() = GetChatList(chatRepository)
 
     val chatListPresenter: ChatListPresenter
-        get() = ChatListPresenter(getChatList)
+        get() = ChatListPresenter(getChatList, receiveMessage, saveChat)
+
 
     /**
      * Send message
@@ -133,6 +149,15 @@ object ServiceLocator {
 
     val sendMessage: SendMessage
         get() = SendMessage(messageRepository)
+
+
+    /**
+     * Receive message
+     */
+
+    val receiveMessage : ReceiveMessage
+        get() = ReceiveMessage(messageRepository)
+
 
     /**
      * Mark message as Read

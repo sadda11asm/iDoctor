@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
 data class Chat(
     val id: Int,
     val title: String?,
-    @SerialName("updated") var updated: String?,
+    @SerialName("updated_at") var updated: String?,
     val isAnonymous: Int,
     val members: List<Member>,
     val lastMessage: LastMessage?,

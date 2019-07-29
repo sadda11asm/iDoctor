@@ -13,8 +13,10 @@ class ChatRepository(
     suspend fun getChatList(token: String, connection: Boolean, cached: Boolean):List<Chat> {
         if (cached) {
             return try{
+                log("ChatList", "KEKUS")
                 selectFromDb()
             } catch (e: Exception) {
+                log("ChatList", e.toString())
                 fetchChatList(token)
             }
         }
@@ -22,7 +24,7 @@ class ChatRepository(
             try {
                fetchChatList(token)
             } catch (e: Exception) {
-                log("chatRepository", e.toString())
+                log("ChatList", e.toString())
                 selectFromDb()
             }
 
@@ -33,8 +35,8 @@ class ChatRepository(
 
 
     private suspend fun fetchChatList(token: String): List<Chat> {
+        log("CHATList", "API")
         val result = chatListApi.getChatList(token).toMutableList()
-        log("CHATLIST", result.toString())
         for (chat in result) {
             chatShortDao.insert(chat)
         }
@@ -43,9 +45,15 @@ class ChatRepository(
     }
 
     private fun selectFromDb(): List<Chat> {
+        log("ChatList", "DB")
         val chats = chatShortDao.selectAll().toMutableList()
         chats.sortByDescending { it.lastMessage?.updatedAt }
-        log("ChatRepository", chats.toString())
+        log("ChatList", chats.toString())
         return chats
+    }
+
+
+    fun saveChat(chat: Chat) {
+        chatShortDao.insert(chat)
     }
 }

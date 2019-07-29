@@ -1,6 +1,7 @@
 package org.kotlin.mpp.mobile.presentation.doctorlist
 
 import kotlinx.coroutines.launch
+import org.kotlin.mpp.mobile.SocketListener
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import org.kotlin.mpp.mobile.data.entity.DoctorRequest
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
@@ -12,7 +13,7 @@ import kotlin.coroutines.CoroutineContext
 class DoctorListPresenter(
     private val getDoctors: GetDoctors,
     private val coroutineContext: CoroutineContext = defaultDispatcher
-) : BasePresenter<DoctorListView>(coroutineContext) {
+) : BasePresenter<DoctorListView>(coroutineContext), SocketListener {
 
     private val token by lazy { view!!.token() }
 

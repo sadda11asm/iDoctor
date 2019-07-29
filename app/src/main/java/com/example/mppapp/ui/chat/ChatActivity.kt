@@ -45,17 +45,18 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
         Slidr.attach(this)
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        log("Sockets", "START2")
+        ServiceLocator.setSocketListener(presenter)
         presenter.attachView(this)
     }
 
     override fun onStop() {
         super.onStop()
         presenter.detachView()
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        presenter.attachView(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

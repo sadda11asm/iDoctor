@@ -5,6 +5,7 @@ import data.db.MessageDao
 import data.entity.MessageResponse
 import data.entity.SendMessageRequest
 import data.entity.UserFull
+import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.util.log
 
 class MessageRepository (
@@ -14,7 +15,7 @@ class MessageRepository (
     suspend fun sendMessage(request: SendMessageRequest): MessageResponse {
         try {
             val response = messageApi.sendMessage(request)
-            insertToDb(request, response.messageId)
+            saveMessage(Message(response.messageId, request.userId, request.messageText))
             return response
         } catch (e: Exception) {
             throw Exception(e.message)
@@ -22,9 +23,9 @@ class MessageRepository (
     }
 
 
-    private fun insertToDb(request: SendMessageRequest, id: Int) {
-        log("SEND", request.toString())
-        messageDao.insert(request, id)
-        messageDao.insertLastMes(request, id)
+    fun saveMessage(mes: Message) {
+        log("SEND", mes.toString())
+        messageDao.insert(mes)
+        messageDao.insertLastMes(mes)
     }
 }

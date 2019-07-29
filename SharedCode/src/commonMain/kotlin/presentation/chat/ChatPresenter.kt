@@ -10,8 +10,7 @@ import org.kotlin.mpp.mobile.data.entity.ChatFullRequest
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
 import org.kotlin.mpp.mobile.domain.usecases.GetChatFull
-import org.kotlin.mpp.mobile.domain.usecases.Subscribe
-import org.kotlin.mpp.mobile.domain.usecases.Unsubscribe
+import org.kotlin.mpp.mobile.domain.usecases.ReceiveMessage
 import org.kotlin.mpp.mobile.presentation.BasePresenter
 import util.getTimeZoneOffset
 import org.kotlin.mpp.mobile.util.log
@@ -22,8 +21,7 @@ import kotlin.math.log
 class ChatPresenter(
     private val getChatFull: GetChatFull,
     private val sendMessage: SendMessage,
-    private val subscribe: Subscribe,
-    private val unsubscribe: Unsubscribe,
+    private val receiveMessage: ReceiveMessage,
     private val markMessageAsRead: MarkMessageAsRead,
     private val coroutineContext: CoroutineContext = defaultDispatcher
 ) : BasePresenter<ChatView>(coroutineContext), SocketListener {
@@ -40,43 +38,52 @@ class ChatPresenter(
         loadCachedChat(view.getConnection())
     }
 
-    override fun onViewDetached() {
-        super.onViewDetached()
-        unsubscribeFromSocket()
-    }
 
-
-    override fun onMessage(mes: String) {
-        view?.showMessage(Message(1000, 1000, mes, "2019-07-24T15:30:20"))
-    }
-
-    private fun subscribeToSocket() {
-        val listener = this
-        scope.launch {
-            subscribe(
-                listener,
-                onSuccess = {},
-                onFailure = {log("Sockets", it.message!!)}
-            )
+    override fun onMessage(mes: Message) {
+        if (mes.chatId == chatId) {
+            view?.showMessage(mes)
+            scope.launch {
+                receiveMessage(
+                    mes,
+                    onSuccess = {},
+                    onFailure = { log("Sockets", it.message!!) }
+                )
+            }
         }
     }
 
-    private fun unsubscribeFromSocket() {
-        scope.launch {
-            unsubscribe(
-                UseCase.None,
-                onSuccess = {},
-                onFailure = {log("UNSUBSCRIBE", it.message!!)}
-            )
-        }
-    }
+//    private fun subscribeToSocket() {
+//        if (SUBSCRIBED) return
+//        SUBSCRIBED = true
+//        val listener = this
+//        scope.launch {
+//            subscribe(
+//                listener,
+//                onSuccess = {},
+//                onFailure = {log("Sockets", it.message!!)}
+//            )
+//        }
+//    }
+
+//    private fun unsubscribeFromSocket() {
+//        SUBSCRIBED = false
+//        scope.launch {
+//            unsubscribe(
+//                UseCase.None,
+//                onSuccess = {},
+//                onFailure = {log("UNSUBSCRIBE", it.message!!)}
+//            )
+//        }
+//    }
 
     private fun loadCachedChat(connection: Boolean) {
         scope.launch {
             getChatFull(
                 params = ChatFullRequest(token, chatId, connection, true),
                 onSuccess = { view?.showChat(it); log("Chat", "onSuccess") ; loadChat(connection)},
-                onFailure = { view?.showChatLoadError(it) }
+                onFailure = {
+                    log("Chat", it.message!!)
+                    view?.showChatLoadError(it) }
             )
         }
     }
@@ -84,8 +91,10 @@ class ChatPresenter(
         scope.launch {
             getChatFull(
                 params = ChatFullRequest(token, chatId, connection, false),
-                onSuccess = { view?.showChat(it); log("Chat", "onSuccess") ; subscribeToSocket() },
-                onFailure = { view?.showChatLoadError(it) }
+                onSuccess = { view?.showChat(it); log("Chat", "onSuccess") },
+                onFailure = {
+                    log("Chat", it.message!!)
+                    view?.showChatLoadError(it) }
             )
         }
     }

@@ -14,9 +14,10 @@ import com.example.mppapp.util.getName
 import com.example.mppapp.util.getUserId
 import data.entity.Chat
 import kotlinx.android.synthetic.main.item_chat_list.view.*
+import org.kotlin.mpp.mobile.data.entity.Message
 
 class ChatAdapter(
-    private val chats: List<Chat>,
+    private val chats: MutableList<Chat>,
     private val context: Context,
     private val itemClickListener: ItemClickListener<Chat>
 ) : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
@@ -37,6 +38,11 @@ class ChatAdapter(
     }
 
     override fun getItemCount() = chats.size
+
+    fun addChat(chat: Chat) {
+        chats.add(chat)
+        notifyItemInserted(chats.size - 1)
+    }
 
 
     inner class ChatHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

@@ -23,7 +23,6 @@ const val AUTH_TOKEN = "/token"
  * CHAT URLs
  */
 
-const val CHAT_URL = "statistic.idoctor.kz"
 const val API_CHAT = "/chat"
 const val CHAT_MESSAGE = "/message"
 const val CHAT_READ = "/read"
