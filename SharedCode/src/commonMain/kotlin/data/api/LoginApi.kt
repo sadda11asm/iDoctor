@@ -14,6 +14,9 @@ import io.ktor.http.URLProtocol
 import kotlinx.serialization.json.Json
 import org.kotlin.mpp.mobile.data.entity.AuthorizationRequest
 import org.kotlin.mpp.mobile.data.entity.AuthorizationResponse
+import org.kotlin.mpp.mobile.util.constants.AUTH_TOKEN
+import org.kotlin.mpp.mobile.util.constants.AUTH_URL
+import org.kotlin.mpp.mobile.util.log
 
 class LoginApi(engine: HttpClientEngine) {
 
@@ -28,8 +31,8 @@ class LoginApi(engine: HttpClientEngine) {
         val response = client.post<HttpResponse> {
             url {
                 protocol = URLProtocol.HTTPS
-                host = BASE_URL
-                encodedPath = ENCODED_PATH
+                host = AUTH_URL
+                encodedPath = AUTH_TOKEN
             }
             body = json.write(AuthorizationRequest(CLIENT_ID, username, password))
             accept(ContentType.Application.Json)
@@ -39,8 +42,6 @@ class LoginApi(engine: HttpClientEngine) {
     }
 
     companion object {
-        private const val BASE_URL = "cabinet.idoctor.kz/oauth/token"
-        private const val ENCODED_PATH = ""
         private const val CLIENT_ID = 13
     }
 }

@@ -39,19 +39,17 @@ class DoctorListPresenter(
     }
 
     fun refreshDoctors() {
-        log(value = "DoctorListPresenter: refreshDoctors()")
         page = 1
         scope.launch {
             getDoctors(
                 params = DoctorRequest(token, page),
                 onSuccess = { onDoctorsRefreshSuccess(it.data) },
-                onFailure = { view?.showRefreshingFailed(); log(value = "DoctorListPresenter: onFailure()") }
+                onFailure = { view?.showRefreshingFailed() }
             )
         }
     }
 
     private fun onDoctorsRefreshSuccess(doctors: MutableList<Doctor>) {
-        log(value = "DoctorListPresenter: onDoctorsRefreshSuccess() - $doctors")
         view?.showRefreshedDoctors(doctors)
         isFirstLoad = false
         page++

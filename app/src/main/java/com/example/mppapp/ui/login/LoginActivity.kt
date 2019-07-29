@@ -1,70 +1,39 @@
 package com.example.mppapp.ui.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.crashlytics.android.Crashlytics
 import com.example.mppapp.R
-import com.example.mppapp.databinding.ActivityLoginBinding
 import com.example.mppapp.ui.MainActivity
-import com.example.mppapp.util.putAuthResponse
+import com.example.mppapp.util.getNetworkConnection
+import com.example.mppapp.util.isTokenPresent
+import com.example.mppapp.util.putToken
 import com.example.mppapp.util.putUser
-import com.orhanobut.hawk.Hawk
 import data.entity.UserFull
 import io.fabric.sdk.android.Fabric
+import kotlinx.android.synthetic.main.activity_login.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.AuthorizationResponse
 import org.kotlin.mpp.mobile.presentation.login.LoginView
 
 class LoginActivity: AppCompatActivity(), LoginView {
 
-    private val logTag = LoginActivity::class.java.simpleName
-
     private val presenter by lazy { ServiceLocator.loginPresenter }
-    private lateinit var binding: ActivityLoginBinding
-
-
-    override fun showLoadingVisible(visible: Boolean) {
-        if (visible) {
-            binding.progressBar.visibility = View.VISIBLE
-            binding.loginSection.visibility = View.INVISIBLE
-        } else {
-            binding.progressBar.visibility = View.INVISIBLE
-            binding.loginSection.visibility = View.VISIBLE
-        }
-    }
-
-    override fun showFailedLogin(e: Exception) {
-        Log.v("LoginActivity", e.toString())
-        Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
-    }
-
-    override fun showSuccessfulLogin(response: AuthorizationResponse, user: UserFull) {
-        putAuthResponse(response)
-        putUser(user)
-        MainActivity.open(this)
-        finish()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
 
         Fabric.with(this, Crashlytics())
 
-        if (Hawk.contains("access_token")) {
+        if (isTokenPresent()) {
             MainActivity.open(this)
             finish()
             return
         }
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-
-        initListeners(binding)
-
-
+        setListeners()
     }
 
     override fun onStart() {
@@ -78,13 +47,48 @@ class LoginActivity: AppCompatActivity(), LoginView {
 
     }
 
-    private fun initListeners(binding: ActivityLoginBinding) {
-        binding.authorizationButtonEnter.setOnClickListener {
-            showLoadingVisible(true)
-            presenter.onLogin(
-                binding.authorizationTextLogin.text.toString(),
-                binding.authorizationTextPass.text.toString()
-            )
-        }
+    private fun setListeners() {
+        buttonEnter.setOnClickListener { presenter.login(
+            editLogin.text.toString(),
+            editPassword.text.toString()
+        ) }
+    }
+
+    override fun isConnectedToNetwork() = getNetworkConnection(this)
+
+    override fun showErrorNoConnection() {
+        Toast.makeText(this, R.string.login_no_connection, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showErrorEmptyFields() {
+        Toast.makeText(this, R.string.login_empty_fields, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showErrorInvalidData() {
+        Toast.makeText(this, R.string.login_invalid_data, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showLoader() {
+        progressLogin.visibility = View.VISIBLE
+        buttonEnter.alpha = 0.7F
+        buttonEnter.text = null
+        buttonEnter.isClickable = false
+    }
+
+    override fun hideLoader() {
+        progressLogin.visibility = View.GONE
+        buttonEnter.alpha = 1.0F
+        buttonEnter.text = resources.getString(R.string.signin)
+        buttonEnter.isClickable = true
+    }
+
+    override fun cacheAuthInfo(response: AuthorizationResponse, user: UserFull) {
+        putToken(response)
+        putUser(user)
+    }
+
+    override fun openMainPage() {
+        MainActivity.open(this)
+        finish()
     }
 }
