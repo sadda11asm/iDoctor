@@ -2,6 +2,7 @@ package org.kotlin.mpp.mobile.presentation.login
 
 import data.entity.UserFull
 import domain.usecases.GetUserInfo
+import io.ktor.client.features.ClientRequestException
 import kotlinx.coroutines.launch
 import org.kotlin.mpp.mobile.data.entity.AuthorizationResponse
 import org.kotlin.mpp.mobile.data.entity.User
@@ -13,42 +14,50 @@ import kotlin.coroutines.CoroutineContext
 class LoginPresenter(
     private val authorizeUser: AuthorizeUser,
     private val getUserInfo: GetUserInfo,
-    coroutineContext: CoroutineContext = defaultDispatcher
-): BasePresenter<LoginView>(coroutineContext) {
+    private val coroutineContext: CoroutineContext = defaultDispatcher
+) : BasePresenter<LoginView>(coroutineContext) {
 
-    override fun onViewAttached(view: LoginView) {
-        super.onViewAttached(view)
-        view.showLoadingVisible(false)
+    fun login(username: String, password: String) {
+        if(!isValid(username, password)) {
+            view?.showErrorEmptyFields()
+        } else if(!view!!.isConnectedToNetwork()) {
+            view?.showErrorNoConnection()
+        } else {
+            makeLoginRequest(username, password)
+        }
     }
 
-    fun onLogin(username: String, password: String) {
+    private fun makeLoginRequest(username: String, password: String) {
+        view?.showLoader()
         scope.launch {
             authorizeUser(
-                User(
-                    username,
-                    password
-                ),
+                params = User(username, password),
                 onSuccess = { getUserInfo(it) },
-//                onSuccess = { view?.showSuccessfulLogin(it, null) },
-                onFailure = { view?.showFailedLogin(it) }
+                onFailure = { onLoginFailure() }
             )
         }
     }
 
-    fun getUserInfo(response: AuthorizationResponse) {
+    private fun getUserInfo(response: AuthorizationResponse) {
         scope.launch {
             getUserInfo(
-                response.access_token,
-                onSuccess = { view?.showSuccessfulLogin(response, it)},
-                onFailure = {view?.showFailedLogin(it)}
+                params = response.accessToken,
+                onSuccess = { onGetUserInfoSuccess(response, it) },
+                onFailure = { onLoginFailure() }
             )
         }
     }
-}
 
-interface LoginView {
-    fun showLoadingVisible(visible: Boolean)
-    fun showFailedLogin(e: Exception)
-    fun showSuccessfulLogin(response: AuthorizationResponse, user: UserFull)
+    private fun onLoginFailure() {
+        // TODO add logic to distinguish between invalid data & server error
+        view?.hideLoader()
+        view?.showErrorInvalidData()
+    }
 
+    private fun onGetUserInfoSuccess(response: AuthorizationResponse, user: UserFull) {
+        view?.cacheAuthInfo(response, user)
+        view?.openMainPage()
+    }
+
+    private fun isValid(username: String, password: String) = username.isNotEmpty() && password.isNotEmpty()
 }

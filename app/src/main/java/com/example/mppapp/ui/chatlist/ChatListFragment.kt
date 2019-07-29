@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mppapp.R
 import com.example.mppapp.ui.chat.ChatActivity
 import com.example.mppapp.util.ItemClickListener
+import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getNetworkConnection
 import com.orhanobut.hawk.Hawk
 import data.entity.Chat
@@ -52,7 +53,7 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
             chatListProgress.visibility = View.VISIBLE
 
             presenter.onLoadCachedChats(
-                Hawk.get<String>("access_token"),
+                getAccessToken(),
                 getNetworkConnection(activity))
         } else {
             recyclerChats.visibility = View.VISIBLE
@@ -90,7 +91,7 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
     private fun setSwipeListener() {
         chatListSwipe.setOnRefreshListener {
             presenter.onLoadChats(
-                Hawk.get<String>("access_token"),
+                getAccessToken(),
                 getNetworkConnection(activity))
         }
     }

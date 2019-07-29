@@ -7,6 +7,7 @@ import org.kotlin.mpp.mobile.data.entity.User
 import org.kotlin.mpp.mobile.domain.model.Either
 import org.kotlin.mpp.mobile.domain.model.Failure
 import org.kotlin.mpp.mobile.domain.model.Success
+import org.kotlin.mpp.mobile.util.log
 
 class AuthorizeUser(private val loginApi: LoginApi): UseCase<AuthorizationResponse, User>() {
     override suspend fun run(params: User): Either<Exception, AuthorizationResponse> {
@@ -14,6 +15,7 @@ class AuthorizeUser(private val loginApi: LoginApi): UseCase<AuthorizationRespon
             val response = loginApi.authorizeUser(params.username, params.password)
             Success(response)
         } catch (e: Exception) {
+            log("Login", "AuthorizeUser ${e.toString()}")
             Failure(e)
         }
     }

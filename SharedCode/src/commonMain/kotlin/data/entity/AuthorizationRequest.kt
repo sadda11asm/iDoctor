@@ -1,14 +1,14 @@
 package org.kotlin.mpp.mobile.data.entity
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
 @Serializable
 data class AuthorizationRequest(
-    // TODO change property names in accordance with convention
-    val client_id: Int,
+    @SerialName("client_id") val clientId: Int,
     val username: String,
     val password: String,
-    val grant_type: String = "password",
+    @SerialName("grant_type") val grantType: String = "password",
     val scope: String = "*"
 )

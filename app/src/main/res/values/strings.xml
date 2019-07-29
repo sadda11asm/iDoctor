@@ -8,6 +8,11 @@
 	<string name="forgotpass">
 		<u>Забыли пароль?</u>
 	</string>
+
+	<string name="login_no_connection">Нет подключения к интернету. Попробуйте позже.</string>
+	<string name="login_empty_fields">Поля Логин и Пароль не могут быть пустыми</string>
+	<string name="login_invalid_data">Неправильный логин или пароль</string>
+
 	<string name="signin">Войти</string>
 	<string name="address">Адрес приема:</string>
 	<string name="medcenter">Мед. центр:</string>
