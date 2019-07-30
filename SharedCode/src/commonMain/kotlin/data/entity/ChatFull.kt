@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class ChatFull(
     var id: Int,
     val title: String?,
-    var updated: String,
+    @SerialName("updated_at") var updated: String,
     @SerialName("isAnonymous") var anonymous: Int,
     var avatar: String?,
     val members: MutableList<Member>,

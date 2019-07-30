@@ -33,7 +33,7 @@ class ChatFullApi(engine: HttpClientEngine) {
         val response = client.get<HttpResponse> {
             url {
                 protocol = URLProtocol.HTTP // TODO change to HTTPS (future)
-                host = CHAT_URL
+                host = TEMP_URL
                 encodedPath = "$API_CHAT/$chatId"
                 header(HEADER_CONTENT, CONTENT_TYPE)
                 header(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")

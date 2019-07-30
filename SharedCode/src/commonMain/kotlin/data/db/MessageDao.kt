@@ -1,17 +1,18 @@
 package data.db
 
 import data.entity.SendMessageRequest
+import org.kotlin.mpp.mobile.data.entity.Message
 import util.currentTime
 
 class MessageDao (database: MyDatabase) {
     private val dbMes = database.messageModelQueries
     private val dbLast = database.lastMessageModelQueries
 
-    internal fun insert(request: SendMessageRequest, id: Int) {
-        dbMes.insertItem(id.toLong(), request.chatId.toLong(), request.userId.toLong(), request.messageText, currentTime)
+    internal fun insert(mes: Message) {
+        dbMes.insertItem(mes.id.toLong(), mes.chatId!!.toLong(), mes.userId.toLong(), mes.text, mes.createdAt)
     }
 
-    internal fun insertLastMes(request: SendMessageRequest, id: Int) {
-        dbLast.insertItem(id.toLong(), request.chatId.toLong(),request.userId.toLong(), request.messageText, currentTime, currentTime)
+    internal fun insertLastMes(mes: Message) {
+        dbLast.insertItem(mes.id.toLong(), mes.chatId!!.toLong(),mes.userId.toLong(), mes.text, mes.createdAt, currentTime)
     }
 }

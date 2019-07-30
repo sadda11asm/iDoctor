@@ -30,8 +30,12 @@ actual fun getTimeZoneOffset(): Long {
 }
 
 actual fun convertTime(time: String?): String {
-    val pattern = "yyyy-MM-dd'T'kk:mm:ss"
-    val date = SimpleDateFormat(pattern, Locale.US).parse(time)
+    val pattern = "yyyy-MM-dd'T'kk:mm:ss" // TODO return back:
+    val date = try {
+         SimpleDateFormat(pattern, Locale.US).parse(time)
+    } catch (e: Exception) {
+        SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.US).parse(time)
+    }
     val newDate = SimpleDateFormat(pattern, Locale.US).format(date.time + getTimeZoneOffset() * 60 * 60 * 1000)
     return newDate.toString()
 }

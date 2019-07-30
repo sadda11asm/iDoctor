@@ -7,7 +7,8 @@ import util.currentTime
 @Serializable
 data class Message(
     val id: Int,
-    @SerialName("author") val userId: Int,
+    @SerialName("user_id") val userId: Int,
     @SerialName("message") val text: String,
-    @SerialName("created") var createdAt: String? = currentTime
+    @SerialName("created_at") var createdAt: String? = currentTime,
+    @SerialName("chat_id") var chatId: Int? = -1
 )

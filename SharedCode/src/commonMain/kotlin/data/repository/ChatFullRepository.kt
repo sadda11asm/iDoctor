@@ -15,6 +15,7 @@ class ChatFullRepository(
             return try {
                 selectFromDb(chatId)
             } catch (e: Exception) {
+                log("Chat", e.message!!)
                 fetchChatFull(token, chatId)
             }
         }
@@ -23,7 +24,7 @@ class ChatFullRepository(
                 log("Chat", "api")
                 fetchChatFull(token, chatId)
             } catch (e: Exception) {
-                log("Chat", e.toString())
+                log("Chat", e.message!!)
                 selectFromDb(chatId)
             }
         }
