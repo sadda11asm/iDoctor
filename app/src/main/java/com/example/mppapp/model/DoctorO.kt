@@ -93,7 +93,7 @@ fun Doctor.to() = DoctorO(
     userId,
     phone,
     email,
-    avatar,
+    avatar?.avatar!!, // TODO refactor??
     city?.to(),
     qualifications.map { it.to() },
     skills.map { it.to() },

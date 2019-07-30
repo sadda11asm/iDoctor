@@ -36,12 +36,12 @@ class DoctorApi(engine: HttpClientEngine) {
                 header(HEADER_CONTENT, CONTENT_TYPE)
                 header(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
                 parameter(PARAM_PAGE, page)
-                parameter(PARAM_ACCOUNT, "HAS")
+//                parameter(PARAM_ACCOUNT, "HAS")
             }
             accept(ContentType.Application.Json)
         }
         val jsonBody = response.readText()
-        log("DoctorList", jsonBody.substring(24000))
+        log(value = jsonBody)
         return Json.nonstrict.parse(DoctorResponse.serializer(), jsonBody)
     }
 }

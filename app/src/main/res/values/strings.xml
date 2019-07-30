@@ -28,4 +28,5 @@
 	<string name="doctors_load_error_message">Произошла ошибка во время загрузки данных. Потяните вниз чтобы попробовать еще раз.</string>
 	<string name="anonymous">Аноним</string>
 	<string name="experience">Стаж %s</string>
+	<string name="search">Поиск</string>
 </resources>

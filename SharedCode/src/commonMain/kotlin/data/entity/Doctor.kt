@@ -13,7 +13,7 @@ data class Doctor(
     @SerialName("user_id") val userId: Long?,
     var phone: String?,
     var email: String?,
-    var avatar: String,
+    var avatar: Avatar?,
     var city: City?,
     val qualifications: List<Qualification>,
     val skills: List<Skill>,
@@ -43,7 +43,7 @@ data class Doctor(
 
     @Optional
     val experience: String
-        get() = (getYear - worksSinceYear.toInt()).toString() + " лет" // TODO refactor
+        get() = (getYear - worksSinceYear.substring(0, 4).toInt()).toString() + " лет" // TODO refactor
 
     @Optional
     val specializations: String?
@@ -76,7 +76,7 @@ data class Doctor(
 
     // TODO replace with string constant
     val imageLink: String
-        get() = "https://cabinet.idoctor.kz$avatar"
+        get() = "https://cabinet.idoctor.kz${avatar?.avatar}"
 
 
 }

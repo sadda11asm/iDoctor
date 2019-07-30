@@ -33,7 +33,7 @@ class DoctorListPresenter(
             getDoctors(
                 params = DoctorRequest(token, page),
                 onSuccess = { onDoctorsLoadSuccess(it.data) },
-                onFailure = { onDoctorsLoadFailure() }
+                onFailure = { onDoctorsLoadFailure(); log(value = "${it.message}") }
             )
         }
     }
