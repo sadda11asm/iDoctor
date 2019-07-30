@@ -7,6 +7,7 @@ import data.entity.SendMessageRequest
 import data.entity.UserFull
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.util.log
+import util.convertTime
 
 class MessageRepository (
     private val messageApi: MessageApi,
@@ -24,6 +25,7 @@ class MessageRepository (
 
 
     fun saveMessage(mes: Message) {
+        mes.createdAt = convertTime(mes.createdAt)
         log("SEND", mes.toString())
         messageDao.insert(mes)
         messageDao.insertLastMes(mes)

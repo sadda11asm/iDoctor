@@ -45,44 +45,50 @@ class Sockets(private val engine: HttpClientEngine) {
 
     suspend fun subscribe() {
         CONNECT = true
-        client.webSocket(
-            method = HttpMethod.Get,
-            host = "ws-chat.idoctor.kz",
-            request = {
-                url.protocol = URLProtocol.WS
-                url.port = 80
-                log("Sockets", "request")
-            }
-        ) {
-            log("Sockets", "zashel")
-            log("Sockets", listener.toString())
-            while (CONNECT && !incoming.isClosedForReceive) {
-                val frame = incoming.receive()
-                log("Sockets", frame.toString())
-                if (frame is Frame.Text) {
-                    val body = frame.readText()
-                    log("Sockets", body)
-                    launch(uiDispatcher) {
-                        log("Sockets", listener.toString())
-                        val channelMes = Json.nonstrict.parse(ChannelMessage.serializer(), body)
-                        when (channelMes.event) {
-                            MESSAGE_ADDED -> {
-                                log("Sockets", MESSAGE_ADDED)
-                                listener?.onMessage(channelMes.data?.message!!)
-                            }
-                            CHAT_CREATED -> {
-                                log("Sockets", CHAT_CREATED)
-                                listener?.onChatCreated(channelMes.data?.chat!!)
-                            }
-                            MESSAGE_WAS_READ -> {
-                                log("Sockets", MESSAGE_WAS_READ)
-                                listener?.onMessageWasRead(channelMes.data?.message!!)
+        try {
+            client.webSocket(
+                method = HttpMethod.Get,
+                host = "ws-chat.idoctor.kz",
+                request = {
+                    url.protocol = URLProtocol.WS
+                    url.port = 80
+                    log("Sockets", "request")
+                }
+            ) {
+                log("Sockets", "zashel")
+                log("Sockets", listener.toString())
+                while (CONNECT) {
+                    val frame = incoming.receive()
+                    log("Sockets", frame.toString())
+                    if (frame is Frame.Text) {
+                        val body = frame.readText()
+                        log("Sockets", body)
+                        launch(uiDispatcher) {
+                            log("Sockets", listener.toString())
+                            val channelMes = Json.nonstrict.parse(ChannelMessage.serializer(), body)
+                            when (channelMes.event) {
+                                MESSAGE_ADDED -> {
+                                    log("Sockets", MESSAGE_ADDED)
+                                    listener?.onMessage(channelMes.data?.message!!)
+                                }
+                                CHAT_CREATED -> {
+                                    log("Sockets", CHAT_CREATED)
+                                    listener?.onChatCreated(channelMes.data?.chat!!)
+                                }
+                                MESSAGE_WAS_READ -> {
+                                    log("Sockets", MESSAGE_WAS_READ)
+                                    listener?.onMessageWasRead(channelMes.data?.message!!)
+                                }
                             }
                         }
                     }
                 }
+                close()
             }
-            close()
+        } catch (e: Exception) {
+            log("Sockets", e.toString())
+            if (CONNECT)
+                subscribe()
         }
     }
 

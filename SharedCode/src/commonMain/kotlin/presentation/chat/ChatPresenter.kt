@@ -41,7 +41,7 @@ class ChatPresenter(
 
     override fun onMessage(mes: Message) {
         if (mes.chatId == chatId) {
-            view?.showMessage(mes)
+            if (mes.userId!=userId) view?.showMessage(mes)
             scope.launch {
                 receiveMessage(
                     mes,
@@ -52,29 +52,6 @@ class ChatPresenter(
         }
     }
 
-//    private fun subscribeToSocket() {
-//        if (SUBSCRIBED) return
-//        SUBSCRIBED = true
-//        val listener = this
-//        scope.launch {
-//            subscribe(
-//                listener,
-//                onSuccess = {},
-//                onFailure = {log("Sockets", it.message!!)}
-//            )
-//        }
-//    }
-
-//    private fun unsubscribeFromSocket() {
-//        SUBSCRIBED = false
-//        scope.launch {
-//            unsubscribe(
-//                UseCase.None,
-//                onSuccess = {},
-//                onFailure = {log("UNSUBSCRIBE", it.message!!)}
-//            )
-//        }
-//    }
 
     private fun loadCachedChat(connection: Boolean) {
         scope.launch {

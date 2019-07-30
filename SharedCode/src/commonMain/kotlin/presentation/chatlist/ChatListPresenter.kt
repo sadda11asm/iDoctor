@@ -24,7 +24,7 @@ class ChatListPresenter(
         scope.launch {
             receiveMessage(
                 mes,
-                onSuccess = { onLoadCachedChats(view?.getToken()!!, false) },
+                onSuccess = { log("Sockets-Saved", "DODO"); onLoadChats(view?.getToken()!!, true) },
                 onFailure = { log("Sockets", it.message!!) }
             )
         }
@@ -81,30 +81,6 @@ class ChatListPresenter(
             )
         }
     }
-
-//    fun subscribeToSocket() {
-//        if (SUBSCRIBED) return
-//        SUBSCRIBED = true
-//        val listener = this
-//        scope.launch {
-//            subscribe(
-//                listener,
-//                onSuccess = {  },
-//                onFailure = { log("Sockets", it.message!!) }
-//            )
-//        }
-//    }
-
-//    fun unsubscribeFromSocket() {
-//        SUBSCRIBED = false
-//        scope.launch {
-//            unsubscribe(
-//                UseCase.None,
-//                onSuccess = {  log("Sockets", "UNSUBSCRIBED") },
-//                onFailure = { log("UNSUBSCRIBE", it.message!!) }
-//            )
-//        }
-//    }
 
 }
 

@@ -1,8 +1,8 @@
 
 
 CREATE TABLE LastMessageModel(
-    id INTEGER UNIQUE NOT NULL,
-    chat_id INTEGER NOT NULL,
+    chat_id INTEGER UNIQUE NOT NULL PRIMARY KEY,
+    id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     message TEXT NOT NULL,
     created_at TEXT DEFAULT NULL,

@@ -4,6 +4,7 @@ import data.api.ChatListApi
 import data.db.ChatShortDao
 import data.entity.Chat
 import org.kotlin.mpp.mobile.util.log
+import util.convertTime
 
 class ChatRepository(
     private val chatListApi: ChatListApi,
@@ -38,6 +39,8 @@ class ChatRepository(
         log("CHATList", "API")
         val result = chatListApi.getChatList(token).toMutableList()
         for (chat in result) {
+            if (chat.lastMessage!=null)
+                chat.lastMessage.updatedAt = convertTime(chat.lastMessage.updatedAt)
             chatShortDao.insert(chat)
         }
         result.sortByDescending { it.lastMessage?.updatedAt }
