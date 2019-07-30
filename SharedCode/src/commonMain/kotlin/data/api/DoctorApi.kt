@@ -41,7 +41,7 @@ class DoctorApi(engine: HttpClientEngine) {
             accept(ContentType.Application.Json)
         }
         val jsonBody = response.readText()
-        log("DoctorList", jsonBody.substring(24000))
+        log(value = jsonBody)
         return Json.nonstrict.parse(DoctorResponse.serializer(), jsonBody)
     }
 }

@@ -8,6 +8,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="searchViewStyle">@style/MainSearchView</item>
     </style>
 
     <style name="Widget.BottomNavigationView"
@@ -15,12 +16,17 @@
         <item name="fontFamily">@font/blogger_sans</item>
     </style>
 
-    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark">
         <item name="fontFamily">@font/blogger_sans_bold</item>
-        <item name="android:textSize">25dp</item>
         <item name="android:layout_gravity">center</item>
+        <item name="colorAccent">#FFFFFF</item>
     </style>
 
+    <style name="MainSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
+        <item name="queryBackground">@color/colorPrimary</item>
+    </style>
+    
     <style name="WhiteAccent" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorAccent">#FFFFFF</item>
     </style>

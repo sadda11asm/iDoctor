@@ -18,4 +18,3 @@ class GetDoctors(private val doctorApi: DoctorApi) : UseCase<DoctorResponse, Doc
         }
     }
 }
-

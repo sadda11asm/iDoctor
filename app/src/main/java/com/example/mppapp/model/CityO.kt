@@ -6,10 +6,9 @@ import java.io.Serializable
 
 data class CityO(
     val name: String,
-    val id: Long,
-    var href: String
+    val id: Long
 ):Serializable
 
 fun City.to() = CityO(
-    name, id, href
+    name, id
 )

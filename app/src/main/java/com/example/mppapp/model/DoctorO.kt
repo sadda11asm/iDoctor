@@ -38,7 +38,7 @@ data class DoctorO(
     var feedbackLink: String
 ) : Serializable {
     val experience: String
-        get() = (getYear - worksSinceYear.toInt()).toString() + " лет"
+        get() = (getYear - worksSinceYear.substring(0, 4).toInt()).toString() + " лет"
 
     val specializations: String
         get() {
@@ -93,7 +93,7 @@ fun Doctor.to() = DoctorO(
     userId,
     phone,
     email,
-    avatar,
+    avatar?.avatar!!, // TODO refactor??
     city?.to(),
     qualifications.map { it.to() },
     skills.map { it.to() },

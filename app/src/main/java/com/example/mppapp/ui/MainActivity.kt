@@ -3,7 +3,9 @@ package com.example.mppapp.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import com.example.mppapp.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,6 +25,14 @@ class MainActivity: AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        val searchItem = menu?.findItem(R.id.action_search)
+        val searchView = searchItem?.actionView as SearchView
+        searchView.queryHint = resources.getString(R.string.search)
+        return true
     }
 
     companion object {
