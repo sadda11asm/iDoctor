@@ -38,10 +38,9 @@ class ChatPresenter(
         loadCachedChat(view.getConnection())
     }
 
-
     override fun onMessage(mes: Message) {
         if (mes.chatId == chatId) {
-            if (mes.userId!=userId) view?.showMessage(mes)
+            if (mes.userId != userId) view?.showMessage(mes)
             scope.launch {
                 receiveMessage(
                     mes,
@@ -52,18 +51,19 @@ class ChatPresenter(
         }
     }
 
-
     private fun loadCachedChat(connection: Boolean) {
         scope.launch {
             getChatFull(
                 params = ChatFullRequest(token, chatId, connection, true),
-                onSuccess = { view?.showChat(it); log("Chat", "onSuccess") ; loadChat(connection)},
+                onSuccess = { view?.showChat(it); log("Chat", "onSuccess"); loadChat(connection) },
                 onFailure = {
                     log("Chat", it.message!!)
-                    view?.showChatLoadError(it) }
+                    view?.showChatLoadError(it)
+                }
             )
         }
     }
+
     private fun loadChat(connection: Boolean) {
         scope.launch {
             getChatFull(
@@ -71,7 +71,8 @@ class ChatPresenter(
                 onSuccess = { view?.showChat(it); log("Chat", "onSuccess") },
                 onFailure = {
                     log("Chat", it.message!!)
-                    view?.showChatLoadError(it) }
+                    view?.showChatLoadError(it)
+                }
             )
         }
     }
@@ -81,8 +82,8 @@ class ChatPresenter(
         scope.launch {
             sendMessage(
                 params = SendMessageRequest(token, chatId, messageText, userId),
-                onSuccess = {log("SEND", currentTime)},
-                onFailure = {log("SEND", it.message!!)}
+                onSuccess = { log("SEND", currentTime) },
+                onFailure = { log("SEND", it.message!!) }
             )
         }
     }

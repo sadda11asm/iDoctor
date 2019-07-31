@@ -31,9 +31,9 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     private val presenter by lazy { ServiceLocator.chatPresenter }
 
-    private lateinit var adapter: MessageAdapter
-
     private val layoutManager = LinearLayoutManager(this)
+
+    private lateinit var adapter: MessageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,6 @@ class ChatActivity : AppCompatActivity(), ChatView {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         Slidr.attach(this)
-
     }
 
     override fun onStart() {
@@ -74,6 +73,8 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     override fun chatSize() = intent.getIntExtra(EXTRA_CHAT_SIZE, 2)
 
+    override fun getConnection() = getNetworkConnection(this)
+
     override fun showMessage(message: Message) {
         adapter.addMessage(message)
         recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
@@ -95,9 +96,9 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     private fun setListeners() {
         imageSend.setOnClickListener { sendMessage() }
-        fabDown.setOnClickListener { recyclerMessages.smoothScrollToPosition(adapter.itemCount - 1) }
+        fabDown.setOnClickListener { recyclerMessages.scrollToPosition(adapter.itemCount - 1) }
         recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            if(layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
+            if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
                 recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
             }
         }
@@ -106,6 +107,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
+            // TODO change logic
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
                 if (count == 1 && before == 0 && start == 0) {
                     setVisibilities(View.VISIBLE, View.GONE, View.GONE)
@@ -123,6 +125,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
 
+    // TODO change logic
     private fun setupToolbar(title: String?) {
         if (chatSize() > 2) {
             textTitle.text = title
@@ -146,11 +149,11 @@ class ChatActivity : AppCompatActivity(), ChatView {
         recyclerMessages.layoutManager = layoutManager
         recyclerMessages.adapter = adapter
         recyclerMessages.addOnScrollListener(object : FabScrollListener(layoutManager) {
-            override fun changeFabState(isLastItem: Boolean) {
-                if(isLastItem) {
-                    fabDown.hide()
-                } else {
+            override fun changeFabState(isNotLastItem: Boolean) {
+                if (isNotLastItem) {
                     fabDown.show()
+                } else {
+                    fabDown.hide()
                 }
             }
         })
@@ -168,10 +171,6 @@ class ChatActivity : AppCompatActivity(), ChatView {
         val messageText = editMessage.text.toString()
         editMessage.text = null
         presenter.sendMessage(messageText)
-    }
-
-    override fun getConnection(): Boolean {
-        return getNetworkConnection(this)
     }
 
     companion object {
