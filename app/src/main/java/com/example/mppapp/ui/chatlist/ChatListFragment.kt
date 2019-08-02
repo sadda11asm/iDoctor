@@ -16,6 +16,7 @@ import com.orhanobut.hawk.Hawk
 import data.entity.Chat
 import kotlinx.android.synthetic.main.fragment_chat_list.*
 import org.kotlin.mpp.mobile.ServiceLocator
+import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.util.log
 import presentation.chatlist.ChatListView
 
@@ -23,12 +24,13 @@ import presentation.chatlist.ChatListView
 class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
 
 
-
     private val TAG = "ChatListFragment"
 
     private val presenter by lazy { ServiceLocator.chatListPresenter }
 
-    private lateinit var adapter: ChatAdapter
+    private val adapter by lazy { ChatAdapter(context!!, this) }
+
+    private val layoutManager by lazy { LinearLayoutManager(context) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_chat_list, container, false)
@@ -39,9 +41,13 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
 
         activity?.title = "Чаты" // TODO change to resourse inv
 
+        recyclerChats.layoutManager = layoutManager
+        recyclerChats.adapter = adapter
         setSwipeListener()
-    }
+        log("Sockets", "ONCREATED1")
 
+
+    }
 
 
     override fun onClick(data: Chat) {
@@ -57,7 +63,8 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
 
             presenter.onLoadCachedChats(
                 getAccessToken(),
-                getNetworkConnection(activity))
+                getNetworkConnection(activity)
+            )
         } else {
             recyclerChats.visibility = View.VISIBLE
             chatListProgress.visibility = View.INVISIBLE
@@ -69,23 +76,32 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
 
     override fun onStart() {
         super.onStart()
-        ServiceLocator.setSocketListener(presenter)
         presenter.attachView(this)
+        log("Sockets", "START1")
     }
 
+    override fun onPause() {
+        super.onPause()
+        log("Sockets", "PAUSE1")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ServiceLocator.setSocketListener(presenter)
+        log("Sockets", "RESUME1")
+    }
 
 
     override fun onStop() {
         super.onStop()
         log("Sockets", "STOP1")
         presenter.detachView()
+        chatListSwipe.isRefreshing = false
     }
 
     override fun showChats(chats: MutableList<Chat>) {
-        Log.d(TAG, chats.toString())
-        adapter = ChatAdapter(chats, context!!, this)
-        recyclerChats.layoutManager = LinearLayoutManager(context)
-        recyclerChats.adapter = adapter
+        Log.v("Sockets-show", chats.toString())
+        adapter.setData(chats)
     }
 
     override fun showChat(chat: Chat) {
@@ -97,7 +113,12 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
     }
 
     override fun getToken(): String {
-        return getAccessToken()
+        return getAccessToken() // TODO save token to
+    }
+
+    override fun showMessage(mes: Message) {
+        log("Sockets", "SHOW-MES")
+        adapter.updateMessage(mes)
     }
 
 
@@ -106,7 +127,8 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
             log("ChatList", "Connectivity ${getNetworkConnection(activity)}")
             presenter.onLoadChats(
                 getAccessToken(),
-                getNetworkConnection(activity))
+                getNetworkConnection(activity)
+            )
         }
     }
 }

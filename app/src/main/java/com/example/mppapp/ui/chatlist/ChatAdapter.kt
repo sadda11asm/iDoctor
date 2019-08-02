@@ -13,13 +13,15 @@ import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.util.getName
 import com.example.mppapp.util.getUserId
 import data.entity.Chat
+import data.entity.LastMessage
 import kotlinx.android.synthetic.main.item_chat_list.view.*
 import org.kotlin.mpp.mobile.data.entity.Message
+import org.kotlin.mpp.mobile.util.log
 
 class ChatAdapter(
-    private val chats: MutableList<Chat>,
     private val context: Context,
-    private val itemClickListener: ItemClickListener<Chat>
+    private val itemClickListener: ItemClickListener<Chat>,
+    private var chats: MutableList<Chat> = mutableListOf()
 ) : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
 
 
@@ -40,8 +42,34 @@ class ChatAdapter(
     override fun getItemCount() = chats.size
 
     fun addChat(chat: Chat) {
-        chats.add(chat)
-        notifyItemInserted(chats.size - 1)
+        log("Sockets", "CHAT_ADDED")
+        chats.add(0, chat)
+        notifyItemInserted(0)
+    }
+
+    fun setData(newChats: MutableList<Chat>) {
+        chats.clear()
+        chats.addAll(newChats)
+        log("Sockets-changed", newChats.toString())
+        notifyDataSetChanged()
+    }
+
+    fun updateMessage(mes: Message) {
+        log("Sockets-changed", mes.toString())
+        var updateIndex = 0
+        var updateChat: Chat? = null
+        for (i in 0 until chats.size) {
+            if (chats[i].id == mes.chatId)
+                updateIndex = i
+                updateChat = chats[i]
+        }
+        updateChat?.lastMessage = LastMessage(mes.id, mes.text, mes.chatId, mes.userId, mes.createdAt, mes.createdAt)
+        for (member in updateChat!!.members)
+            if (member.userId == getUserId()) member.unreadCount++
+        chats.removeAt(updateIndex)
+        chats.add(0, updateChat)
+
+        notifyItemMoved(updateIndex, 0)
     }
 
 

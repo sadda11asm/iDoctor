@@ -21,10 +21,12 @@ class ChatListPresenter(
 
     override fun onMessage(mes: Message) {
         log("Sockets", "onMessage")
+        view!!.showMessage(mes)
         scope.launch {
+            log("Sockets", "receiveMessage")
             receiveMessage(
                 mes,
-                onSuccess = { log("Sockets-Saved", "DODO"); onLoadChats(view?.getToken()!!, true) },
+                onSuccess = { log("Sockets-Saved", "DODO")},
                 onFailure = { log("Sockets", it.message!!) }
             )
         }
@@ -48,12 +50,14 @@ class ChatListPresenter(
 
     fun onLoadCachedChats(token: String, connection: Boolean) {
         scope.launch {
+            log("Sockets", "LoadCachedChats")
             getChatList(
                 params = ChatListRequest(token, connection, true),
                 onSuccess = {
                     view?.showLoading(false)
                     view?.showChats(it.toMutableList())
                     onLoadChats(token, connection)
+                    log("Sockets", it.toString())
                 },
                 onFailure = {
                     view?.showLoading(false)
@@ -65,18 +69,19 @@ class ChatListPresenter(
 
     fun onLoadChats(token: String, connection: Boolean) {
         scope.launch {
+            log("Sockets", "LoadChats")
             getChatList(
                 params = ChatListRequest(token, connection, false),
                 onSuccess = {
                     view?.showLoading(false)
                     view?.showChats(it.toMutableList())
 //                    subscribeToSocket()
-                    log("ChatList", it.toString())
+                    log("Sockets", it.toString())
                 },
                 onFailure = {
                     view?.showLoading(false)
                     view?.showLoadFailed(it)
-                    log("ChatList", it.message!!)
+                    log("Sockets", it.message!!)
                 }
             )
         }
@@ -90,4 +95,5 @@ interface ChatListView {
     fun showLoadFailed(e: Exception)
     fun showChat(chat: Chat)
     fun getToken(): String
+    fun showMessage(mes: Message)
 }

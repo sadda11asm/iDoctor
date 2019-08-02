@@ -97,7 +97,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
         imageSend.setOnClickListener { sendMessage() }
         fabDown.setOnClickListener { recyclerMessages.smoothScrollToPosition(adapter.itemCount - 1) }
         recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            if(layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
+            if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
                 recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
             }
         }
@@ -147,7 +147,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
         recyclerMessages.adapter = adapter
         recyclerMessages.addOnScrollListener(object : FabScrollListener(layoutManager) {
             override fun changeFabState(isLastItem: Boolean) {
-                if(isLastItem) {
+                if (isLastItem) {
                     fabDown.hide()
                 } else {
                     fabDown.show()

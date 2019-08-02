@@ -16,7 +16,7 @@ class ChatShortDao(database: MyDatabase) {
             item.id.toLong(),
             item.title ?: "anonymous user",
             item.updated,
-            item.isAnonymous.toLong(),
+            item.isAnonymous?.toLong(),
             item.avatar
         )
         for (member in item.members)
@@ -30,12 +30,12 @@ class ChatShortDao(database: MyDatabase) {
             )
         if (item.lastMessage != null)
             dbMes.insertItem(
-                item.lastMessage.id.toLong(),
-                item.lastMessage.chatId?.toLong()!!,
-                item.lastMessage.userId?.toLong()!!,
-                item.lastMessage.message,
-                item.lastMessage.createdAt,
-                item.lastMessage.updatedAt
+                item.lastMessage!!.id.toLong(),
+                item.lastMessage!!.chatId?.toLong()!!,
+                item.lastMessage!!.userId?.toLong()!!,
+                item.lastMessage!!.message,
+                item.lastMessage!!.createdAt,
+                item.lastMessage!!.updatedAt
             )
 
 
