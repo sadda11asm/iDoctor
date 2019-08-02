@@ -15,8 +15,8 @@ class DoctorPagePresenter (
     fun createChat(token: String, title: String, userId: Int, anonymous: Boolean, doctorId: Int?, avatar: String) {
         scope.launch {
             createChat(
-                CreateChatParams(token, title, userId, anonymous, doctorId),
-                onSuccess = { view?.goToChat(it, avatar) },
+                params = CreateChatParams(token, title, userId, anonymous, doctorId),
+                onSuccess = { view?.goToChat(it, avatar, title) },
                 onFailure = { view?.showError(it) }
             )
         }

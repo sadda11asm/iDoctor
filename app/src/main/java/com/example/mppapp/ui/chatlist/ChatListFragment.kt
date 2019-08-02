@@ -11,6 +11,7 @@ import com.example.mppapp.R
 import com.example.mppapp.ui.chat.ChatActivity
 import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.util.getAccessToken
+import com.example.mppapp.util.getName
 import com.example.mppapp.util.getNetworkConnection
 import com.orhanobut.hawk.Hawk
 import data.entity.Chat
@@ -21,7 +22,6 @@ import presentation.chatlist.ChatListView
 
 
 class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
-
 
 
     private val TAG = "ChatListFragment"
@@ -43,9 +43,13 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
     }
 
 
-
     override fun onClick(data: Chat) {
-        ChatActivity.open(this.context!!, data.id)
+        ChatActivity.open(
+            this.context!!,
+            data.id,
+            data.avatar,
+            data.getFormattedTitle(data.members.size, getName())
+        )
     }
 
     override fun showLoading(loading: Boolean) {
@@ -57,14 +61,13 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
 
             presenter.onLoadCachedChats(
                 getAccessToken(),
-                getNetworkConnection(activity))
+                getNetworkConnection(activity)
+            )
         } else {
             recyclerChats.visibility = View.VISIBLE
             chatListProgress.visibility = View.INVISIBLE
             chatListSwipe.isRefreshing = false
         }
-
-
     }
 
     override fun onStart() {
@@ -72,8 +75,6 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
         ServiceLocator.setSocketListener(presenter)
         presenter.attachView(this)
     }
-
-
 
     override fun onStop() {
         super.onStop()
@@ -100,13 +101,13 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
         return getAccessToken()
     }
 
-
     private fun setSwipeListener() {
         chatListSwipe.setOnRefreshListener {
             log("ChatList", "Connectivity ${getNetworkConnection(activity)}")
             presenter.onLoadChats(
                 getAccessToken(),
-                getNetworkConnection(activity))
+                getNetworkConnection(activity)
+            )
         }
     }
 }

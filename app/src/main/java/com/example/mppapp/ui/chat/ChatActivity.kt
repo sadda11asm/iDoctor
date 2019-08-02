@@ -11,8 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 import com.example.mppapp.R
 import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getName
@@ -38,11 +36,8 @@ class ChatActivity : AppCompatActivity(), ChatView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-
+        setupToolbar()
+        showAvatar()
         Slidr.attach(this)
     }
 
@@ -73,7 +68,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     override fun chatSize() = intent.getIntExtra(EXTRA_CHAT_SIZE, 2)
 
-    override fun getConnection() = getNetworkConnection(this)
+    override fun isConnectedToNetwork() = getNetworkConnection(this)
 
     override fun showMessage(message: Message) {
         adapter.addMessage(message)
@@ -81,7 +76,6 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     override fun showChat(chatFull: ChatFull) {
-        setupToolbar(chatFull.title)
         setupRecycler(chatFull.messages)
         setListeners()
         // TODO refactor
@@ -124,23 +118,19 @@ class ChatActivity : AppCompatActivity(), ChatView {
         imageCamera.visibility = camera
     }
 
+    private fun setupToolbar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        textTitle.text = intent.getStringExtra(EXTRA_TITLE)
+    }
 
-    // TODO change logic
-    private fun setupToolbar(title: String?) {
-        if (chatSize() > 2) {
-            textTitle.text = title
-        } else {
-            val names = title!!.split(',')
-            if (names.size < 2) {
-                textTitle.text = title
-            } else {
-                if (names[0] == getName())
-                    textTitle.text = names[1]
-                else
-                    textTitle.text = names[0]
-            }
-        }
-        loadIntoAvatar()
+    private fun showAvatar() {
+        val avatar = intent.getStringExtra(EXTRA_AVATAR)
+        Glide.with(this)
+            .load(avatar)
+            .error(R.drawable.default_avatar)
+            .into(imageAvatar)
     }
 
     private fun setupRecycler(messages: MutableList<Message>) {
@@ -159,14 +149,6 @@ class ChatActivity : AppCompatActivity(), ChatView {
         })
     }
 
-    private fun loadIntoAvatar() {
-        val avatar = "$BASE_URL${intent.getStringExtra(EXTRA_AVATAR)}"
-        Glide.with(this)
-            .load(avatar)
-            .error(R.drawable.default_avatar)
-            .into(imageAvatar)
-    }
-
     private fun sendMessage() {
         val messageText = editMessage.text.toString()
         editMessage.text = null
@@ -175,12 +157,15 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     companion object {
         const val EXTRA_CHAT_ID = "extra_chat_id"
-        const val EXTRA_AVATAR = "extra_avatar"
         const val EXTRA_CHAT_SIZE = "extra_chat_size"
+        const val EXTRA_AVATAR = "extra_avatar"
+        const val EXTRA_TITLE = "extra_title"
 
-        fun open(context: Context, chatId: Int) {
+        fun open(context: Context, chatId: Int, avatar: String?, title: String?) {
             val intent = Intent(context, ChatActivity::class.java)
             intent.putExtra(EXTRA_CHAT_ID, chatId)
+            intent.putExtra(EXTRA_AVATAR, avatar)
+            intent.putExtra(EXTRA_TITLE, title)
             context.startActivity(intent)
         }
     }

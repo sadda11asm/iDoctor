@@ -35,7 +35,7 @@ class ChatPresenter(
     override fun onViewAttached(view: ChatView) {
         super.onViewAttached(view)
         token = view.token()
-        loadCachedChat(view.getConnection())
+        loadCachedChat(view.isConnectedToNetwork())
     }
 
     override fun onMessage(mes: Message) {

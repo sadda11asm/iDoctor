@@ -27,6 +27,7 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
 
 
     private val presenter by lazy { ServiceLocator.doctorPagePresenter }
+
     private lateinit var progressDialog: ProgressDialogFragment
 
 
@@ -45,13 +46,11 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
         binding.doctor = doctor
 
 
-
         binding.button.setOnClickListener {
             val title = getFullName() + "," + doctor.name
 
             progressDialog = ProgressDialogFragment.show(supportFragmentManager)
-            Log.d("Details", title)
-            startChat(token(), title, doctor.userId?.toInt()!!, false, doctor.id?.toInt()!!, doctor.avatar)
+            startChat(token(), title, doctor.userId?.toInt()!!, false, doctor.id.toInt(), doctor.imageLink)
         }
 
         Glide
@@ -65,15 +64,11 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
         title = doctor.name
 
         Slidr.attach(this)
-
-
-
     }
 
-    override fun goToChat(chatId: Int, avatar: String) {
-        Log.v("Details", "chatId: $chatId")
+    override fun goToChat(chatId: Int, avatar: String, title: String?) {
         progressDialog.dismiss()
-        ChatActivity.open(this, chatId)
+        ChatActivity.open(this, chatId, avatar, title)
     }
 
     override fun getFullName(): String {
