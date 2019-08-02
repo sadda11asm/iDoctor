@@ -34,13 +34,13 @@ class ChatListPresenter(
 
     override fun onChatCreated(chat: Chat) {
         view?.showChat(chat)
-//        scope.launch {
-//            saveChat(
-//                chat,
-//                onSuccess = {},
-//                onFailure = { log("Sockets", it.message!!) }
-//            )
-//        }
+        scope.launch {
+            saveChat(
+                chat,
+                onSuccess = {},
+                onFailure = { log("Sockets", it.message!!) }
+            )
+        }
     }
 
     override fun onViewAttached(view: ChatListView) {
