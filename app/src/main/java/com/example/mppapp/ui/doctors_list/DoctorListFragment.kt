@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_doctor_list.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListView
+import org.kotlin.mpp.mobile.util.log
 
 class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor> {
 
@@ -45,15 +46,19 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
         presenter.start()
     }
 
+
     override fun onResume() {
         super.onResume()
         presenter.attachView(this)
         swipeRefresh.isRefreshing = false
+        log("Sockets", "RESUME0")
     }
+
 
     override fun onStop() {
         super.onStop()
         presenter.detachView()
+        log("Sockets", "STOP0")
     }
 
     override fun onClick(data: Doctor) { this.context?.let { DoctorDetailsActivity.open(it, data.to()) } }

@@ -17,6 +17,7 @@ class MainActivity: AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         viewPager.adapter = MainPagerAdapter(supportFragmentManager)
+        viewPager.offscreenPageLimit = 2
 
         navigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

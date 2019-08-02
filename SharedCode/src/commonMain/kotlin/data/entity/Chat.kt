@@ -12,9 +12,9 @@ data class Chat(
     val id: Int,
     val title: String?,
     @SerialName("updated_at") var updated: String?,
-    val isAnonymous: Int,
+    val isAnonymous: Int?,
     val members: List<Member>,
-    val lastMessage: LastMessage?,
+    var lastMessage: LastMessage?,
     val avatar: String?
 )
 

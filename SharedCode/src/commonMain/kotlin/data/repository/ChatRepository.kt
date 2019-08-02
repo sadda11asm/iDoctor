@@ -40,7 +40,7 @@ class ChatRepository(
         val result = chatListApi.getChatList(token).toMutableList()
         for (chat in result) {
             if (chat.lastMessage!=null)
-                chat.lastMessage.updatedAt = convertTime(chat.lastMessage.updatedAt)
+                chat.lastMessage!!.updatedAt = convertTime(chat.lastMessage!!.updatedAt)
             chatShortDao.insert(chat)
         }
         result.sortByDescending { it.lastMessage?.updatedAt }
