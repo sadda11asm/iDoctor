@@ -75,14 +75,15 @@ class ChatAdapter(
 
     inner class ChatHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
+        // TODO refactor
         private lateinit var currentChat: Chat
 
         fun bind(chat: Chat) = with(itemView) {
             currentChat = chat
-            if (chat.title=="anonymous user" || chat.title =="anonym" || chat.title == null)
+            if (chat.title == "anonymous user" || chat.title == "anonym" || chat.title == null)
                 chatNameView.text = "Анонимный юзер :)"
             else {
-                if (chat.members.size>2) {
+                if (chat.members.size > 2) {
                     chatNameView.text = chat.title
                 } else {
                     val names = chat.title!!.split(',')
@@ -92,19 +93,19 @@ class ChatAdapter(
             var ok = 0
             for (member in chat.members)
                 if (member.userId == getUserId()) {
-                    if (member.unreadCount!=0)
+                    if (member.unreadCount != 0)
                         unreadCountView.text = member.unreadCount.toString()
                     else unreadCountView.visibility = View.INVISIBLE
                     ok = 1
                 }
-            if (ok==0) unreadCountView.visibility = View.INVISIBLE
+            if (ok == 0) unreadCountView.visibility = View.INVISIBLE
 
 
             var mes = if (chat.lastMessage?.userId == getUserId()) "Вы: "
             else ""
 
-            if (chat.lastMessage!=null)
-                mes+= chat.lastMessage!!.message
+            if (chat.lastMessage != null)
+                mes += chat.lastMessage!!.message
             else mes = "Пока нет сообщений в этом чате"
 
             lastMessageView.text = mes
@@ -115,7 +116,7 @@ class ChatAdapter(
             else {
                 lastMesTime = lastMesTime.substring(0, 10)
                 val arr = lastMesTime.split('-')
-                time.text = arr[2]+ "." + arr[1]
+                time.text = arr[2] + "." + arr[1]
             }
 
             setOnClickListener {

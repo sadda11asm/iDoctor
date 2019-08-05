@@ -29,4 +29,5 @@
 	<string name="anonymous">Аноним</string>
 	<string name="experience">Стаж %s</string>
 	<string name="search">Поиск</string>
+	<string name="unread_messages">%s непрочитанных сообщений</string>
 </resources>

@@ -35,5 +35,4 @@ class AppLifeCycleObserver(applicationContext: Context) : LifecycleObserver {
             sockets.unsubscribe()
         }
     }
-
 }

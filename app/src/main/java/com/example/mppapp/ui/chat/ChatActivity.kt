@@ -11,8 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 import com.example.mppapp.R
 import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getName
@@ -31,20 +29,16 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     private val presenter by lazy { ServiceLocator.chatPresenter }
 
-    private lateinit var adapter: MessageAdapter
-
     private val layoutManager = LinearLayoutManager(this)
+
+    private lateinit var adapter: MessageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-
+        setupToolbar()
+        showAvatar()
         Slidr.attach(this)
-
     }
 
     override fun onStart() {
@@ -74,13 +68,14 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     override fun chatSize() = intent.getIntExtra(EXTRA_CHAT_SIZE, 2)
 
+    override fun isConnectedToNetwork() = getNetworkConnection(this)
+
     override fun showMessage(message: Message) {
         adapter.addMessage(message)
         recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
     }
 
     override fun showChat(chatFull: ChatFull) {
-        setupToolbar(chatFull.title)
         setupRecycler(chatFull.messages)
         setListeners()
         // TODO refactor
@@ -95,7 +90,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     private fun setListeners() {
         imageSend.setOnClickListener { sendMessage() }
-        fabDown.setOnClickListener { recyclerMessages.smoothScrollToPosition(adapter.itemCount - 1) }
+        fabDown.setOnClickListener { recyclerMessages.scrollToPosition(adapter.itemCount - 1) }
         recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
                 recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
@@ -106,6 +101,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
+            // TODO change logic
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
                 if (count == 1 && before == 0 && start == 0) {
                     setVisibilities(View.VISIBLE, View.GONE, View.GONE)
@@ -122,22 +118,19 @@ class ChatActivity : AppCompatActivity(), ChatView {
         imageCamera.visibility = camera
     }
 
+    private fun setupToolbar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        textTitle.text = intent.getStringExtra(EXTRA_TITLE)
+    }
 
-    private fun setupToolbar(title: String?) {
-        if (chatSize() > 2) {
-            textTitle.text = title
-        } else {
-            val names = title!!.split(',')
-            if (names.size < 2) {
-                textTitle.text = title
-            } else {
-                if (names[0] == getName())
-                    textTitle.text = names[1]
-                else
-                    textTitle.text = names[0]
-            }
-        }
-        loadIntoAvatar()
+    private fun showAvatar() {
+        val avatar = intent.getStringExtra(EXTRA_AVATAR)
+        Glide.with(this)
+            .load(avatar)
+            .error(R.drawable.default_avatar)
+            .into(imageAvatar)
     }
 
     private fun setupRecycler(messages: MutableList<Message>) {
@@ -146,22 +139,14 @@ class ChatActivity : AppCompatActivity(), ChatView {
         recyclerMessages.layoutManager = layoutManager
         recyclerMessages.adapter = adapter
         recyclerMessages.addOnScrollListener(object : FabScrollListener(layoutManager) {
-            override fun changeFabState(isLastItem: Boolean) {
-                if (isLastItem) {
-                    fabDown.hide()
-                } else {
+            override fun changeFabState(isNotLastItem: Boolean) {
+                if (isNotLastItem) {
                     fabDown.show()
+                } else {
+                    fabDown.hide()
                 }
             }
         })
-    }
-
-    private fun loadIntoAvatar() {
-        val avatar = "$BASE_URL${intent.getStringExtra(EXTRA_AVATAR)}"
-        Glide.with(this)
-            .load(avatar)
-            .error(R.drawable.default_avatar)
-            .into(imageAvatar)
     }
 
     private fun sendMessage() {
@@ -170,18 +155,17 @@ class ChatActivity : AppCompatActivity(), ChatView {
         presenter.sendMessage(messageText)
     }
 
-    override fun getConnection(): Boolean {
-        return getNetworkConnection(this)
-    }
-
     companion object {
-        const val EXTRA_CHAT_ID = "extra_chat_id"
-        const val EXTRA_AVATAR = "extra_avatar"
-        const val EXTRA_CHAT_SIZE = "extra_chat_size"
+        const val EXTRA_CHAT_ID     = "extra_chat_id"
+        const val EXTRA_CHAT_SIZE   = "extra_chat_size"
+        const val EXTRA_AVATAR      = "extra_avatar"
+        const val EXTRA_TITLE       = "extra_title"
 
-        fun open(context: Context, chatId: Int) {
+        fun open(context: Context, chatId: Int, avatar: String?, title: String?) {
             val intent = Intent(context, ChatActivity::class.java)
             intent.putExtra(EXTRA_CHAT_ID, chatId)
+            intent.putExtra(EXTRA_AVATAR, avatar)
+            intent.putExtra(EXTRA_TITLE, title)
             context.startActivity(intent)
         }
     }

@@ -37,12 +37,13 @@ data class DoctorO(
     var certsText: String?,
     var feedbackLink: String
 ) : Serializable {
+    // TODO refactor
     val experience: String
         get() = (getYear - worksSinceYear.substring(0, 4).toInt()).toString() + " лет"
 
+
     val specializations: String
         get() {
-
             var result = ""
             for (skill in skills) {
                 result += skill.name

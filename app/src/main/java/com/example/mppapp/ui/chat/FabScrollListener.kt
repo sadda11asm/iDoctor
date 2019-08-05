@@ -13,8 +13,8 @@ abstract class FabScrollListener(
         val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
         val totalItemCount = layoutManager.itemCount
 
-        changeFabState(lastVisibleItem == totalItemCount - 1)
+        changeFabState(lastVisibleItem != totalItemCount - 1)
     }
 
-    abstract fun changeFabState(isLastItem: Boolean)
+    abstract fun changeFabState(isNotLastItem: Boolean)
 }

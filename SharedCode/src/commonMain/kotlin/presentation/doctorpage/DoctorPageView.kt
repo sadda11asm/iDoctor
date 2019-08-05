@@ -9,7 +9,7 @@ interface DoctorPageView {
 
     fun showError(e: Exception)
 
-    fun goToChat(chatId: Int, avatar: String)
+    fun goToChat(chatId: Int, avatar: String, title: String?)
 
     fun getFullName(): String
 }

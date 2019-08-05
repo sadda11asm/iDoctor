@@ -117,8 +117,9 @@
 		android:layout_marginRight="8dp"
 		android:layout_marginBottom="8dp"
 		android:src="@drawable/ic_arrow_down_white_18dp"
-		app:fabSize="mini"
+		android:visibility="gone"
 		app:backgroundTint="@color/colorPrimary"
+		app:fabSize="mini"
 		app:layout_constraintBottom_toTopOf="@id/containerMessage"
 		app:layout_constraintEnd_toEndOf="parent" />
 
