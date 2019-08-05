@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mppapp.R
 import com.example.mppapp.util.getAccessToken
-import com.example.mppapp.util.getName
 import com.example.mppapp.util.getNetworkConnection
 import com.example.mppapp.util.getUserId
 import com.r0adkll.slidr.Slidr
@@ -23,7 +22,6 @@ import org.kotlin.mpp.mobile.data.entity.ChatFull
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.presentation.chat.ChatView
 import org.kotlin.mpp.mobile.util.log
-import org.kotlin.mpp.mobile.util.constants.BASE_URL
 
 class ChatActivity : AppCompatActivity(), ChatView {
 
@@ -156,10 +154,10 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     companion object {
-        const val EXTRA_CHAT_ID = "extra_chat_id"
-        const val EXTRA_CHAT_SIZE = "extra_chat_size"
-        const val EXTRA_AVATAR = "extra_avatar"
-        const val EXTRA_TITLE = "extra_title"
+        const val EXTRA_CHAT_ID     = "extra_chat_id"
+        const val EXTRA_CHAT_SIZE   = "extra_chat_size"
+        const val EXTRA_AVATAR      = "extra_avatar"
+        const val EXTRA_TITLE       = "extra_title"
 
         fun open(context: Context, chatId: Int, avatar: String?, title: String?) {
             val intent = Intent(context, ChatActivity::class.java)
