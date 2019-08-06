@@ -99,8 +99,6 @@ class ChatAdapter(
                         ok = 1
                     } else unreadCountView.visibility = View.INVISIBLE
                 }
-            if (ok == 0) unreadCountView.visibility = View.INVISIBLE
-
 
             var mes = if (chat.lastMessage?.userId == getUserId()) "Вы: "
             else ""

@@ -44,7 +44,7 @@ class ChatPresenter(
             scope.launch {
                 receiveMessage(
                     mes,
-                    onSuccess = { /* markMessageAsRead(mes.id)*/ },
+                    onSuccess = { markMessageAsRead(mes.id) },
                     onFailure = { log("Sockets", it.message!!) }
                 )
             }
