@@ -63,6 +63,7 @@ class ChatAdapter(
                 updateIndex = i
                 updateChat = chats[i]
         }
+        log("Sockets", updateIndex.toString())
         updateChat?.lastMessage = LastMessage(mes.id, mes.text, mes.chatId, mes.userId, mes.createdAt, mes.createdAt)
         for (member in updateChat!!.members)
             if (member.userId == getUserId()) member.unreadCount++
@@ -93,10 +94,10 @@ class ChatAdapter(
             var ok = 0
             for (member in chat.members)
                 if (member.userId == getUserId()) {
-                    if (member.unreadCount != 0)
+                    if (member.unreadCount != 0) {
                         unreadCountView.text = member.unreadCount.toString()
-                    else unreadCountView.visibility = View.INVISIBLE
-                    ok = 1
+                        ok = 1
+                    } else unreadCountView.visibility = View.INVISIBLE
                 }
             if (ok == 0) unreadCountView.visibility = View.INVISIBLE
 

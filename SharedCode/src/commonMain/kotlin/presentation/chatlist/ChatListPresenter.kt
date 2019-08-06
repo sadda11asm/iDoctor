@@ -75,7 +75,6 @@ class ChatListPresenter(
                 onSuccess = {
                     view?.showLoading(false)
                     view?.showChats(it.toMutableList())
-//                    subscribeToSocket()
                     log("Sockets", it.toString())
                 },
                 onFailure = {

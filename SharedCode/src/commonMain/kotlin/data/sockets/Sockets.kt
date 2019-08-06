@@ -12,10 +12,10 @@ import io.ktor.http.cio.websocket.close
 import io.ktor.http.cio.websocket.readText
 import io.ktor.http.cio.websocket.send
 import io.ktor.util.AttributeKey
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.drop
 import kotlinx.coroutines.selects.SelectBuilder
+import kotlinx.io.IOException
 import kotlinx.io.core.Closeable
 import kotlinx.serialization.json.Json
 import org.kotlin.mpp.mobile.data.entity.ChannelMessage
@@ -28,23 +28,20 @@ import org.kotlin.mpp.mobile.util.constants.BASE_URL
 import org.kotlin.mpp.mobile.util.constants.TEMP_URL
 import org.kotlin.mpp.mobile.util.log
 import org.kotlin.mpp.mobile.ServiceLocator.listener
+import org.kotlin.mpp.mobile.util.isConnected
 import presentation.chatlist.ChatListPresenter
 
 
 class Sockets(private val engine: HttpClientEngine) {
-
-//    lateinit var client: HttpClient
-//
-//    private fun connect() = HttpClient(engine).config {
-//        install(WebSockets)
-//    }
 
     val client = HttpClient(engine).config {
         install(WebSockets)
     }
 
     suspend fun subscribe() {
+        if (subscribed>=1) return
         CONNECT = true
+        subscribed++
         try {
             client.webSocket(
                 method = HttpMethod.Get,
@@ -55,9 +52,27 @@ class Sockets(private val engine: HttpClientEngine) {
                     log("Sockets", "request")
                 }
             ) {
-                log("Sockets", "zashel")
-                log("Sockets", listener.toString())
-                while (CONNECT) {
+               listenSockets(this)
+            }
+        } catch (e: Exception) {
+            log("Sockets", e.toString())
+            subscribed = 0
+            if (CONNECT)
+                subscribe()
+        }
+    }
+
+    suspend fun unsubscribe() {
+        log("Sockets", "UNSUBSCRIBE")
+        CONNECT = false
+    }
+
+    private suspend fun listenSockets(session: DefaultClientWebSocketSession) {
+        with (session) {
+            log("Sockets", "zashel")
+            log("Sockets", listener.toString())
+            while (CONNECT) {
+                try {
                     val frame = incoming.receive()
                     log("Sockets", frame.toString())
                     if (frame is Frame.Text) {
@@ -82,23 +97,19 @@ class Sockets(private val engine: HttpClientEngine) {
                             }
                         }
                     }
+                } catch (e: Exception) {
+                    if (CONNECT) continue
                 }
-                close()
             }
-        } catch (e: Exception) {
-            log("Sockets", e.toString())
-            if (CONNECT)
-                subscribe()
+            //if (CONNECT) subscribe()
+            close()
+            subscribed = 0
         }
-    }
-
-    fun unsubscribe() {
-        log("Sockets", "UNSUBSCRIBE")
-        CONNECT = false
     }
 
     companion object {
         private var CONNECT = true
+        private var subscribed = 0
         const val MESSAGE_ADDED = "message.added"
         const val CHAT_CREATED = "chat.created"
         const val MESSAGE_WAS_READ = "message.read"
