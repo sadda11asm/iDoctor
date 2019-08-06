@@ -14,7 +14,7 @@ class ChatRepository(
     suspend fun getChatList(token: String, connection: Boolean, cached: Boolean):List<Chat> {
         if (cached) {
             return try{
-                log("ChatList", "KEKUS")
+                log("ChatList", "HOW?")
                 selectFromDb()
             } catch (e: Exception) {
                 log("ChatList", e.toString())
@@ -36,7 +36,7 @@ class ChatRepository(
 
 
     private suspend fun fetchChatList(token: String): List<Chat> {
-        log("CHATList", "API")
+        log("ChatList", "API")
         val result = chatListApi.getChatList(token).toMutableList()
         for (chat in result) {
             if (chat.lastMessage!=null)

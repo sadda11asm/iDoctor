@@ -6,6 +6,9 @@ import com.example.mppapp.util.AppLifeCycleObserver
 import com.facebook.stetho.Stetho
 import com.orhanobut.hawk.Hawk
 import org.kotlin.mpp.mobile.appContext
+import android.content.IntentFilter
+import com.example.mppapp.util.NetworkBroadcastReceiver
+
 
 class iDoctorApplication : Application() {
     override fun onCreate() {
@@ -13,9 +16,12 @@ class iDoctorApplication : Application() {
 
         appContext = this
 
+        val intentFilter = IntentFilter("android.net.conn.CONNECTIVITY_CHANGE")
+        this.registerReceiver(NetworkBroadcastReceiver(), intentFilter)
+
         val lifecycleObserver =  AppLifeCycleObserver(applicationContext)
 
-        ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
+        //ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
 
         Stetho.initializeWithDefaults(this)
 

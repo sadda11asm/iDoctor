@@ -12,7 +12,7 @@ import org.kotlin.mpp.mobile.util.log
 import java.lang.Exception
 import java.util.*
 
-class AppLifeCycleObserver(applicationContext: Context) : LifecycleObserver {
+class AppLifeCycleObserver(private val applicationContext: Context) : LifecycleObserver {
 
     private val sockets = ServiceLocator.sockets
     private val scope = CoroutineScope(defaultDispatcher)
@@ -21,9 +21,11 @@ class AppLifeCycleObserver(applicationContext: Context) : LifecycleObserver {
     fun onEnterForeground() {
         log("Sockets", "enter-foreground")
         try {
-            scope.launch {
-                sockets.subscribe()
-            }
+            val status = getConnectivityStatusString(applicationContext)
+            if (status != NETWORK_STATUS_NOT_CONNECTED)
+                scope.launch {
+                    sockets.subscribe()
+                }
         } catch (e: Exception) {
             log("Sockets", e.message!!)
         }

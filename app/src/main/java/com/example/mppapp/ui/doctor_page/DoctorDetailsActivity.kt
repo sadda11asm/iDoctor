@@ -68,7 +68,7 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
 
     override fun goToChat(chatId: Int, avatar: String, title: String?) {
         progressDialog.dismiss()
-        ChatActivity.open(this, chatId, avatar, title)
+        ChatActivity.open(this, chatId, avatar, title?.split(',')?.get(1))
     }
 
     override fun getFullName(): String {
