@@ -30,4 +30,19 @@
 	<string name="experience">Стаж %s</string>
 	<string name="search">Поиск</string>
 	<string name="unread_messages">%s непрочитанных сообщений</string>
+
+	<string-array name="dates">
+		<item>января</item>
+		<item>февраля</item>
+		<item>марта</item>
+		<item>апреля</item>
+		<item>мая</item>
+		<item>июня</item>
+		<item>июля</item>
+		<item>августа</item>
+		<item>сентября</item>
+		<item>октября</item>
+		<item>ноября</item>
+		<item>декабря</item>
+	</string-array>
 </resources>

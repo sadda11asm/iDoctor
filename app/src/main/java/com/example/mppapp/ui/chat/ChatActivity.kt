@@ -12,6 +12,9 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mppapp.R
+import com.example.mppapp.model.DateViewModel
+import com.example.mppapp.model.MessageViewModel
+import com.example.mppapp.model.ViewModel
 import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getName
 import com.example.mppapp.util.getNetworkConnection
@@ -24,12 +27,15 @@ import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.presentation.chat.ChatView
 import org.kotlin.mpp.mobile.util.log
 import org.kotlin.mpp.mobile.util.constants.BASE_URL
+import util.currentTime
 
 class ChatActivity : AppCompatActivity(), ChatView {
 
     private val presenter by lazy { ServiceLocator.chatPresenter }
 
     private val layoutManager = LinearLayoutManager(this)
+
+    private val currentUserId = getUserId()
 
     private lateinit var adapter: MessageAdapter
 
@@ -62,7 +68,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     override fun token() = getAccessToken()
 
-    override fun userId() = getUserId()
+    override fun userId() = currentUserId
 
     override fun chatId() = intent.getIntExtra(EXTRA_CHAT_ID, 0)
 
@@ -71,17 +77,15 @@ class ChatActivity : AppCompatActivity(), ChatView {
     override fun isConnectedToNetwork() = getNetworkConnection(this)
 
     override fun showMessage(message: Message) {
-        adapter.addMessage(message)
+        val isSent = message.userId == currentUserId
+        adapter.addMessage(MessageViewModel(message, isSent))
         recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
     }
 
     override fun showChat(chatFull: ChatFull) {
         setupRecycler(chatFull.messages)
         setListeners()
-        // TODO refactor
-        if (adapter.itemCount > 0) {
-            presenter.markMessageAsRead(adapter.getMessageId(adapter.itemCount - 1))
-        }
+        presenter.markMessageAsRead(adapter.getLastMessageId())
     }
 
     override fun showChatLoadError(e: Exception) {
@@ -134,8 +138,8 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     private fun setupRecycler(messages: MutableList<Message>) {
-        val userId = getUserId()
-        adapter = MessageAdapter(this, messages, userId)
+        val mappedMessages = mapMessagesToViewModels(messages)
+        adapter = MessageAdapter(this, mappedMessages)
         recyclerMessages.layoutManager = layoutManager
         recyclerMessages.adapter = adapter
         recyclerMessages.addOnScrollListener(object : FabScrollListener(layoutManager) {
@@ -149,6 +153,31 @@ class ChatActivity : AppCompatActivity(), ChatView {
         })
     }
 
+    private fun mapMessagesToViewModels(messages: MutableList<Message>): MutableList<ViewModel> {
+        val mappedMessages = mutableListOf<ViewModel>()
+        var currentDate = " "
+        for (message in messages) {
+            val date = message.createdAt?.substring(0, 10)
+            if(currentDate != date) {
+                mappedMessages.add(DateViewModel(getFormattedDate(date!!)))
+                currentDate = date
+            }
+            val isSent = message.userId == currentUserId
+            mappedMessages.add(MessageViewModel(message, isSent))
+        }
+        return mappedMessages
+    }
+
+    // TODO refactor getFormattedDate()
+    private fun getFormattedDate(date: String): String {
+        val year = date.substring(0, 4)
+        val month = date.substring(5, 7).toInt()
+        val day = date.substring(8, 10).toInt()
+
+        val dates = resources.getStringArray(R.array.dates)
+        return "$day ${dates[month - 1]} $year"
+    }
+
     private fun sendMessage() {
         val messageText = editMessage.text.toString()
         editMessage.text = null
@@ -156,10 +185,10 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     companion object {
-        const val EXTRA_CHAT_ID     = "extra_chat_id"
-        const val EXTRA_CHAT_SIZE   = "extra_chat_size"
-        const val EXTRA_AVATAR      = "extra_avatar"
-        const val EXTRA_TITLE       = "extra_title"
+        const val EXTRA_CHAT_ID = "extra_chat_id"
+        const val EXTRA_CHAT_SIZE = "extra_chat_size"
+        const val EXTRA_AVATAR = "extra_avatar"
+        const val EXTRA_TITLE = "extra_title"
 
         fun open(context: Context, chatId: Int, avatar: String?, title: String?) {
             val intent = Intent(context, ChatActivity::class.java)
