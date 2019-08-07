@@ -56,22 +56,27 @@ class ChatAdapter(
 
     fun updateMessage(mes: Message) {
         log("Sockets-changed", mes.toString())
-        var updateIndex = 0
+        log("Sockets", "PREV-CHATS: $chats")
+        var updateIndex = -1
         var updateChat: Chat? = null
         for (i in 0 until chats.size) {
-            if (chats[i].id == mes.chatId)
+            if (chats[i].id == mes.chatId) {
                 updateIndex = i
                 updateChat = chats[i]
+            }
         }
-        log("Sockets", updateIndex.toString())
+        log("Sockets", "INDEX: $updateIndex")
         updateChat?.lastMessage = LastMessage(mes.id, mes.text, mes.chatId, mes.userId, mes.createdAt, mes.createdAt)
+        log("Sockets", "New Chat: $updateChat")
         for (member in updateChat!!.members)
             if (member.userId == getUserId()) member.unreadCount++
         chats.removeAt(updateIndex)
         chats.add(0, updateChat)
-
+        log("Sockets", "NEW-CHATS: $chats")
         notifyItemMoved(updateIndex, 0)
+//        notifyDataSetChanged()
     }
+
 
 
     inner class ChatHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -91,13 +96,15 @@ class ChatAdapter(
                     chatNameView.text = if (names[0] == getName()) names[1] else names[0]
                 }
             }
-            var ok = 0
             for (member in chat.members)
                 if (member.userId == getUserId()) {
                     if (member.unreadCount != 0) {
+                        unreadCountView.visibility = View.VISIBLE
                         unreadCountView.text = member.unreadCount.toString()
-                        ok = 1
-                    } else unreadCountView.visibility = View.INVISIBLE
+                    } else {
+                        unreadCountView.visibility = View.INVISIBLE
+                    }
+                    log("Sockets", "COUNT: ${member.unreadCount}")
                 }
 
             var mes = if (chat.lastMessage?.userId == getUserId()) "Вы: "
@@ -122,9 +129,10 @@ class ChatAdapter(
                 itemClickListener.onClick(currentChat)
             }
 
+            log("AVATAR", chat.formattedAvatar)
             Glide
                 .with(context)
-                .load(chat.avatar)
+                .load(chat.formattedAvatar)
                 .error(R.drawable.ava)
                 .apply(RequestOptions.circleCropTransform())
                 .transition(DrawableTransitionOptions.withCrossFade())
