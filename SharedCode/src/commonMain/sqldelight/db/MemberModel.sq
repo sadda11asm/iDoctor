@@ -1,11 +1,12 @@
 
 CREATE TABLE MemberModel(
-    user_id INTEGER UNIQUE NOT NULL,
+    user_id INTEGER NOT NULL,
     user_name TEXT,
     chat_id INTEGER NOT NULL,
     lastReadMes INTEGER NOT NULL,
     lastAttempt TEXT NOT NULL,
-    unreadCount INTEGER NOT NULL
+    unreadCount INTEGER NOT NULL,
+    CONSTRAINT PK PRIMARY KEY (user_id ASC, chat_id ASC)
 );
 
 selectAll:

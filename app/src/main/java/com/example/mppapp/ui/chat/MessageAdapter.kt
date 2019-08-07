@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mppapp.R
 import com.example.mppapp.model.DateViewModel
 import com.example.mppapp.model.MessageViewModel
+import com.example.mppapp.model.UnreadViewModel
 import com.example.mppapp.model.ViewModel
 import kotlinx.android.synthetic.main.item_date_message.view.*
 import kotlinx.android.synthetic.main.item_sent_message.view.*
+import kotlinx.android.synthetic.main.item_unread_message.view.*
 
 class MessageAdapter(
     private val context: Context,
@@ -24,6 +26,7 @@ class MessageAdapter(
             R.layout.item_sent_message -> ReceivedMessageHolder(view) // TODO change
             R.layout.item_received_message -> ReceivedMessageHolder(view)
             R.layout.item_date_message -> DateMessageHolder(view)
+            R.layout.item_unread_message -> UnreadMessageHolder(view)
             else -> throw NoSuchPropertyException("NoSuchViewType") // TODO refactor
         }
     }
@@ -61,6 +64,13 @@ class MessageAdapter(
         override fun bind(item: ViewModel) = with(itemView) {
             val itemDateMessage = item as DateViewModel
             textDate.text = itemDateMessage.formattedDate
+        }
+    }
+
+    inner class UnreadMessageHolder(itemView: View) : BaseMessageHolder(itemView) {
+        override fun bind(item: ViewModel) = with(itemView) {
+            val itemUnreadMessage = item as UnreadViewModel
+            textUnreadMessages.text = resources.getString(R.string.chat_unread_messages, itemUnreadMessage.unreadCount)
         }
     }
 }
