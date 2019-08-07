@@ -6,6 +6,7 @@ import domain.usecases.MarkMessageAsRead
 import domain.usecases.SendMessage
 import kotlinx.coroutines.launch
 import org.kotlin.mpp.mobile.SocketListener
+import org.kotlin.mpp.mobile.data.entity.ChatFull
 import org.kotlin.mpp.mobile.data.entity.ChatFullRequest
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
@@ -97,5 +98,14 @@ class ChatPresenter(
                 onFailure = {}
             )
         }
+    }
+
+    fun getLastReadMessageUnreadPair(chatFull: ChatFull): Pair<Int, Int> {
+        for(member in chatFull.members) {
+            if(member.userId == userId) {
+                return Pair(member.lastReadMes, member.unreadCount)
+            }
+        }
+        return Pair(-1, 0) // TODO refactor
     }
 }

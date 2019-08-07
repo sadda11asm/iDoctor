@@ -14,9 +14,9 @@ import com.bumptech.glide.Glide
 import com.example.mppapp.R
 import com.example.mppapp.model.DateViewModel
 import com.example.mppapp.model.MessageViewModel
+import com.example.mppapp.model.UnreadViewModel
 import com.example.mppapp.model.ViewModel
 import com.example.mppapp.util.getAccessToken
-import com.example.mppapp.util.getName
 import com.example.mppapp.util.getNetworkConnection
 import com.example.mppapp.util.getUserId
 import com.r0adkll.slidr.Slidr
@@ -26,8 +26,6 @@ import org.kotlin.mpp.mobile.data.entity.ChatFull
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.presentation.chat.ChatView
 import org.kotlin.mpp.mobile.util.log
-import org.kotlin.mpp.mobile.util.constants.BASE_URL
-import util.currentTime
 
 class ChatActivity : AppCompatActivity(), ChatView {
 
@@ -83,7 +81,8 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     override fun showChat(chatFull: ChatFull) {
-        setupRecycler(chatFull.messages)
+        val pair = presenter.getLastReadMessageUnreadPair(chatFull)
+        setupRecycler(chatFull.messages, pair)
         setListeners()
         presenter.markMessageAsRead(adapter.getLastMessageId())
     }
@@ -137,8 +136,8 @@ class ChatActivity : AppCompatActivity(), ChatView {
             .into(imageAvatar)
     }
 
-    private fun setupRecycler(messages: MutableList<Message>) {
-        val mappedMessages = mapMessagesToViewModels(messages)
+    private fun setupRecycler(messages: MutableList<Message>, lastReadMesUnreadPair: Pair<Int, Int>) {
+        val mappedMessages = mapMessagesToViewModels(messages, lastReadMesUnreadPair)
         adapter = MessageAdapter(this, mappedMessages)
         recyclerMessages.layoutManager = layoutManager
         recyclerMessages.adapter = adapter
@@ -153,14 +152,20 @@ class ChatActivity : AppCompatActivity(), ChatView {
         })
     }
 
-    private fun mapMessagesToViewModels(messages: MutableList<Message>): MutableList<ViewModel> {
+    private fun mapMessagesToViewModels(messages: MutableList<Message>, lastReadMesUnreadPair: Pair<Int, Int>): MutableList<ViewModel> {
         val mappedMessages = mutableListOf<ViewModel>()
         var currentDate = " "
+        var isUnreadAdded = false
         for (message in messages) {
             val date = message.createdAt?.substring(0, 10)
             if(currentDate != date) {
                 mappedMessages.add(DateViewModel(getFormattedDate(date!!)))
                 currentDate = date
+            }
+            if(message.id > lastReadMesUnreadPair.first && !isUnreadAdded) {
+                log("CHATHOLDER", "${message.id} ${lastReadMesUnreadPair.first}")
+                mappedMessages.add(UnreadViewModel(lastReadMesUnreadPair.second))
+                isUnreadAdded = true
             }
             val isSent = message.userId == currentUserId
             mappedMessages.add(MessageViewModel(message, isSent))
