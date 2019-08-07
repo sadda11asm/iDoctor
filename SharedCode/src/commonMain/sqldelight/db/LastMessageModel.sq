@@ -1,12 +1,13 @@
 
 
 CREATE TABLE LastMessageModel(
-    chat_id INTEGER UNIQUE NOT NULL PRIMARY KEY,
+    chat_id INTEGER  NOT NULL,
     id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     message TEXT NOT NULL,
     created_at TEXT DEFAULT NULL,
-    updated_at TEXT DEFAULT NULL
+    updated_at TEXT DEFAULT NULL,
+    CONSTRAINT PK PRIMARY KEY (id ASC, chat_id ASC)
 );
 
 selectAll:

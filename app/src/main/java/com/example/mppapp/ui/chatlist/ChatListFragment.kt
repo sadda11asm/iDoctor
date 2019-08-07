@@ -54,7 +54,7 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
         ChatActivity.open(
             this.context!!,
             data.id,
-            data.avatar,
+            data.formattedAvatar,
             data.getFormattedTitle(data.members.size, getName())
         )
     }

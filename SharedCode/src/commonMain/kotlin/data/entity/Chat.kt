@@ -32,6 +32,8 @@ data class Chat(
             }
         }
     }
+
+    val formattedAvatar = "https://cabinet.idoctor.kz${this.avatar}"
 }
 
 @Serializable

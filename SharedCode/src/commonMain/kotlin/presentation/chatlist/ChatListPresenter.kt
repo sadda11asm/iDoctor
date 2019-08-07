@@ -2,11 +2,14 @@ package presentation.chatlist
 
 import data.entity.Chat
 import io.ktor.http.HttpProtocolVersion
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.kotlin.mpp.mobile.SocketListener
 import org.kotlin.mpp.mobile.data.entity.ChatListRequest
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
+import org.kotlin.mpp.mobile.domain.uiDispatcher
 import org.kotlin.mpp.mobile.domain.usecases.*
 import org.kotlin.mpp.mobile.presentation.BasePresenter
 import org.kotlin.mpp.mobile.util.log
@@ -18,6 +21,9 @@ class ChatListPresenter(
     private val saveChat: SaveChat,
     private val coroutineContext: CoroutineContext = defaultDispatcher
 ) : BasePresenter<ChatListView>(coroutineContext), SocketListener {
+
+    private lateinit var token: String
+
 
     override fun onMessage(mes: Message) {
         log("Sockets", "onMessage")
@@ -45,6 +51,7 @@ class ChatListPresenter(
 
     override fun onViewAttached(view: ChatListView) {
         super.onViewAttached(view)
+        token = view.getToken()
         view.showLoading(true)
     }
 
