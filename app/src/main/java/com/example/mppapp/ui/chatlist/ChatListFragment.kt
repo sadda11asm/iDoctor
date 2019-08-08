@@ -39,15 +39,10 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        activity?.title = "Чаты" // TODO change to resourse inv
-
         recyclerChats.layoutManager = layoutManager
         recyclerChats.adapter = adapter
         setSwipeListener()
         log("Sockets", "ONCREATED1")
-
-
     }
 
     override fun onClick(data: Chat) {

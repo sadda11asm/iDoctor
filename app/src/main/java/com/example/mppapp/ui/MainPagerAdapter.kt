@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.mppapp.ui.chatlist.ChatListFragment
 import com.example.mppapp.ui.doctors_list.DoctorListFragment
+import com.example.mppapp.ui.profile.ProfileFragment
 import java.lang.IllegalArgumentException
 
 private const val NUM_PAGES = 3
@@ -15,7 +16,7 @@ class MainPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(
         return when(position) {
             0 -> DoctorListFragment()
             1 -> ChatListFragment()
-            2 -> ChatListFragment() // TODO change
+            2 -> ProfileFragment()
             else -> throw IllegalArgumentException()
         }
     }

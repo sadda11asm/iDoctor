@@ -12,8 +12,8 @@ class UserDao(database: MyDatabase) {
     internal fun insert(user: UserFull) {
         dbUser.insertItem(
             user.id.toLong(),
-            user.firstname,
-            user.lastname,
+            user.firstName,
+            user.lastName,
             user.patronymic,
             user.phone,
             user.email,
