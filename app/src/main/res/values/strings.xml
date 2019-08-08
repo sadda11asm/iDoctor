@@ -18,7 +18,7 @@
 	<string name="medcenter">Мед. центр:</string>
 	<string name="type_text">Введите текст</string>
 
-	<string name="doctors">Докторы</string>
+	<string name="doctors">Врачи</string>
 	<string name="chats">Чаты</string>
 	<string name="profile">Профиль</string>
 	<string name="search_doctor">Поиск врача</string>
@@ -45,4 +45,16 @@
 		<item>ноября</item>
 		<item>декабря</item>
 	</string-array>
+
+	<string name="toolbar_doctors">Поиск врача</string>
+	<string name="toolbar_chats">Сообщения</string>
+	<string name="toolbar_profile">Мой профиль</string>
+
+	<string name="profile_edit_data">Редактировать данные</string>
+	<string name="profile_change_password">Сменить пароль</string>
+	<string name="profile_notifications">Уведомления</string>
+	<string name="profile_share_app">Поделиться приложением</string>
+	<string name="profile_contact_us">Связаться с нами</string>
+	<string name="profile_about_us">О нас</string>
+	<string name="profile_logout">Выйти</string>
 </resources>

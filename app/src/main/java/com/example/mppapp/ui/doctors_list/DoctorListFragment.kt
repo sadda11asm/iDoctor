@@ -39,7 +39,6 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.title = resources.getString(R.string.search_doctor)
         setupRecycler()
         swipeRefresh.setOnRefreshListener { presenter.refreshDoctors() }
         presenter.attachView(this)

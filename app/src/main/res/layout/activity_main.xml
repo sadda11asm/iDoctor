@@ -15,18 +15,29 @@
 			android:id="@+id/toolbar"
 			android:layout_width="match_parent"
 			android:layout_height="?attr/actionBarSize"
-			android:background="@color/colorPrimary"
+			android:background="@android:color/white"
 			android:theme="@style/ToolbarTheme"
-			app:titleTextColor="@android:color/white" />
+			app:layout_scrollFlags="scroll|enterAlways"
+			app:titleTextColor="#001B36" />
 
 	</com.google.android.material.appbar.AppBarLayout>
 
-	<com.example.mppapp.util.CustomViewPager
-		android:id="@+id/viewPager"
+	<FrameLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+		app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+		<com.example.mppapp.util.CustomViewPager
+			android:id="@+id/viewPager"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="4dp"
+			android:background="@drawable/shadow" />
+	</FrameLayout>
 
 	<com.google.android.material.bottomnavigation.BottomNavigationView
 		android:id="@+id/navigationView"

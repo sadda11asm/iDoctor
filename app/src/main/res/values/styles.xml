@@ -16,18 +16,22 @@
         <item name="fontFamily">@font/blogger_sans</item>
     </style>
 
-    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="fontFamily">@font/blogger_sans_bold</item>
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:layout_gravity">center</item>
-        <item name="colorAccent">#FFFFFF</item>
+        <item name="colorAccent">#001B36</item>
     </style>
 
     <style name="MainSearchView" parent="Widget.AppCompat.SearchView">
         <item name="searchHintIcon">@null</item>
-        <item name="queryBackground">@color/colorPrimary</item>
     </style>
     
     <style name="WhiteAccent" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorAccent">#FFFFFF</item>
+    </style>
+
+    <style name="NotificationsSwitch" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">#44DB5E</item>
+        <item name="colorSwitchThumbNormal">#cc0000</item>
     </style>
 </resources>
