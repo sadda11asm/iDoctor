@@ -18,7 +18,6 @@ class UserRepository(
         return user
     }
 
-
     private fun insertToDb(user: UserFull) {
        userDao.insert(user)
     }

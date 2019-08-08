@@ -24,6 +24,7 @@ import org.kotlin.mpp.mobile.presentation.chat.ChatPresenter
 import presentation.chatlist.ChatListPresenter
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListPresenter
 import org.kotlin.mpp.mobile.presentation.login.LoginPresenter
+import org.kotlin.mpp.mobile.presentation.profile.ProfilePresenter
 import presentation.doctorpage.DoctorPagePresenter
 import kotlin.native.concurrent.ThreadLocal
 
@@ -136,6 +137,12 @@ object ServiceLocator {
     val chatListPresenter: ChatListPresenter
         get() = ChatListPresenter(getChatList, receiveMessage, saveChat)
 
+    /**
+     * Profile page
+     */
+
+    val profilePresenter: ProfilePresenter
+        get() = ProfilePresenter(getUserInfo)
 
     /**
      * Send message

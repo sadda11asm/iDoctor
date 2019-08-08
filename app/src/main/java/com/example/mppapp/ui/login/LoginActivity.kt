@@ -1,5 +1,7 @@
 package com.example.mppapp.ui.login
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -90,5 +92,12 @@ class LoginActivity: AppCompatActivity(), LoginView {
     override fun openMainPage() {
         MainActivity.open(this)
         finish()
+    }
+
+    companion object {
+        fun open(context: Context) {
+            val intent = Intent(context, LoginActivity::class.java)
+            context.startActivity(intent)
+        }
     }
 }

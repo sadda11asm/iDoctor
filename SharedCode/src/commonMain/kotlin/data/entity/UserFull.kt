@@ -6,10 +6,10 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class UserFull (
-    val id : Int,
-    val firstname: String,
-    val lastname: String,
+data class UserFull(
+    val id: Int,
+    @SerialName("firstname") val firstName: String,
+    @SerialName("lastname") val lastName: String,
     val patronymic: String?,
     val phone: String,
     val email: String,
@@ -19,7 +19,17 @@ data class UserFull (
     @SerialName("doctor_id") val doctorId: String? = null
 )
 
-
 fun UserModel.to(): UserFull {
-    return UserFull(id.toInt(), firstname, lastname, patronymic, phone, email, created_at, updated_at, verified.toInt()==1, doctor_id)
+    return UserFull(
+        id.toInt(),
+        firstname,
+        lastname,
+        patronymic,
+        phone,
+        email,
+        created_at,
+        updated_at,
+        verified.toInt() == 1,
+        doctor_id
+    )
 }

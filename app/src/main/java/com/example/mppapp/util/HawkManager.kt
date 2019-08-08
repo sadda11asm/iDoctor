@@ -29,7 +29,7 @@ fun putToken(response: AuthorizationResponse) = with(response) {
 
 fun putUser(user: UserFull) = with(user) {
     Hawk.put(USER_ID, id)
-    Hawk.put(NAME, "$firstname $lastname")
+    Hawk.put(NAME, "$firstName $lastName")
     Hawk.put(IS_DOCTOR, doctorId != null)
 }
 
@@ -38,3 +38,7 @@ fun getUserId(): Int = Hawk.get<Int>(USER_ID)
 fun getName(): String = Hawk.get<String>(NAME)
 
 fun isDoctor(): Boolean = Hawk.get<Boolean>(IS_DOCTOR)
+
+fun deleteAccessToken() {
+    Hawk.delete(ACCESS_TOKEN)
+}
