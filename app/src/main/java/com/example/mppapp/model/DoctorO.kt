@@ -12,7 +12,7 @@ data class DoctorO(
     val userId: Long?,
     var phone: String?,
     var email: String?,
-    var avatar: String,
+    var avatar: String?,
     var city: CityO?,
     val qualifications: List<QualificationO>,
     val skills: List<SkillO>,
@@ -35,7 +35,8 @@ data class DoctorO(
     var expText: String?,
     var communityText: String?,
     var certsText: String?,
-    var feedbackLink: String
+    var feedbackLink: String,
+    var commentsCount: Int
 ) : Serializable {
     // TODO refactor
     val experience: String
@@ -47,28 +48,37 @@ data class DoctorO(
             var result = ""
             for (skill in skills) {
                 result += skill.name
-                result += ", "
+                result += " / "
             }
             if (skills.isEmpty()) return result
             return result.substring(0, result.length - 2)
         }
 
-    val getIllnesses: String
-        get() {
-            var result = ""
-            for (illness in illnesses) {
-                result += illness.name
-                result += ", "
-            }
-            if (illnesses.isEmpty()) return result
-            return result.substring(0, result.length - 2)
-        }
+    val numReviews: String
+        get() = "$commentsCount отзывов"
 
     val rating: Int
         get() = avgRate.toInt()
 
+    val ratingText: String
+        get() = avgRate.toString().substring(0, 3)
+
     val imageLink: String
         get() = "https://cabinet.idoctor.kz$avatar"
+
+    val qualification: String
+         get() {
+             if (qualifications.isEmpty()) {
+                 return "Врач"
+             } else {
+                 var text = ""
+                 for (qual in qualifications) {
+                     if (text.isNotEmpty()) text+=", "
+                     text+=qual.name
+                 }
+                 return text
+             }
+         }
 
     val parsedTreatmentText: String
         get() {
@@ -85,6 +95,18 @@ data class DoctorO(
             }
         }
 
+    val getIllnesses: String
+        get() {
+            var result = ""
+            for (illness in illnesses) {
+                result += illness.name
+                result += ", "
+            }
+            if (illnesses.isEmpty()) return result
+            return result.substring(0, result.length - 2)
+        }
+
+
 }
 
 fun Doctor.to() = DoctorO(
@@ -94,7 +116,7 @@ fun Doctor.to() = DoctorO(
     userId,
     phone,
     email,
-    avatar?.avatar!!, // TODO refactor??
+    avatar, // TODO refactor??
     city?.to(),
     qualifications.map { it.to() },
     skills.map { it.to() },
@@ -117,5 +139,6 @@ fun Doctor.to() = DoctorO(
     expText,
     communityText,
     certsText,
-    feedbackLink
+    feedbackLink,
+    commentsCount
 )

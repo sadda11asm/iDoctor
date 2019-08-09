@@ -179,9 +179,14 @@ object ServiceLocator {
     val createChat: CreateChat
         get() = CreateChat(chatFullRepository)
 
-    val doctorPagePresenter: DoctorPagePresenter
-        get() = DoctorPagePresenter(createChat)
+    val doctorPagePresenter: DoctorPagePresenter by lazy { DoctorPagePresenter(createChat) }
 
+
+    /**
+     * Get Schedule
+     */
+
+    val getSchedule by lazy { GetSchedule(doctorApi)}
 
 
 }

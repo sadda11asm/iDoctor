@@ -30,6 +30,8 @@
 	<string name="experience">Стаж %s</string>
 	<string name="search">Поиск</string>
 	<string name="chat_unread_messages">%d непрочитанных сообщений</string>
+	<string name="schedule_title">График работы</string>
+	<string name="treatments_title">Услуги</string>
 
 	<string-array name="dates">
 		<item>января</item>

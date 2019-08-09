@@ -8,6 +8,6 @@ data class ServiceO(
     val name: String,
     val id: Long,
     val pivot: ServicePivotO
-):Serializable
+): Serializable
 
 fun Service.to() = ServiceO(name, id, pivot.to())

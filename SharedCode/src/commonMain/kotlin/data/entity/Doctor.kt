@@ -13,7 +13,7 @@ data class Doctor(
     @SerialName("user_id") val userId: Long?,
     var phone: String?,
     var email: String?,
-    var avatar: Avatar?,
+    var avatar: String?,
     var city: City?,
     val qualifications: List<Qualification>,
     val skills: List<Skill>,
@@ -36,7 +36,8 @@ data class Doctor(
     @SerialName("exp_text") var expText: String?,
     @SerialName("community_text") var communityText: String?,
     @SerialName("certs_text") var certsText: String?,
-    @SerialName("feedback_link") var feedbackLink: String
+    @SerialName("feedback_link") var feedbackLink: String,
+    @SerialName("comments_count") var commentsCount: Int
 ) {
 
     //TODO remove optional annotations and test
@@ -76,7 +77,7 @@ data class Doctor(
 
     // TODO replace with string constant
     val imageLink: String
-        get() = "https://cabinet.idoctor.kz${avatar?.avatar}"
+        get() = "https://cabinet.idoctor.kz$avatar"
 
 
 }
