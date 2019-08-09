@@ -10,5 +10,7 @@ interface ProfileView {
 
     fun openEditDataPage()
 
+    fun openPasswordChangePage()
+
     fun logout()
 }

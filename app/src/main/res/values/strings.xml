@@ -50,6 +50,7 @@
 	<string name="toolbar_chats">Сообщения</string>
 	<string name="toolbar_profile">Мой профиль</string>
 
+	<!--ProfileActivity-->
 	<string name="profile_edit_data">Редактировать данные</string>
 	<string name="profile_change_password">Сменить пароль</string>
 	<string name="profile_notifications">Уведомления</string>
@@ -58,6 +59,7 @@
 	<string name="profile_about_us">О нас</string>
 	<string name="profile_logout">Выйти</string>
 
+	<!--ProfileEditActivity-->
 	<string name="profile_edit_title">Личные данные</string>
 	<string name="profile_edit_first_name">Ваше имя:</string>
 	<string name="profile_edit_last_name">Ваша фамилия:</string>
@@ -65,4 +67,13 @@
 	<string name="profile_edit_phone">Ваш телефон:</string>
 	<string name="profile_edit_email">E-mail:</string>
 	<string name="profile_edit_save">Сохранить</string>
+
+	<!--PasswordChangeActivity-->
+	<string name="password_change_title">Пароль</string>
+	<string name="password_change_old">Старый пароль:</string>
+	<string name="password_change_new">Новый пароль:</string>
+	<string name="password_change_repeat">Повторите пароль:</string>
+	<string name="password_change">Изменить</string>
+	<string name="password_change_hint">**********</string>
+
 </resources>
