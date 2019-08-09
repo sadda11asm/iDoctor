@@ -16,13 +16,15 @@
 		android:theme="@style/AppTheme"
 		tools:ignore="GoogleAppIndexingWarning">
 		<activity
+			android:name=".ui.doctor_page.ScrollingActivity"
+			android:label="@string/title_activity_scrolling"
+			android:theme="@style/AppTheme.NoActionBar"></activity>
+		<activity
 			android:name=".ui.chat.ChatActivity"
 			android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 			android:windowSoftInputMode="adjustResize" />
 		<activity android:name=".ui.doctor_page.DoctorDetailsActivity" />
-		<activity android:name=".ui.MainActivity">
-
-		</activity>
+		<activity android:name=".ui.MainActivity"></activity>
 		<activity
 			android:name=".ui.login.LoginActivity"
 			android:windowSoftInputMode="adjustResize">

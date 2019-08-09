@@ -13,10 +13,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.mppapp.R
 import com.example.mppapp.databinding.ActivityDoctorDetailsBinding
 import com.example.mppapp.model.DoctorO
+import com.example.mppapp.model.ServiceO
 import com.example.mppapp.ui.chat.ChatActivity
 import com.example.mppapp.util.ProgressDialogFragment
 import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getName
+import com.google.android.material.tabs.TabLayout
 import com.r0adkll.slidr.Slidr
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.Doctor
@@ -26,7 +28,7 @@ import presentation.doctorpage.DoctorPageView
 class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
 
 
-    private val presenter by lazy { ServiceLocator.doctorPagePresenter }
+    private val presenter  = ServiceLocator.doctorPagePresenter
 
     private lateinit var progressDialog: ProgressDialogFragment
 
@@ -43,15 +45,37 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
         )
 
         val doctor: DoctorO = intent.getSerializableExtra("doctor") as DoctorO
-        binding.doctor = doctor
+
+        val adapter = DoctorPagerAdapter(doctor.services as ArrayList<ServiceO>, doctor.id.toInt(), this, supportFragmentManager)
+
+        with(binding) {
+            this.doctor = doctor
 
 
-        binding.button.setOnClickListener {
-            val title = getFullName() + "," + doctor.name
 
-            progressDialog = ProgressDialogFragment.show(supportFragmentManager)
-            startChat(token(), title, doctor.userId?.toInt()!!, false, doctor.id.toInt(), doctor.imageLink)
+            doctorInfoContainer.adapter = adapter
+
+            tabLayout.setupWithViewPager(doctorInfoContainer)
+
+            startChat.setOnClickListener {
+                val title = getFullName() + "," + doctor.name
+
+                progressDialog = ProgressDialogFragment.show(supportFragmentManager)
+
+                startChat(token(), title, doctor.userId?.toInt()!!, false, doctor.id.toInt(), doctor.imageLink)
+
+
+
+            }
+
+            title = doctor.name
+
+
+
         }
+
+
+
 
         Glide
             .with(this)
@@ -61,9 +85,8 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.iconDoctorDetail)
 
-        title = doctor.name
 
-        Slidr.attach(this)
+
     }
 
     override fun goToChat(chatId: Int, avatar: String, title: String?) {

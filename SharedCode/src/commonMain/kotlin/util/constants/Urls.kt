@@ -8,6 +8,8 @@ const val BASE_URL = "cabinet.idoctor.kz"
 
 const val API_URL = "$BASE_URL/api"
 const val API_DOCTORS = "/doctors"
+const val API_SCHEDULE = "/doctors"
+
 const val API_USER = "/my"
 
 const val TEMP_URL = "statistic.idoctor.kz"
