@@ -78,4 +78,49 @@
 	<string name="password_change">Изменить</string>
 	<string name="password_change_hint">**********</string>
 
+	<!--AboutUsActivity-->
+	<string name="about_us_title">О нас</string>
+	<string name="about_us_description">
+		iDoctor — часть крупнейшего в Казахстане интернет-холдинга Chocofamily.
+		В число проектов холдинга входят Chocolife, Chocofood, Chocotravel, Рахмет и Lensmark.
+	</string>
+	<string name="about_us_mission">
+		Миссия проектов Chocofamily — увеличивать количество счастливых людей.
+		Мы улучшаем качество их жизни, экономя время и деньги, позволяя больше путешествовать,
+		открывать мир ипроводить больше времени с любимыми. iDoctor — онлайн-сервис по поиску и записи к врачам в Казахстане.
+		\n\n На сайте вы можете: \n
+		- записаться на прием к интересующему вас врачу; \n
+		- получить онлайн-консультацию без посещения врача; \n
+		- оставить отзыв о враче, которого посетили.
+	</string>
+	<string name="about_us_for_users">iDoctor для \nпользователей</string>
+	<string name="about_us_rating">Рейтинг врачей</string>
+	<string name="about_us_rating_description">
+		В первую очередь в списке врачей находятся врачи с актуальными данными: информация о враче,
+		наличие контактов, актуальных отзывов и ответы на вопросы пользователей.
+	</string>
+	<string name="about_us_specializations">Более 150 специализаций</string>
+	<string name="about_us_specializations_description">
+		Полный список врачей специалистов узкого и широкого профиля по всему Казахстану.
+	</string>
+	<string name="about_us_reviews">Актуальные отзывы о врачах</string>
+	<string name="about_us_reviews_description">
+		Мы собираем актуальные отзывы о врачах для того, чтобы вы смогли сделать правильный выбор
+		и получить качественное обслуживание.
+	</string>
+	<string name="about_us_consultation">Онлайн-консультация врачей</string>
+	<string name="about_us_consultation_description">
+		Нужна консультация врача без посещения? Задайте вопрос врачу онлайн.
+	</string>
+	<string name="about_us_numbers">iDoctor в цифрах</string>
+	<string name="about_us_contacts">Наши контакты</string>
+	<string name="about_us_address">Адрес:</string>
+	<string name="about_us_address_first">г. Алматы, ул. Байзакова 280, 2 этаж</string>
+	<string name="about_us_phone">Телефон:</string>
+	<string name="about_us_phone_first">+7 (727) 222&#8211;22&#8211;00</string>
+	<string name="about_us_phone_second">+7 (771) 503&#8211;32&#8211;21</string>
+	<string name="about_us_email">E-mail:</string>
+	<string name="about_us_email_first">hello@idoctor.kz</string>
+	<string name="about_us_email_second">marketing@idoctor.kz - <b>отдел Маркетинга</b></string>
+	<string name="about_us_social">Соц. сети:</string>
 </resources>

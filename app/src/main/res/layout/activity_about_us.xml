@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ui.profile.about_us.AboutUsActivity">
+
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="?attr/actionBarSize"
+		android:background="@android:color/white"
+		android:theme="@style/ToolbarTheme"
+		app:layout_constraintTop_toTopOf="parent"
+		app:title="@string/about_us_title"
+		app:titleTextColor="#001B36" />
+
+	<View
+		android:id="@+id/shadow"
+		android:layout_width="match_parent"
+		android:layout_height="4dp"
+		android:background="@drawable/shadow"
+		app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+	<ScrollView
+		android:id="@+id/scrollView"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<TextView
+				android:id="@+id/textDescription"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="32dp"
+				android:layout_marginEnd="20dp"
+				android:layout_marginRight="20dp"
+				android:text="@string/about_us_description"
+				android:textColor="#001B36"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+
+			<androidx.appcompat.widget.AppCompatImageView
+				android:id="@+id/imageiDoctor"
+				android:layout_width="136dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="24dp"
+				android:src="@drawable/ic_idoctor"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/textDescription" />
+
+			<androidx.appcompat.widget.AppCompatImageView
+				android:id="@+id/imageChocofamily"
+				android:layout_width="136dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="32dp"
+				android:layout_marginEnd="20dp"
+				android:layout_marginRight="20dp"
+				android:src="@drawable/ic_chocofamily"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toEndOf="@+id/imageiDoctor"
+				app:layout_constraintTop_toBottomOf="@id/textDescription" />
+
+			<TextView
+				android:id="@+id/textMission"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="24dp"
+				android:layout_marginEnd="20dp"
+				android:layout_marginRight="20dp"
+				android:paddingBottom="28dp"
+				android:text="@string/about_us_mission"
+				android:textColor="#001B36"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/imageiDoctor" />
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/containerForUsers"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="#F6F9FC"
+				android:paddingBottom="28dp"
+				app:layout_constraintTop_toBottomOf="@id/textMission">
+
+				<TextView
+					android:id="@+id/textForUsers"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="24dp"
+					android:layout_marginEnd="20dp"
+					android:layout_marginRight="20dp"
+					android:text="@string/about_us_for_users"
+					android:textColor="#001B36"
+					android:textSize="24sp"
+					android:textStyle="bold"
+					app:fontFamily="@font/montserrat_regular"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent" />
+
+				<androidx.cardview.widget.CardView
+					android:id="@+id/cardNetworks"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="24dp"
+					android:layout_marginEnd="20dp"
+					android:layout_marginRight="20dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textForUsers">
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:paddingStart="24dp"
+						android:paddingLeft="24dp"
+						android:paddingEnd="24dp"
+						android:paddingRight="24dp"
+						android:paddingBottom="24dp">
+
+						<androidx.appcompat.widget.AppCompatImageView
+							android:id="@+id/imageNetworks"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="24dp"
+							android:src="@drawable/ic_networks"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent" />
+
+						<TextView
+							android:id="@+id/textRating"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="24dp"
+							android:text="@string/about_us_rating"
+							android:textColor="#001B36"
+							android:textSize="20sp"
+							android:textStyle="bold"
+							app:fontFamily="@font/montserrat_regular"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@id/imageNetworks" />
+
+						<TextView
+							android:id="@+id/textRatingDescription"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="24dp"
+							android:text="@string/about_us_rating_description"
+							android:textColor="#001B36"
+							app:fontFamily="@font/montserrat_regular"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@id/textRating" />
+
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+				</androidx.cardview.widget.CardView>
+
+				<androidx.cardview.widget.CardView
+					android:id="@+id/cardBriefcase"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="16dp"
+					android:layout_marginEnd="20dp"
+					android:layout_marginRight="20dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/cardNetworks">
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:paddingStart="24dp"
+						android:paddingLeft="24dp"
+						android:paddingEnd="24dp"
+						android:paddingRight="24dp"
+						android:paddingBottom="24dp">
+
+						<androidx.appcompat.widget.AppCompatImageView
+							android:id="@+id/imageBriefcase"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="24dp"
+							android:src="@drawable/ic_briefcase_blue"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent" />
+
+						<TextView
+							android:id="@+id/textSpecializations"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="24dp"
+							android:text="@string/about_us_specializations"
+							android:textColor="#001B36"
+							android:textSize="20sp"
+							android:textStyle="bold"
+							app:fontFamily="@font/montserrat_regular"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@id/imageBriefcase" />
+
+						<TextView
+							android:id="@+id/textSpecializationsDescription"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="24dp"
+							android:text="@string/about_us_specializations_description"
+							android:textColor="#001B36"
+							app:fontFamily="@font/montserrat_regular"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@id/textSpecializations" />
+					</androidx.constraintlayout.widget.ConstraintLayout>
+				</androidx.cardview.widget.CardView>
+
+				<androidx.cardview.widget.CardView
+					android:id="@+id/cardReviews"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="16dp"
+					android:layout_marginEnd="20dp"
+					android:layout_marginRight="20dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/cardBriefcase">
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:paddingStart="24dp"
+						android:paddingLeft="24dp"
+						android:paddingEnd="24dp"
+						android:paddingRight="24dp"
+						android:paddingBottom="24dp">
+
+						<androidx.appcompat.widget.AppCompatImageView
+							android:id="@+id/imageReviews"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="24dp"
+							android:src="@drawable/ic_chats_blue"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent" />
+
+						<TextView
+							android:id="@+id/textReviews"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="24dp"
+							android:text="@string/about_us_reviews"
+							android:textColor="#001B36"
+							android:textSize="20sp"
+							android:textStyle="bold"
+							app:fontFamily="@font/montserrat_regular"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@id/imageReviews" />
+
+						<TextView
+							android:id="@+id/textReviewsDescription"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="24dp"
+							android:text="@string/about_us_reviews_description"
+							android:textColor="#001B36"
+							app:fontFamily="@font/montserrat_regular"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@id/textReviews" />
+					</androidx.constraintlayout.widget.ConstraintLayout>
+				</androidx.cardview.widget.CardView>
+
+				<androidx.cardview.widget.CardView
+					android:id="@+id/cardConsultation"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="16dp"
+					android:layout_marginEnd="20dp"
+					android:layout_marginRight="20dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/cardReviews">
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:paddingStart="24dp"
+						android:paddingLeft="24dp"
+						android:paddingEnd="24dp"
+						android:paddingRight="24dp"
+						android:paddingBottom="24dp">
+
+						<androidx.appcompat.widget.AppCompatImageView
+							android:id="@+id/imageHeartbeat"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="24dp"
+							android:src="@drawable/ic_heartbeat"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toTopOf="parent" />
+
+						<TextView
+							android:id="@+id/textConsultation"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="18dp"
+							android:text="@string/about_us_consultation"
+							android:textColor="#001B36"
+							android:textSize="20sp"
+							android:textStyle="bold"
+							app:fontFamily="@font/montserrat_regular"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@id/imageHeartbeat" />
+
+						<TextView
+							android:id="@+id/textConsultationDescription"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="24dp"
+							android:text="@string/about_us_consultation_description"
+							android:textColor="#001B36"
+							app:fontFamily="@font/montserrat_regular"
+							app:layout_constraintEnd_toEndOf="parent"
+							app:layout_constraintStart_toStartOf="parent"
+							app:layout_constraintTop_toBottomOf="@id/textConsultation" />
+					</androidx.constraintlayout.widget.ConstraintLayout>
+				</androidx.cardview.widget.CardView>
+
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+			<TextView
+				android:id="@+id/textNumbers"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="28dp"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:text="@string/about_us_numbers"
+				android:textSize="24sp"
+				android:textColor="#001B36"
+				android:textStyle="bold"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintTop_toBottomOf="@id/containerForUsers"
+				app:layout_constraintStart_toStartOf="parent" />
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/containerSocial"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="#F6F9FC"
+				android:paddingBottom="28dp"
+				app:layout_constraintTop_toBottomOf="@id/textNumbers">
+
+				<TextView
+					android:id="@+id/textContacts"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="28dp"
+					android:text="@string/about_us_contacts"
+					android:textColor="#001B36"
+					android:textSize="24sp"
+					android:textStyle="bold"
+					app:fontFamily="@font/montserrat_regular"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent" />
+
+				<TextView
+					android:id="@+id/textAddress"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="28dp"
+					android:text="@string/about_us_address"
+					android:textAllCaps="true"
+					android:textColor="#001B36"
+					android:textSize="12sp"
+					android:textStyle="bold"
+					app:fontFamily="@font/montserrat_bold"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textContacts" />
+
+				<TextView
+					android:id="@+id/textAddressFirst"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="8dp"
+					android:text="@string/about_us_address_first"
+					android:textColor="#001B36"
+					android:textSize="16sp"
+					app:fontFamily="@font/montserrat_regular"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textAddress" />
+
+				<TextView
+					android:id="@+id/textPhone"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="28dp"
+					android:text="@string/about_us_phone"
+					android:textAllCaps="true"
+					android:textColor="#001B36"
+					android:textSize="12sp"
+					android:textStyle="bold"
+					app:fontFamily="@font/montserrat_bold"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textAddressFirst" />
+
+				<TextView
+					android:id="@+id/textPhoneFirst"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="8dp"
+					android:text="@string/about_us_phone_first"
+					android:textColor="#001B36"
+					android:textSize="16sp"
+					app:fontFamily="@font/montserrat_regular"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textPhone" />
+
+				<TextView
+					android:id="@+id/textPhoneSecond"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="8dp"
+					android:text="@string/about_us_phone_second"
+					android:textColor="#001B36"
+					android:textSize="16sp"
+					app:fontFamily="@font/montserrat_regular"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textPhoneFirst" />
+
+				<TextView
+					android:id="@+id/textEmail"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="28dp"
+					android:text="@string/about_us_email"
+					android:textAllCaps="true"
+					android:textColor="#001B36"
+					android:textSize="12sp"
+					android:textStyle="bold"
+					app:fontFamily="@font/montserrat_bold"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textPhoneSecond" />
+
+				<TextView
+					android:id="@+id/textEmailFirst"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="8dp"
+					android:text="@string/about_us_email_first"
+					android:textColor="#001B36"
+					android:textSize="16sp"
+					app:fontFamily="@font/montserrat_regular"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textEmail" />
+
+				<TextView
+					android:id="@+id/textEmailSecond"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="8dp"
+					android:layout_marginEnd="20dp"
+					android:layout_marginRight="20dp"
+					android:text="@string/about_us_email_second"
+					android:textColor="#001B36"
+					android:textSize="16sp"
+					app:fontFamily="@font/montserrat_regular"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textEmailFirst" />
+
+				<TextView
+					android:id="@+id/textSocial"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="28dp"
+					android:text="@string/about_us_social"
+					android:textAllCaps="true"
+					android:textColor="#001B36"
+					android:textSize="12sp"
+					android:textStyle="bold"
+					app:fontFamily="@font/montserrat_bold"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textEmailSecond" />
+
+				<androidx.appcompat.widget.AppCompatImageView
+					android:id="@+id/imageFacebook"
+					android:layout_width="32dp"
+					android:layout_height="32dp"
+					android:layout_marginStart="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_marginTop="8dp"
+					android:src="@drawable/ic_facebook"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/textSocial" />
+
+				<androidx.appcompat.widget.AppCompatImageView
+					android:id="@+id/imageWhatsapp"
+					android:layout_width="32dp"
+					android:layout_height="32dp"
+					android:layout_marginStart="10dp"
+					android:layout_marginLeft="10dp"
+					android:layout_marginTop="8dp"
+					android:src="@drawable/ic_whatsapp"
+					app:layout_constraintStart_toEndOf="@id/imageFacebook"
+					app:layout_constraintTop_toBottomOf="@id/textSocial" />
+
+				<androidx.appcompat.widget.AppCompatImageView
+					android:id="@+id/imageTelegram"
+					android:layout_width="32dp"
+					android:layout_height="32dp"
+					android:layout_marginStart="10dp"
+					android:layout_marginLeft="10dp"
+					android:layout_marginTop="8dp"
+					android:src="@drawable/ic_telegram"
+					app:layout_constraintStart_toEndOf="@id/imageWhatsapp"
+					app:layout_constraintTop_toBottomOf="@id/textSocial" />
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
