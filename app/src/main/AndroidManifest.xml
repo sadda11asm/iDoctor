@@ -15,9 +15,11 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		tools:ignore="GoogleAppIndexingWarning">
-		<activity android:name=".ui.password_change.PasswordChangeActivity" />
-		<activity android:name=".ui.profile_edit.ProfileEditActivity"
-			android:windowSoftInputMode="adjustPan"/>
+		<activity android:name=".ui.profile.about_us.AboutUsActivity"></activity>
+		<activity android:name=".ui.profile.password_change.PasswordChangeActivity" />
+		<activity
+			android:name=".ui.profile.profile_edit.ProfileEditActivity"
+			android:windowSoftInputMode="adjustPan" />
 		<activity
 			android:name=".ui.chat.ChatActivity"
 			android:theme="@style/Theme.AppCompat.Light.NoActionBar"

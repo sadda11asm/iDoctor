@@ -7,7 +7,7 @@
 	android:descendantFocusability="beforeDescendants"
 	android:focusable="true"
 	android:focusableInTouchMode="true"
-	tools:context=".ui.profile_edit.ProfileEditActivity">
+	tools:context=".ui.profile.profile_edit.ProfileEditActivity">
 
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/toolbar"

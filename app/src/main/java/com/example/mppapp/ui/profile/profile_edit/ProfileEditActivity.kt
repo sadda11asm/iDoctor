@@ -1,4 +1,4 @@
-package com.example.mppapp.ui.profile_edit
+package com.example.mppapp.ui.profile.profile_edit
 
 import android.content.Context
 import android.content.Intent
