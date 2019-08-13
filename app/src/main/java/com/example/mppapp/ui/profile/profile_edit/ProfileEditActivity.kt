@@ -3,7 +3,7 @@ package com.example.mppapp.ui.profile.profile_edit
 import android.content.Context
 import android.content.Intent
 import com.example.mppapp.R
-import com.example.mppapp.util.ProfileOptionsActivity
+import com.example.mppapp.ui.profile.ProfileOptionsActivity
 
 class ProfileEditActivity : ProfileOptionsActivity(R.layout.activity_profile_edit) {
 
