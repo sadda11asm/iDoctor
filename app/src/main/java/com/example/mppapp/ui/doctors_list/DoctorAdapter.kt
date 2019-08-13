@@ -14,9 +14,11 @@ import com.example.mppapp.util.BaseAdapter
 import com.example.mppapp.util.BaseHolder
 import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.util.PageableAdapter
+import kotlinx.android.synthetic.main.activity_doctor_details.view.*
 import kotlinx.android.synthetic.main.item_doctor_card.view.*
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import java.lang.IllegalArgumentException
+import java.util.*
 
 class DoctorAdapter(
     private val context: Context,
@@ -51,11 +53,13 @@ class DoctorAdapter(
         override fun bind(position: Int) = with(itemView) {
             doctor = doctors[position]
             textName.text = doctor.name
-            textSkills.text = doctor.specializations
-            textExperience.text = resources.getString(R.string.experience, doctor.experience)
-            textAddress.text = doctor.city?.name
+            textSpecializations.text = doctor.specializations
+            textExperience.text = resources.getString(R.string.doctor_card_experience, doctor.experience)
+            textQualification.text =
+                if (doctor.qualifications.isNotEmpty()) doctor.qualifications[0].name else resources.getString(R.string.doctor_card_qualification)
+            rating.rating = doctor.avgRate.toFloat()
+            textRating.text = String.format(Locale.US, "%.1f", doctor.avgRate)
 
-            // TODO move Glide to separate method
             Glide
                 .with(context)
                 .load(doctor.imageLink)

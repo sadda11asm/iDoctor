@@ -7,84 +7,253 @@
 	<androidx.cardview.widget.CardView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_margin="8dp"
-		app:cardCornerRadius="10dp"
+		android:layout_margin="16dp"
+		app:cardCornerRadius="4dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintTop_toTopOf="parent">
 
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_margin="16dp">
+			android:paddingBottom="24dp">
 
-			<ImageView
-				android:id="@+id/imageAvatar"
-				android:layout_width="80dp"
-				android:layout_height="80dp"
+			<androidx.appcompat.widget.AppCompatRatingBar
+				android:id="@+id/rating"
+				style="?android:attr/ratingBarStyleSmall"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="10dp"
+				android:isIndicator="true"
+				android:theme="@style/RatingBar"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent" />
 
 			<TextView
-				android:id="@+id/textName"
+				android:id="@+id/textRating"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginLeft="8dp"
-				android:textColor="@android:color/black"
-				android:textSize="16sp"
+				android:layout_marginStart="6dp"
+				android:layout_marginLeft="6dp"
+				android:layout_marginTop="10dp"
+				android:textColor="#001B36"
+				android:textSize="12sp"
 				android:textStyle="bold"
-				app:fontFamily="@font/blogger_sans"
-				app:layout_constraintStart_toEndOf="@id/imageAvatar"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintStart_toEndOf="@id/rating"
 				app:layout_constraintTop_toTopOf="parent" />
 
 			<TextView
-				android:id="@+id/textSkills"
+				android:id="@+id/textReviews"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginLeft="8dp"
-				android:textColor="@color/colorPrimary"
-				android:textSize="14sp"
-				app:fontFamily="@font/blogger_sans_medium"
-				app:layout_constraintStart_toEndOf="@id/imageAvatar"
+				android:layout_marginTop="10dp"
+				android:layout_marginEnd="20dp"
+				android:layout_marginRight="20dp"
+				android:text="296 отзывов"
+				android:textColor="#919BAB"
+				android:textSize="12sp"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+
+			<androidx.appcompat.widget.AppCompatImageView
+				android:id="@+id/imageAvatar"
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:layout_marginTop="8dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/textReviews" />
+
+			<TextView
+				android:id="@+id/textName"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="20dp"
+				android:layout_marginEnd="20dp"
+				android:layout_marginRight="20dp"
+				android:gravity="center"
+				android:textColor="#001B36"
+				android:textSize="16sp"
+				android:textStyle="bold"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/imageAvatar" />
+
+			<TextView
+				android:id="@+id/textSpecializations"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="48dp"
+				android:layout_marginLeft="48dp"
+				android:layout_marginTop="20dp"
+				android:layout_marginEnd="48dp"
+				android:layout_marginRight="48dp"
+				android:gravity="center"
+				android:textColor="#919BAB"
+				android:textSize="12sp"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@id/textName" />
 
-
 			<TextView
-				android:id="@+id/address"
+				android:id="@+id/textQualification"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginLeft="8dp"
-				android:text="@string/address"
-				android:textStyle="bold"
-				app:fontFamily="@font/blogger_sans"
-				app:layout_constraintStart_toEndOf="@id/imageAvatar"
-				app:layout_constraintTop_toBottomOf="@id/textSkills" />
-
-			<TextView
-				android:id="@+id/textAddress"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="4dp"
-				android:layout_marginLeft="4dp"
-				app:fontFamily="@font/blogger_sans"
-				app:layout_constraintStart_toEndOf="@id/address"
-				app:layout_constraintTop_toBottomOf="@id/textSkills" />
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="20dp"
+				android:layout_marginEnd="8dp"
+				android:layout_marginRight="8dp"
+				android:background="@drawable/rounded_text_view_specialization"
+				android:paddingStart="12dp"
+				android:paddingLeft="12dp"
+				android:paddingTop="4dp"
+				android:paddingEnd="12dp"
+				android:paddingRight="12dp"
+				android:paddingBottom="4dp"
+				android:textAllCaps="true"
+				android:textColor="#E77C6E"
+				android:textSize="10sp"
+				app:fontFamily="@font/montserrat_bold"
+				app:layout_constraintEnd_toStartOf="@+id/textExperience"
+				app:layout_constraintHorizontal_bias="0.5"
+				app:layout_constraintHorizontal_chainStyle="packed"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/textSpecializations" />
 
 			<TextView
 				android:id="@+id/textExperience"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginLeft="8dp"
-				android:layout_marginTop="2dp"
-				android:background="@drawable/bordered_text_view"
-				android:padding="4dp"
-				android:textSize="12sp"
+				android:layout_marginTop="20dp"
+				android:layout_marginEnd="20dp"
+				android:layout_marginRight="20dp"
+				android:background="@drawable/rounded_text_view_experience"
+				android:paddingStart="12dp"
+				android:paddingLeft="12dp"
+				android:paddingTop="4dp"
+				android:paddingEnd="12dp"
+				android:paddingRight="12dp"
+				android:paddingBottom="4dp"
+				android:textAllCaps="true"
+				android:textColor="#4C1199"
+				android:textSize="10sp"
+				app:fontFamily="@font/montserrat_bold"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.5"
+				app:layout_constraintHorizontal_chainStyle="packed"
+				app:layout_constraintStart_toEndOf="@+id/textQualification"
+				app:layout_constraintTop_toBottomOf="@id/textSpecializations" />
+
+			<View
+				android:id="@+id/separatorTop"
+				android:layout_width="0dp"
+				android:layout_height="0.5dp"
+				android:layout_marginTop="20dp"
+				android:background="@android:color/darker_gray"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/textExperience" />
+
+			<TextView
+				android:id="@+id/textHospital"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="24dp"
+				android:drawableStart="@drawable/ic_hospital_small"
+				android:drawableLeft="@drawable/ic_hospital_small"
+				android:drawablePadding="8dp"
+				android:text="Стоматологическая клиника ЕОК"
+				android:textColor="#001B36"
+				android:textSize="14sp"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/separatorTop" />
+
+			<View
+				android:id="@+id/separatorBottom"
+				android:layout_width="0dp"
+				android:layout_height="0.5dp"
+				android:layout_marginTop="24dp"
+				android:background="@android:color/darker_gray"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/textHospital" />
+
+
+			<androidx.appcompat.widget.AppCompatButton
+				android:id="@+id/buttonChat"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dp"
+				android:layout_marginEnd="20dp"
+				android:layout_marginRight="20dp"
+				android:background="@drawable/rounded_button_chat"
+				android:drawableStart="@drawable/ic_chats_white"
+				android:drawableLeft="@drawable/ic_chats_white"
+				android:drawablePadding="20dp"
+				android:paddingStart="52dp"
+				android:paddingLeft="52dp"
+				android:paddingEnd="72dp"
+				android:paddingRight="72dp"
+				android:text="@string/doctor_card_chat"
+				android:textColor="@android:color/white"
 				android:textStyle="bold"
-				app:layout_constraintStart_toEndOf="@id/imageAvatar"
-				app:layout_constraintTop_toBottomOf="@id/address" />
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/separatorBottom" />
+
+			<TextView
+				android:id="@+id/textAppointment"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="20dp"
+				android:text="@string/doctor_card_appointment"
+				android:textColor="#919BAB"
+				android:textSize="12sp"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/separatorBottom" />
+
+			<TextView
+				android:id="@+id/textPrice"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:text="12000"
+				android:textColor="#001B36"
+				android:textSize="20sp"
+				android:textStyle="bold"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/textAppointment" />
+
+			<TextView
+				android:id="@+id/textCurrency"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="4dp"
+				android:layout_marginLeft="4dp"
+				android:layout_marginTop="6dp"
+				android:text="@string/doctor_card_currency"
+				android:textColor="#001B36"
+				android:textSize="14sp"
+				android:textStyle="bold"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintStart_toEndOf="@id/textPrice"
+				app:layout_constraintTop_toBottomOf="@id/textAppointment" />
 
 		</androidx.constraintlayout.widget.ConstraintLayout>
 	</androidx.cardview.widget.CardView>

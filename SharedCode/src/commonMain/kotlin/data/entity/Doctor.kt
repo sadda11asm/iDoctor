@@ -43,8 +43,8 @@ data class Doctor(
     //TODO remove optional annotations and test
 
     @Optional
-    val experience: String
-        get() = (getYear - worksSinceYear.substring(0, 4).toInt()).toString() + " лет" // TODO refactor
+    val experience: Int
+        get() = getYear - worksSinceYear.substring(0, 4).toInt() // TODO refactor
 
     @Optional
     val specializations: String?
@@ -52,7 +52,7 @@ data class Doctor(
             var result = ""
             for (skill in skills) {
                 result += skill.name
-                result += ", "
+                result += " / "
             }
             if (skills.isEmpty()) return result
             return result.substring(0, result.length - 2)
