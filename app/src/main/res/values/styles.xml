@@ -34,4 +34,9 @@
         <item name="colorControlActivated">#44DB5E</item>
         <item name="colorSwitchThumbNormal">#cc0000</item>
     </style>
+
+	<style name="RatingBar" parent="Theme.AppCompat">
+		<!--<item name="colorControlNormal">#FFFFFF</item>-->
+		<item name="colorControlActivated">#FFC60E</item>
+	</style>
 </resources>
