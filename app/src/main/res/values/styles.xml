@@ -35,7 +35,7 @@
         <item name="colorSwitchThumbNormal">#cc0000</item>
     </style>
 
-	<style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
+	<style name="AppTabTextAppearance2" parent="TextAppearance.Design.Tab">
 		<item name = "android:fontFamily" tools:targetApi="jelly_bean">@font/montserrat</item>
 	</style>
 </resources>
