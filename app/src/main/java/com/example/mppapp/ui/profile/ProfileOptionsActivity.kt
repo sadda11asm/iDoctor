@@ -1,4 +1,4 @@
-package com.example.mppapp.util
+package com.example.mppapp.ui.profile
 
 import android.os.Bundle
 import android.view.MenuItem
