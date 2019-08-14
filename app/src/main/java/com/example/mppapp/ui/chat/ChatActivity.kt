@@ -92,33 +92,13 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     private fun setListeners() {
-        imageSend.setOnClickListener { sendMessage() }
+        fabSend.setOnClickListener { sendMessage() }
         fabDown.setOnClickListener { recyclerMessages.scrollToPosition(adapter.itemCount - 1) }
         recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
                 recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
             }
         }
-        editMessage.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            // TODO change logic
-            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-                if (count == 1 && before == 0 && start == 0) {
-                    setVisibilities(View.VISIBLE, View.GONE, View.GONE)
-                } else if (count == 0 && before != 0 && start == 0) {
-                    setVisibilities(View.GONE, View.VISIBLE, View.VISIBLE)
-                }
-            }
-        })
-    }
-
-    private fun setVisibilities(send: Int, attachment: Int, camera: Int) {
-        imageSend.visibility = send
-        imageAttachment.visibility = attachment
-        imageCamera.visibility = camera
     }
 
     private fun setupToolbar() {

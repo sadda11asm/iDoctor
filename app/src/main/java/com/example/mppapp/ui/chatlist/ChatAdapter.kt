@@ -15,6 +15,7 @@ import com.example.mppapp.util.getUserId
 import data.entity.Chat
 import data.entity.LastMessage
 import kotlinx.android.synthetic.main.item_chat_list.view.*
+import kotlinx.android.synthetic.main.item_unread_message.view.*
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.util.log
 
@@ -87,22 +88,22 @@ class ChatAdapter(
         fun bind(chat: Chat) = with(itemView) {
             currentChat = chat
             if (chat.title == "anonymous user" || chat.title == "anonym" || chat.title == null)
-                chatNameView.text = "Анонимный юзер :)"
+                textChatName.text = "Анонимный юзер :)"
             else {
                 if (chat.members.size > 2) {
-                    chatNameView.text = chat.title
+                    textChatName.text = chat.title
                 } else {
                     val names = chat.title!!.split(',')
-                    chatNameView.text = if (names[0] == getName()) names[1] else names[0]
+                    textChatName.text = if (names[0] == getName()) names[1] else names[0]
                 }
             }
             for (member in chat.members)
                 if (member.userId == getUserId()) {
                     if (member.unreadCount != 0) {
-                        unreadCountView.visibility = View.VISIBLE
-                        unreadCountView.text = member.unreadCount.toString()
+                        textMessageCount.visibility = View.VISIBLE
+                        textMessageCount.text = member.unreadCount.toString()
                     } else {
-                        unreadCountView.visibility = View.INVISIBLE
+                        textMessageCount.visibility = View.INVISIBLE
                     }
                     log("Sockets", "COUNT: ${member.unreadCount}")
                 }
@@ -114,15 +115,15 @@ class ChatAdapter(
                 mes += chat.lastMessage!!.message
             else mes = "Пока нет сообщений в этом чате"
 
-            lastMessageView.text = mes
+            textMessage.text = mes
 
             var lastMesTime = chat.lastMessage?.updatedAt
             if (lastMesTime == null)
-                time.text = ""
+                textSentTime.text = ""
             else {
                 lastMesTime = lastMesTime.substring(0, 10)
                 val arr = lastMesTime.split('-')
-                time.text = arr[2] + "." + arr[1]
+                textSentTime.text = arr[2] + "." + arr[1]
             }
 
             setOnClickListener {
@@ -136,7 +137,7 @@ class ChatAdapter(
                 .error(R.drawable.ava)
                 .apply(RequestOptions.circleCropTransform())
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageCountView)
+                .into(imageAvatar)
         }
 
         override fun onClick(view: View?) {
