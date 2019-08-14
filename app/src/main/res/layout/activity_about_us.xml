@@ -16,13 +16,6 @@
 		app:title="@string/about_us_title"
 		app:titleTextColor="#001B36" />
 
-	<View
-		android:id="@+id/shadow"
-		android:layout_width="match_parent"
-		android:layout_height="4dp"
-		android:background="@drawable/shadow"
-		app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
 	<ScrollView
 		android:id="@+id/scrollView"
 		android:layout_width="match_parent"
@@ -359,16 +352,16 @@
 				android:id="@+id/textNumbers"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="28dp"
 				android:layout_marginStart="20dp"
 				android:layout_marginLeft="20dp"
+				android:layout_marginTop="28dp"
 				android:text="@string/about_us_numbers"
-				android:textSize="24sp"
 				android:textColor="#001B36"
+				android:textSize="24sp"
 				android:textStyle="bold"
 				app:fontFamily="@font/montserrat_regular"
-				app:layout_constraintTop_toBottomOf="@id/containerForUsers"
-				app:layout_constraintStart_toStartOf="parent" />
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/containerForUsers" />
 
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:id="@+id/containerSocial"
@@ -566,4 +559,11 @@
 			</androidx.constraintlayout.widget.ConstraintLayout>
 		</androidx.constraintlayout.widget.ConstraintLayout>
 	</ScrollView>
+
+	<View
+		android:id="@+id/shadow"
+		android:layout_width="match_parent"
+		android:layout_height="4dp"
+		android:background="@drawable/shadow"
+		app:layout_constraintTop_toBottomOf="@id/toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

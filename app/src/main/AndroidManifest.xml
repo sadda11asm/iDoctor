@@ -25,7 +25,6 @@
 			android:windowSoftInputMode="adjustPan" />
 		<activity
 			android:name=".ui.chat.ChatActivity"
-			android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 			android:windowSoftInputMode="adjustResize" />
 		<activity android:name=".ui.doctor_page.DoctorDetailsActivity" />
 		<activity android:name=".ui.MainActivity" />
