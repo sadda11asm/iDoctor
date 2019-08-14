@@ -40,7 +40,7 @@ data class DoctorO(
 ) : Serializable {
     // TODO refactor
     val experience: String
-        get() = (getYear - worksSinceYear.substring(0, 4).toInt()).toString() + " лет"
+        get() = "Стаж " + (getYear - worksSinceYear.substring(0, 4).toInt()).toString() + " лет"
 
 
     val specializations: String

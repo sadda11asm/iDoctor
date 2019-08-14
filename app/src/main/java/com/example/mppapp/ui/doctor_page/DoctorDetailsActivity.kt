@@ -57,7 +57,7 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
 
             tabLayout.setupWithViewPager(doctorInfoContainer)
 
-            startChat.setOnClickListener {
+            buttonStartChat.setOnClickListener {
                 val title = getFullName() + "," + doctor.name
 
                 progressDialog = ProgressDialogFragment.show(supportFragmentManager)

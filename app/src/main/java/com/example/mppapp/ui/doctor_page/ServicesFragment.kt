@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mppapp.R
 import com.example.mppapp.model.ServiceO
+import com.example.mppapp.model.ServicePivotO
 import kotlinx.coroutines.CoroutineScope
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
 import kotlinx.android.synthetic.main.fragment_services.*

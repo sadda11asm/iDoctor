@@ -139,4 +139,8 @@
 	<string name="doctor_card_currency">тг</string>
 	<string name="doctor_card_chat">Чат</string>
 	<string name="doctor_card_qualification">Врач</string>
+
+	<!--activity_chat-->
+	<string name="doctor_call">Позвонить</string>
+
 </resources>
