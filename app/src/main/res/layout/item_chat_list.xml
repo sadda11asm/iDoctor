@@ -5,106 +5,105 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
 
-	<com.google.android.material.card.MaterialCardView
-		android:layout_width="match_parent"
+	<ImageView
+		android:id="@+id/imageAvatar"
+		android:layout_width="56dp"
+		android:layout_height="56dp"
+		android:layout_marginStart="20dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="16dp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageView
+		android:id="@+id/imageOnline"
+		android:layout_width="12dp"
+		android:layout_height="12dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginRight="8dp"
+		android:src="@drawable/ic_online"
+		app:layout_constraintBottom_toBottomOf="@id/imageAvatar"
+		app:layout_constraintEnd_toEndOf="@id/imageAvatar" />
+
+	<TextView
+		android:id="@+id/textChatName"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		app:cardBackgroundColor="@color/colorPrimary"
-		app:layout_constraintTop_toTopOf="parent"
-		app:strokeColor="#000000"
-		app:strokeWidth="0.5dp"
-		tools:layout_editor_absoluteX="16dp">
+		android:layout_marginStart="10dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="22dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginRight="8dp"
+		android:alpha="0.8"
+		android:ellipsize="end"
+		android:maxLines="1"
+		android:textColor="#001B36"
+		android:textSize="15sp"
+		android:textStyle="bold"
+		app:fontFamily="@font/montserrat_regular"
+		app:layout_constraintEnd_toStartOf="@+id/textMessageCount"
+		app:layout_constraintStart_toEndOf="@id/imageAvatar"
+		app:layout_constraintTop_toTopOf="parent" />
 
-		<androidx.constraintlayout.widget.ConstraintLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_margin="2dp"
-			tools:layout_editor_absoluteX="16dp"
-			tools:layout_editor_absoluteY="16dp">
+	<TextView
+		android:id="@+id/textMessage"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="10dp"
+		android:layout_marginLeft="10dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginRight="8dp"
+		android:alpha="0.65"
+		android:ellipsize="end"
+		android:maxLines="1"
+		android:textColor="#001B36"
+		android:textSize="13sp"
+		app:fontFamily="@font/montserrat_regular"
+		app:layout_constraintEnd_toStartOf="@+id/textSentTime"
+		app:layout_constraintStart_toEndOf="@id/imageAvatar"
+		app:layout_constraintTop_toBottomOf="@id/textChatName" />
 
-			<TextView
-				android:id="@+id/unreadCountView"
-				android:layout_width="24dp"
-				android:layout_height="24dp"
-				android:layout_marginStart="8dp"
-				android:layout_marginLeft="8dp"
-				android:layout_marginTop="8dp"
-				android:layout_marginEnd="8dp"
-				android:layout_marginRight="8dp"
-				android:layout_marginBottom="8dp"
-				android:background="@drawable/rounded_circle"
-				android:gravity="center_horizontal|center_vertical"
-				android:padding="2dp"
-				android:text="7"
-				android:textColor="#FFFFFF"
-				app:fontFamily="@font/blogger_sans_bold"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintEnd_toEndOf="@+id/time"
-				app:layout_constraintHorizontal_bias="1.0"
-				app:layout_constraintStart_toStartOf="@+id/time"
-				app:layout_constraintTop_toBottomOf="@+id/time"
-				app:layout_constraintVertical_bias="1.0" />
+	<TextView
+		android:id="@+id/textMessageCount"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="24dp"
+		android:layout_marginEnd="20dp"
+		android:layout_marginRight="20dp"
+		android:background="@drawable/ic_message_count"
+		android:gravity="center"
+		android:textColor="@android:color/white"
+		android:textSize="12sp"
+		app:fontFamily="@font/montserrat_regular"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
-			<ImageView
-				android:id="@+id/imageCountView"
-				android:layout_width="50dp"
-				android:layout_height="50dp"
-				android:layout_marginStart="8dp"
-				android:layout_marginLeft="8dp"
-				android:layout_marginTop="8dp"
-				android:layout_marginBottom="8dp"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent" />
+	<TextView
+		android:id="@+id/textSentTime"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="20dp"
+		android:layout_marginRight="20dp"
+		android:alpha="0.4"
+		android:textColor="#001B36"
+		android:textSize="10sp"
+		app:fontFamily="@font/montserrat_regular"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/textMessageCount" />
 
-			<TextView
-				android:id="@+id/chatNameView"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginLeft="8dp"
-				android:layout_marginTop="8dp"
-				android:text="Saved Messages"
-				android:textColor="@android:color/white"
-				android:textSize="18sp"
-				android:textStyle="bold"
-				app:fontFamily="@font/blogger_sans_bold"
-				app:layout_constraintStart_toEndOf="@id/imageCountView"
-				app:layout_constraintTop_toTopOf="parent" />
+	<View
+		android:layout_width="0dp"
+		android:layout_height="0.5dp"
+		android:layout_marginStart="20dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginEnd="20dp"
+		android:layout_marginRight="20dp"
+		android:background="@android:color/darker_gray"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/imageAvatar" />
 
-
-			<TextView
-				android:id="@+id/lastMessageView"
-				android:layout_width="wrap_content"
-				android:layout_height="23dp"
-				android:layout_marginStart="8dp"
-				android:layout_marginLeft="8dp"
-				android:layout_marginTop="8dp"
-				android:layout_marginBottom="4dp"
-				android:text="You: Салам, как дела?"
-				android:textColor="#D3D3D3"
-				android:textStyle="bold"
-				app:fontFamily="@font/blogger_sans"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintStart_toEndOf="@id/imageCountView"
-				app:layout_constraintTop_toBottomOf="@+id/chatNameView" />
-
-			<TextView
-				android:id="@+id/time"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginLeft="8dp"
-				android:layout_marginTop="8dp"
-				android:layout_marginEnd="8dp"
-				android:layout_marginRight="8dp"
-				android:text="13:36"
-				android:textColor="#D3D3D3"
-				app:fontFamily="@font/blogger_sans"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintHorizontal_bias="1.0"
-				app:layout_constraintStart_toEndOf="@+id/chatNameView"
-				app:layout_constraintTop_toTopOf="parent" />
-
-		</androidx.constraintlayout.widget.ConstraintLayout>
-	</com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
