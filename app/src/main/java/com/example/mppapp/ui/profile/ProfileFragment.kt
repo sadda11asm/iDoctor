@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mppapp.R
 import com.example.mppapp.ui.login.LoginActivity
-import com.example.mppapp.ui.password_change.PasswordChangeActivity
-import com.example.mppapp.ui.profile_edit.ProfileEditActivity
+import com.example.mppapp.ui.profile.about_us.AboutUsActivity
+import com.example.mppapp.ui.profile.contact_us.ContactUsActivity
+import com.example.mppapp.ui.profile.password_change.PasswordChangeActivity
+import com.example.mppapp.ui.profile.profile_edit.ProfileEditActivity
 import com.example.mppapp.util.deleteAccessToken
 import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getName
@@ -55,8 +56,16 @@ class ProfileFragment : Fragment(), ProfileView {
         ProfileEditActivity.open(context!!)
     }
 
+    override fun openContactUsPage() {
+        ContactUsActivity.open(context!!)
+    }
+
     override fun openPasswordChangePage() {
         PasswordChangeActivity.open(context!!)
+    }
+
+    override fun openAboutUsPage() {
+        AboutUsActivity.open(context!!)
     }
 
     override fun logout() {
@@ -69,5 +78,7 @@ class ProfileFragment : Fragment(), ProfileView {
         buttonLogout.setOnClickListener { presenter.onLogout() }
         editData.setOnClickListener{ openEditDataPage() }
         changePassword.setOnClickListener { openPasswordChangePage() }
+        contactUs.setOnClickListener { openContactUsPage() }
+        aboutUs.setOnClickListener { openAboutUsPage() }
     }
 }

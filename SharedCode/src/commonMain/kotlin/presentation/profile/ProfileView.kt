@@ -12,5 +12,9 @@ interface ProfileView {
 
     fun openPasswordChangePage()
 
+    fun openContactUsPage()
+
+    fun openAboutUsPage()
+
     fun logout()
 }

@@ -11,9 +11,17 @@
 		android:layout_marginStart="20dp"
 		android:layout_marginLeft="20dp"
 		android:layout_marginTop="16dp"
-		android:src="@drawable/avatar_placeholder"
+		android:src="@drawable/no_avatar"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
+
+	<androidx.appcompat.widget.AppCompatImageView
+		android:id="@+id/imageEdit"
+		android:layout_width="32dp"
+		android:layout_height="32dp"
+		android:src="@drawable/ic_edit"
+		app:layout_constraintBottom_toBottomOf="@id/imageAvatar"
+		app:layout_constraintEnd_toEndOf="@id/imageAvatar" />
 
 	<TextView
 		android:id="@+id/textName"
@@ -36,6 +44,10 @@
 		android:layout_marginStart="16dp"
 		android:layout_marginLeft="16dp"
 		android:layout_marginTop="8dp"
+		android:drawableStart="@drawable/ic_location"
+		android:drawableLeft="@drawable/ic_location"
+		android:drawablePadding="8dp"
+		android:text="Алматы, Казахстан"
 		android:textSize="12sp"
 		app:fontFamily="@font/montserrat_regular"
 		app:layout_constraintStart_toEndOf="@id/imageAvatar"
@@ -47,6 +59,11 @@
 		android:layout_height="wrap_content"
 		android:layout_marginStart="16dp"
 		android:layout_marginLeft="16dp"
+		android:layout_marginTop="4dp"
+		android:drawableStart="@drawable/ic_email"
+		android:drawableLeft="@drawable/ic_email"
+		android:drawablePadding="4dp"
+		android:text="porcuon19@gmail.com"
 		android:textSize="12sp"
 		app:fontFamily="@font/montserrat_regular"
 		app:layout_constraintStart_toEndOf="@id/imageAvatar"
@@ -58,6 +75,11 @@
 		android:layout_height="wrap_content"
 		android:layout_marginStart="16dp"
 		android:layout_marginLeft="16dp"
+		android:layout_marginTop="4dp"
+		android:drawableStart="@drawable/ic_phone_small"
+		android:drawableLeft="@drawable/ic_phone_small"
+		android:drawablePadding="4dp"
+		android:text="+7 707 275 06 05"
 		android:textSize="12sp"
 		app:fontFamily="@font/montserrat_regular"
 		app:layout_constraintStart_toEndOf="@id/imageAvatar"
@@ -165,9 +187,9 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:checked="true"
-			app:theme="@style/NotificationsSwitch"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintTop_toTopOf="parent"
+			app:theme="@style/NotificationsSwitch" />
 
 		<View
 			android:layout_width="0dp"
