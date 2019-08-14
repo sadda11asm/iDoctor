@@ -81,8 +81,6 @@ class DoctorDetailsActivity : AppCompatActivity(), DoctorPageView {
             .with(this)
             .load(doctor.imageLink)
             .error(R.drawable.default_avatar)
-            .apply(RequestOptions.circleCropTransform())
-            .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.iconDoctorDetail)
 
 
