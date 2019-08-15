@@ -51,7 +51,7 @@ class LoginActivity: AppCompatActivity(), LoginView {
 
     private fun setListeners() {
         buttonEnter.setOnClickListener { presenter.login(
-            editLogin.text.toString(),
+            editEmail.text.toString(),
             editPassword.text.toString()
         ) }
     }
@@ -72,7 +72,7 @@ class LoginActivity: AppCompatActivity(), LoginView {
 
     override fun showLoader() {
         progressLogin.visibility = View.VISIBLE
-        buttonEnter.alpha = 0.7F
+        buttonEnter.alpha = 0.4F
         buttonEnter.text = null
         buttonEnter.isClickable = false
     }
@@ -80,7 +80,7 @@ class LoginActivity: AppCompatActivity(), LoginView {
     override fun hideLoader() {
         progressLogin.visibility = View.GONE
         buttonEnter.alpha = 1.0F
-        buttonEnter.text = resources.getString(R.string.signin)
+        buttonEnter.text = resources.getString(R.string.login_signin)
         buttonEnter.isClickable = true
     }
 

@@ -1,21 +1,5 @@
 <resources>
 	<string name="app_name">iDoctor</string>
-	<string name="login">Логин</string>
-	<string name="password">Пароль</string>
-	<string name="registration">
-		<u>Регистрация</u>
-	</string>
-	<string name="forgotpass">
-		<u>Забыли пароль?</u>
-	</string>
-
-	<string name="login_no_connection">Нет подключения к интернету. Попробуйте позже.</string>
-	<string name="login_empty_fields">Поля Логин и Пароль не могут быть пустыми</string>
-	<string name="login_invalid_data">Неправильный логин или пароль</string>
-
-	<string name="signin">Войти</string>
-	<string name="address">Адрес приема:</string>
-	<string name="medcenter">Мед. центр:</string>
 	<string name="type_text">Введите текст</string>
 
 	<string name="doctors">Врачи</string>
@@ -139,8 +123,24 @@
 	<string name="doctor_card_currency">тг</string>
 	<string name="doctor_card_chat">Чат</string>
 	<string name="doctor_card_qualification">Врач</string>
-
-	<!--activity_chat-->
+  
+  <!--activity_chat-->
 	<string name="doctor_call">Позвонить</string>
 
+	<!--LoginActivity-->
+	<string name="login_authorization">Авторизация iDoctor.kz</string>
+	<string name="login_registration">Регистрация</string>
+	<string name="login_not_registered">Не зарегистрированы?</string>
+	<string name="login_email">E-mail:</string>
+	<string name="login_password">Ваш пароль:</string>
+	<string name="login_signin">Войти</string>
+	<string name="login_password_forgot">Не помню пароль</string>
+	<string name="login_no_connection">Нет подключения к интернету. Попробуйте позже.</string>
+	<string name="login_empty_fields">Поля Логин и Пароль не могут быть пустыми</string>
+	<string name="login_invalid_data">Неправильный логин или пароль</string>
+	<string name="login_idoctor_description">
+		iDoctor — сервис по поиску врачей по всему Казахстану.
+		Вызов врача на дом, онлайн-консультация, бесплатная запись на прием.
+	</string>
+	<string name="login_idoctor_copyright">2013&#8211;2019 © iDoctor.kz</string>
 </resources>
