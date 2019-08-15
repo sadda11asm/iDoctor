@@ -107,6 +107,14 @@
 	<string name="about_us_email_first">hello@idoctor.kz</string>
 	<string name="about_us_email_second">marketing@idoctor.kz - <b>отдел Маркетинга</b></string>
 	<string name="about_us_social">Соц. сети:</string>
+	<string name="about_us_doctors_count">14 500</string>
+	<string name="about_us_doctors">врачей</string>
+	<string name="about_us_medcenters_count">2 500</string>
+	<string name="about_us_medcenters">медицинских центров</string>
+	<string name="about_us_reviews_count">>6 000</string>
+	<string name="about_us_reviews_doctors">отзывов о врачах</string>
+	<string name="about_us_cities_count">21</string>
+	<string name="about_us_cities">город РК</string>
 
 	<!--ContactUsActivity-->
 	<string name="contact_us_title">Свяжитесь с нами</string>
@@ -123,8 +131,8 @@
 	<string name="doctor_card_currency">тг</string>
 	<string name="doctor_card_chat">Чат</string>
 	<string name="doctor_card_qualification">Врач</string>
-  
-  <!--activity_chat-->
+
+	<!--activity_chat-->
 	<string name="doctor_call">Позвонить</string>
 
 	<!--LoginActivity-->
