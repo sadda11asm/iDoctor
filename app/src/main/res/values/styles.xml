@@ -37,6 +37,7 @@
 
 	<style name="AppTabTextAppearance2" parent="TextAppearance.Design.Tab">
 		<item name = "android:fontFamily" tools:targetApi="jelly_bean">@font/montserrat</item>
+		<item name = "android:textStyle">bold</item>
 	</style>
 	<style name="RatingBar" parent="Theme.AppCompat">
 		<!--<item name="colorControlNormal">#FFFFFF</item>-->
