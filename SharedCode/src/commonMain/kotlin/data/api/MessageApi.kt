@@ -30,7 +30,7 @@ class MessageApi(engine: HttpClientEngine) {
         val json = defaultSerializer()
         val response = client.post<HttpResponse> {
             url {
-                protocol = URLProtocol.HTTP // TODO change to HTTPS (future)
+                protocol = URLProtocol.HTTPS
                 host = TEMP_URL
                 encodedPath = "$CHAT_MESSAGE/${sendMessageRequest.chatId}"
                 header(HEADER_CONTENT, CONTENT_TYPE)
@@ -47,7 +47,7 @@ class MessageApi(engine: HttpClientEngine) {
         val json = defaultSerializer()
         val response = client.post<HttpResponse> {
             url {
-                protocol = URLProtocol.HTTP // TODO change to HTTPS (future)
+                protocol = URLProtocol.HTTPS
                 host = TEMP_URL
                 encodedPath = "/${markMessageRequest.chatId}$CHAT_MESSAGE$CHAT_READ"
                 header(HEADER_AUTHORIZATION, "$TOKEN_TYPE ${markMessageRequest.token}")

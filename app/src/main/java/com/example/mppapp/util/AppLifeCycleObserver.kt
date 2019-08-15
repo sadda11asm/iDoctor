@@ -1,12 +1,15 @@
 package com.example.mppapp.util
 
+import android.app.Service
 import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import data.entity.Chat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.kotlin.mpp.mobile.ServiceLocator
+import org.kotlin.mpp.mobile.data.entity.ChatListRequest
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
 import org.kotlin.mpp.mobile.util.log
 import java.lang.Exception
@@ -16,16 +19,28 @@ class AppLifeCycleObserver(private val applicationContext: Context) : LifecycleO
 
     private val sockets = ServiceLocator.sockets
     private val scope = CoroutineScope(defaultDispatcher)
+    private val getChatList = ServiceLocator.getChatList
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun onEnterForeground() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreateApplication() {
         log("Sockets", "enter-foreground")
         try {
             val status = getConnectivityStatusString(applicationContext)
-            if (status != NETWORK_STATUS_NOT_CONNECTED)
+            val token = try {
+                getAccessToken()
+            } catch (e: Exception) {
+                ""
+            }
+            if (token.isNotEmpty()) {
                 scope.launch {
-                    sockets.subscribe()
+                    getChatList(
+                        params = ChatListRequest(token, status != NETWORK_STATUS_NOT_CONNECTED, false),
+                        onSuccess = { subscribe(it) },
+                        onFailure = {}
+                    )
+
                 }
+            }
         } catch (e: Exception) {
             log("Sockets", e.message!!)
         }
@@ -33,8 +48,19 @@ class AppLifeCycleObserver(private val applicationContext: Context) : LifecycleO
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onEnterBackground() {
+        ServiceLocator.setSocketListener(null)
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDeleteApplication() {
         scope.launch {
             sockets.unsubscribe()
+        }
+    }
+
+    private fun subscribe(chatList: List<Chat>) {
+        scope.launch {
+            sockets.subscribe(chatList)
         }
     }
 }

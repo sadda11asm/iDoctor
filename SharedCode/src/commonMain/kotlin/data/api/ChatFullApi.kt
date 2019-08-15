@@ -32,7 +32,7 @@ class ChatFullApi(engine: HttpClientEngine) {
     suspend fun getChatFull(token: String, chatId: Int): ChatFullResponse {
         val response = client.get<HttpResponse> {
             url {
-                protocol = URLProtocol.HTTP // TODO change to HTTPS (future)
+                protocol = URLProtocol.HTTPS
                 host = TEMP_URL
                 encodedPath = "$API_CHAT/$chatId"
                 header(HEADER_CONTENT, CONTENT_TYPE)
@@ -46,9 +46,10 @@ class ChatFullApi(engine: HttpClientEngine) {
 
     suspend fun createChat(token: String, title: String, userId: Int, anonymous: Boolean, doctorId: Int?): Int {
         val json = defaultSerializer()
+        log("Details", "$userId + $doctorId")
         val response = client.post<HttpResponse> {
             url {
-                protocol = URLProtocol.HTTP
+                protocol = URLProtocol.HTTPS
                 host = TEMP_URL
                 encodedPath = "/chat"
                 header(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
