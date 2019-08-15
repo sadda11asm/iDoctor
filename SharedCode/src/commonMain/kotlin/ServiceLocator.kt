@@ -55,9 +55,6 @@ object ServiceLocator {
 
     val sockets by lazy {Sockets(PlatformServiceLocator.cioEngine)}
 
-//    val subscribe by lazy {Subscribe(sockets)}
-
-//    val unsubscribe by lazy {Unsubscribe(sockets)}
 
 
     /**
@@ -83,6 +80,12 @@ object ServiceLocator {
 
     val saveChat: SaveChat
         get() = SaveChat(chatRepository)
+
+
+
+    /**
+     * Get User Info
+     */
 
     val userApi by lazy {UserApi(PlatformServiceLocator.httpClientEngine)}
 

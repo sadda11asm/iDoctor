@@ -17,28 +17,34 @@ private const val NAME = "name"
 private const val IS_DOCTOR = "is_doctor"
 
 
-fun getAccessToken(): String = Hawk.get<String>(ACCESS_TOKEN)
+    fun getAccessToken(): String {
+        return try {
+            Hawk.get<String>(ACCESS_TOKEN)
+        } catch (e: Exception) {
+            return ""
+        }
+    }
 
-fun isTokenPresent() = Hawk.contains(ACCESS_TOKEN)
+    fun isTokenPresent() = Hawk.contains(ACCESS_TOKEN)
 
-fun putToken(response: AuthorizationResponse) = with(response) {
-    Hawk.put(ACCESS_TOKEN, accessToken)
-    Hawk.put(REFRESH_TOKEN, refreshToken)
-    Hawk.put(EXPIRES_IN, expiresIn)
-}
+    fun putToken(response: AuthorizationResponse) = with(response) {
+        Hawk.put(ACCESS_TOKEN, accessToken)
+        Hawk.put(REFRESH_TOKEN, refreshToken)
+        Hawk.put(EXPIRES_IN, expiresIn)
+    }
 
-fun putUser(user: UserFull) = with(user) {
-    Hawk.put(USER_ID, id)
-    Hawk.put(NAME, "$firstName $lastName")
-    Hawk.put(IS_DOCTOR, doctorId != null)
-}
+    fun putUser(user: UserFull) = with(user) {
+        Hawk.put(USER_ID, id)
+        Hawk.put(NAME, "$firstName $lastName")
+        Hawk.put(IS_DOCTOR, doctorId != null)
+    }
 
-fun getUserId(): Int = Hawk.get<Int>(USER_ID)
+    fun getUserId(): Int = Hawk.get<Int>(USER_ID)
 
-fun getName(): String = Hawk.get<String>(NAME)
+    fun getName(): String = Hawk.get<String>(NAME)
 
-fun isDoctor(): Boolean = Hawk.get<Boolean>(IS_DOCTOR)
+    fun isDoctor(): Boolean = Hawk.get<Boolean>(IS_DOCTOR)
 
-fun deleteAccessToken() {
-    Hawk.delete(ACCESS_TOKEN)
-}
+    fun deleteAccessToken() {
+        Hawk.delete(ACCESS_TOKEN)
+    }

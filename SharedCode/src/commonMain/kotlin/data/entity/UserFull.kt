@@ -16,8 +16,9 @@ data class UserFull(
     @SerialName("created_at") val createdAt: EventDate?,
     @SerialName("updated_at") val updatedAt: EventDate?,
     @SerialName("verified_recently") val verified: Boolean,
-    @SerialName("doctor_id") val doctorId: String? = null
-)
+    @SerialName("doctor_id") val doctorId: String? = null,
+    val birthday: String? = null
+    )
 
 fun UserModel.to(): UserFull {
     return UserFull(

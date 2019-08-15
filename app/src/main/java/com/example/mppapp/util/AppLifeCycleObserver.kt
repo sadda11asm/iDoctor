@@ -16,6 +16,7 @@ class AppLifeCycleObserver(private val applicationContext: Context) : LifecycleO
 
     private val sockets = ServiceLocator.sockets
     private val scope = CoroutineScope(defaultDispatcher)
+    private val getUserInfo = ServiceLocator.getUserInfo
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onEnterForeground() {
@@ -28,6 +29,25 @@ class AppLifeCycleObserver(private val applicationContext: Context) : LifecycleO
                 }
         } catch (e: Exception) {
             log("Sockets", e.message!!)
+        }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreateForeground() {
+        lateinit var token: String
+        try {
+            getAccessToken()
+        } catch (e: Exception) {
+            return
+        }
+        if(token.isNotEmpty()) {
+            scope.launch {
+                getUserInfo(
+                    params = getAccessToken(),
+                    onSuccess = {},
+                    onFailure = {}
+                )
+            }
         }
     }
 
