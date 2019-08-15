@@ -14,32 +14,43 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 
-		<com.google.android.material.floatingactionbutton.FloatingActionButton
-			android:id="@+id/startChat"
+		<androidx.appcompat.widget.AppCompatButton
+			android:id="@+id/buttonStartChat"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="16dp"
 			android:layout_marginLeft="16dp"
 			android:layout_marginBottom="16dp"
-			android:clickable="true"
-			app:backgroundTint="#1F8EFA"
+			android:background="@drawable/rounded_button_chat"
+			android:drawableStart="@drawable/ic_chats_white"
+			android:drawableLeft="@drawable/ic_chats_white"
+			android:drawablePadding="15dp"
+			android:paddingLeft="42dp"
+			android:paddingRight="62dp"
+			android:text="@string/doctor_card_chat"
+			android:textColor="@android:color/white"
+			android:textStyle="bold"
+			app:fontFamily="@font/montserrat_regular"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:srcCompat="@drawable/mail" />
+			app:layout_constraintStart_toStartOf="parent" />
 
-
-		<com.google.android.material.floatingactionbutton.FloatingActionButton
-			android:id="@+id/call"
+		<androidx.appcompat.widget.AppCompatButton
+			android:id="@+id/buttonCall"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="16dp"
 			android:layout_marginRight="16dp"
 			android:layout_marginBottom="16dp"
-			android:clickable="true"
-			app:backgroundTint="#06D09E"
+			android:background="@drawable/rounded_button_call"
+			android:drawableStart="@drawable/ic_chats_white"
+			android:drawableLeft="@drawable/ic_chats_white"
+			android:drawablePadding="15dp"
+			android:paddingLeft="12dp"
+			android:paddingRight="22dp"
+			android:text="@string/doctor_call"
+			android:textColor="@android:color/white"
+			android:textStyle="bold"
+			app:fontFamily="@font/montserrat_regular"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:srcCompat="@drawable/pjone" />
+			app:layout_constraintEnd_toEndOf="parent" />
 
 		<androidx.core.widget.NestedScrollView
 			android:id="@+id/scrollView2"
@@ -61,6 +72,7 @@
 					android:layout_marginEnd="16dp"
 					android:layout_marginRight="16dp"
 					android:text="@{doctor.ratingText}"
+					android:textSize="12sp"
 					app:fontFamily="@font/montserrat_regular"
 					app:layout_constraintBottom_toBottomOf="@+id/rating_doctor_detail"
 					app:layout_constraintEnd_toStartOf="@+id/rating_text"
@@ -81,7 +93,7 @@
 					android:gravity="center_horizontal"
 					android:text="@{doctor.specializations}"
 					android:textColor="#919BAB"
-					android:textSize="16sp"
+					android:textSize="14sp"
 					android:textStyle="bold"
 					app:fontFamily="@font/montserrat_regular"
 					app:layout_constraintEnd_toEndOf="parent"
@@ -122,6 +134,7 @@
 					android:layout_marginStart="16dp"
 					android:layout_marginLeft="16dp"
 					android:text="@{doctor.numReviews}"
+					android:textSize="12sp"
 					app:fontFamily="@font/montserrat_regular"
 					app:layout_constraintBottom_toBottomOf="@+id/rating_doctor_detail"
 					app:layout_constraintStart_toEndOf="@+id/rating_text"
@@ -154,6 +167,7 @@
 					android:layout_marginEnd="8dp"
 					android:layout_marginRight="8dp"
 					android:text="|"
+					android:textSize="12sp"
 					app:fontFamily="@font/montserrat_regular"
 					app:layout_constraintBottom_toBottomOf="@+id/rating_doctor_detail"
 					app:layout_constraintEnd_toEndOf="@+id/name_doctor_detail"
@@ -182,6 +196,7 @@
 						android:gravity="center_horizontal|center_vertical"
 						android:text="@{doctor.qualification}"
 						android:textColor="#E77C6E"
+						android:textStyle="bold"
 						app:fontFamily="@font/montserrat_regular" />
 
 					<TextView
@@ -195,6 +210,7 @@
 						android:gravity="center_horizontal|center_vertical"
 						android:text="@{doctor.experience}"
 						android:textColor="#4C1199"
+						android:textStyle="bold"
 						app:fontFamily="@font/montserrat_regular" />
 
 				</LinearLayout>

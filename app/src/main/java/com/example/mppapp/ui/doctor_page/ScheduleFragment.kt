@@ -63,7 +63,7 @@ class ScheduleFragment : Fragment()  {
             for (time in times) {
                 periods[time.key] = time.isWork
             }
-            var finalPeriod = " "
+            var finalPeriod = "  "
             var i = 0
             while (i < 25) {
                 if (periods[i]) {
@@ -73,7 +73,7 @@ class ScheduleFragment : Fragment()  {
                     }
                     val finish = i-1
                     if (start!=finish) {
-                        if (finalPeriod.length!=1) finalPeriod+=", "
+                        if (finalPeriod.length!=2) finalPeriod+=", "
                         finalPeriod+="$start - $finish"
                     }
                 }

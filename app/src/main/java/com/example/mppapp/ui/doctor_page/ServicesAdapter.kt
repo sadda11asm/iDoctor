@@ -10,13 +10,19 @@ import com.example.mppapp.util.BaseAdapter
 import com.example.mppapp.util.BaseHolder
 import io.ktor.http.parseServerSetCookieHeader
 
-class ServicesAdapter(private val list: ArrayList<ServiceO>) : BaseAdapter<ServiceO>(list) {
+class ServicesAdapter(private val list: ArrayList<ServiceO>) : RecyclerView.Adapter<BaseHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder {
         val inflater = LayoutInflater.from(parent.context)
 
         return ServicesViewHolder(inflater, parent)
 
+    }
+
+    override fun getItemCount() = list.size + 1
+
+    override fun onBindViewHolder(holder: BaseHolder, position: Int) {
+        holder.bind(position)
     }
 
 
@@ -31,9 +37,16 @@ class ServicesAdapter(private val list: ArrayList<ServiceO>) : BaseAdapter<Servi
         }
 
         override fun bind(position: Int) {
-            val serviceO = list[position]
-            serviceName?.text = serviceO.name
-            servicePrice?.text = serviceO.pivot.price.toString() + " тг. "
+            if (position == list.size) {
+                serviceName?.text = ""
+                servicePrice?.text = ""
+            } else {
+                val serviceO = list[position]
+                serviceName?.text = serviceO.name
+                servicePrice?.text = if (serviceO.pivot.price != null )
+                    serviceO.pivot.price.toString() + " тг. "
+                else "0" + " тг. "
+            }
         }
 
 
