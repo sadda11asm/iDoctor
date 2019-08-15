@@ -1,7 +1,5 @@
 <resources>
 	<string name="app_name">iDoctor</string>
-	<string name="address">Адрес приема:</string>
-	<string name="medcenter">Мед. центр:</string>
 	<string name="type_text">Введите текст</string>
 
 	<string name="doctors">Врачи</string>
@@ -130,7 +128,7 @@
 	<string name="login_authorization">Авторизация iDoctor.kz</string>
 	<string name="login_registration">Регистрация</string>
 	<string name="login_not_registered">Не зарегистрированы?</string>
-	<string name="login_email">e-mail:</string>
+	<string name="login_email">E-mail:</string>
 	<string name="login_password">Ваш пароль:</string>
 	<string name="login_signin">Войти</string>
 	<string name="login_password_forgot">Не помню пароль</string>

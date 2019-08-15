@@ -72,7 +72,7 @@ class LoginActivity: AppCompatActivity(), LoginView {
 
     override fun showLoader() {
         progressLogin.visibility = View.VISIBLE
-        buttonEnter.alpha = 0.7F
+        buttonEnter.alpha = 0.4F
         buttonEnter.text = null
         buttonEnter.isClickable = false
     }

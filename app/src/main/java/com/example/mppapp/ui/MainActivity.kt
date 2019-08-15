@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.viewpager.widget.ViewPager
 import com.example.mppapp.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,10 +38,12 @@ class MainActivity: AppCompatActivity() {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 changeToolbarTitle(position)
+                invalidateOptionsMenu()
             }
 
             override fun onPageSelected(position: Int) {
                 changeToolbarTitle(position)
+                invalidateOptionsMenu()
             }
 
             private fun changeToolbarTitle(position: Int) {
@@ -58,6 +62,12 @@ class MainActivity: AppCompatActivity() {
         val searchView = searchItem?.actionView as SearchView
         searchView.queryHint = resources.getString(R.string.search)
         return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val searchItem = menu?.findItem(R.id.action_search)
+        searchItem?.isVisible = viewPager.currentItem == 0
+        return super.onPrepareOptionsMenu(menu)
     }
 
     companion object {
