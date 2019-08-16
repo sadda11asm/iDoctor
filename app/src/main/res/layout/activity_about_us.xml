@@ -363,13 +363,232 @@
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@id/containerForUsers" />
 
+			<androidx.cardview.widget.CardView
+				android:id="@+id/cardDoctors"
+				android:layout_width="0dp"
+				android:layout_height="224dp"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="68dp"
+				android:layout_marginEnd="76dp"
+				android:layout_marginRight="76dp"
+				app:cardBackgroundColor="#F6F9FC"
+				app:cardElevation="0dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/textNumbers" />
+
+			<TextView
+				android:id="@+id/textDoctorsCount"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="30dp"
+				android:layout_marginLeft="30dp"
+				android:layout_marginTop="30dp"
+				android:text="@string/about_us_doctors_count"
+				android:textColor="#76B9F9"
+				android:textSize="60sp"
+				app:fontFamily="@font/montserrat_bold"
+				app:layout_constraintStart_toStartOf="@id/cardDoctors"
+				app:layout_constraintTop_toBottomOf="@id/textNumbers" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="30dp"
+				android:layout_marginLeft="30dp"
+				android:layout_marginTop="8dp"
+				android:text="@string/about_us_doctors"
+				android:textColor="#001B36"
+				android:textSize="22sp"
+				android:textStyle="bold"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintStart_toStartOf="@id/cardDoctors"
+				app:layout_constraintTop_toBottomOf="@id/textDoctorsCount" />
+
+			<androidx.appcompat.widget.AppCompatImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="30dp"
+				android:layout_marginRight="30dp"
+				android:layout_marginBottom="40dp"
+				android:src="@drawable/ic_briefcase_gray"
+				app:layout_constraintBottom_toBottomOf="@id/cardDoctors"
+				app:layout_constraintEnd_toEndOf="@id/cardDoctors" />
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/cardMedcenters"
+				android:layout_width="0dp"
+				android:layout_height="224dp"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="52dp"
+				android:layout_marginEnd="76dp"
+				android:layout_marginRight="76dp"
+				app:cardBackgroundColor="#F6F9FC"
+				app:cardElevation="0dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/cardDoctors" />
+
+			<TextView
+				android:id="@+id/textMedcentersCount"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="30dp"
+				android:layout_marginLeft="30dp"
+				android:layout_marginTop="16dp"
+				android:text="@string/about_us_medcenters_count"
+				android:textColor="#1F8EFA"
+				android:textSize="60sp"
+				app:fontFamily="@font/montserrat_bold"
+				app:layout_constraintStart_toStartOf="@id/cardMedcenters"
+				app:layout_constraintTop_toBottomOf="@id/cardDoctors" />
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="30dp"
+				android:layout_marginLeft="30dp"
+				android:layout_marginTop="8dp"
+				android:layout_marginEnd="68dp"
+				android:layout_marginRight="68dp"
+				android:text="@string/about_us_medcenters"
+				android:textColor="#001B36"
+				android:textSize="22sp"
+				android:textStyle="bold"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintEnd_toEndOf="@id/cardMedcenters"
+				app:layout_constraintStart_toStartOf="@id/cardMedcenters"
+				app:layout_constraintTop_toBottomOf="@id/textMedcentersCount" />
+
+			<androidx.appcompat.widget.AppCompatImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="30dp"
+				android:layout_marginRight="30dp"
+				android:layout_marginBottom="40dp"
+				android:src="@drawable/ic_hospital"
+				app:layout_constraintBottom_toBottomOf="@id/cardMedcenters"
+				app:layout_constraintEnd_toEndOf="@id/cardMedcenters" />
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/cardReviewsCount"
+				android:layout_width="0dp"
+				android:layout_height="224dp"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="52dp"
+				android:layout_marginEnd="76dp"
+				android:layout_marginRight="76dp"
+				app:cardBackgroundColor="#F6F9FC"
+				app:cardElevation="0dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/cardMedcenters" />
+
+			<TextView
+				android:id="@+id/textReviewsCount"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="30dp"
+				android:layout_marginLeft="30dp"
+				android:layout_marginTop="16dp"
+				android:text="@string/about_us_reviews_count"
+				android:textColor="#0363BF"
+				android:textSize="60sp"
+				app:fontFamily="@font/montserrat_bold"
+				app:layout_constraintStart_toStartOf="@id/cardReviewsCount"
+				app:layout_constraintTop_toBottomOf="@id/cardMedcenters" />
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="30dp"
+				android:layout_marginLeft="30dp"
+				android:layout_marginTop="8dp"
+				android:layout_marginEnd="48dp"
+				android:layout_marginRight="48dp"
+				android:text="@string/about_us_reviews_doctors"
+				android:textColor="#001B36"
+				android:textSize="22sp"
+				android:textStyle="bold"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintEnd_toEndOf="@id/cardReviewsCount"
+				app:layout_constraintStart_toStartOf="@id/cardReviewsCount"
+				app:layout_constraintTop_toBottomOf="@id/textReviewsCount" />
+
+			<androidx.appcompat.widget.AppCompatImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="30dp"
+				android:layout_marginRight="30dp"
+				android:layout_marginBottom="40dp"
+				android:src="@drawable/ic_check"
+				app:layout_constraintBottom_toBottomOf="@id/cardReviewsCount"
+				app:layout_constraintEnd_toEndOf="@id/cardReviewsCount" />
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/cardCities"
+				android:layout_width="0dp"
+				android:layout_height="224dp"
+				android:layout_marginStart="20dp"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="52dp"
+				android:layout_marginEnd="76dp"
+				android:layout_marginRight="76dp"
+				app:cardBackgroundColor="#F6F9FC"
+				app:cardElevation="0dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/cardReviewsCount" />
+
+			<TextView
+				android:id="@+id/textCitiesCount"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="30dp"
+				android:layout_marginLeft="30dp"
+				android:layout_marginTop="16dp"
+				android:text="@string/about_us_cities_count"
+				android:textColor="#001B36"
+				android:textSize="60sp"
+				app:fontFamily="@font/montserrat_bold"
+				app:layout_constraintStart_toStartOf="@id/cardCities"
+				app:layout_constraintTop_toBottomOf="@id/cardReviewsCount" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="30dp"
+				android:layout_marginLeft="30dp"
+				android:layout_marginTop="8dp"
+				android:text="@string/about_us_cities"
+				android:textColor="#001B36"
+				android:textSize="22sp"
+				android:textStyle="bold"
+				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintStart_toStartOf="@id/cardCities"
+				app:layout_constraintTop_toBottomOf="@id/textCitiesCount" />
+
+			<androidx.appcompat.widget.AppCompatImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="30dp"
+				android:layout_marginRight="30dp"
+				android:layout_marginBottom="40dp"
+				android:src="@drawable/ic_world"
+				app:layout_constraintBottom_toBottomOf="@id/cardCities"
+				app:layout_constraintEnd_toEndOf="@id/cardCities" />
+
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:id="@+id/containerSocial"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_marginTop="32dp"
 				android:background="#F6F9FC"
 				android:paddingBottom="28dp"
-				app:layout_constraintTop_toBottomOf="@id/textNumbers">
+				app:layout_constraintTop_toBottomOf="@id/cardCities">
 
 				<TextView
 					android:id="@+id/textContacts"
