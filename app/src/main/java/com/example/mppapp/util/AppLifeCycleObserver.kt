@@ -36,7 +36,7 @@ class AppLifeCycleObserver(private val applicationContext: Context) : LifecycleO
                     getChatList(
                         params = ChatListRequest(token, status != NETWORK_STATUS_NOT_CONNECTED, false),
                         onSuccess = { subscribe(it) },
-                        onFailure = {}
+                        onFailure = { log("Sockets", "SOCKETS DID NOT SUBSCRIBED ${it.toString()}")}
                     )
 
                 }

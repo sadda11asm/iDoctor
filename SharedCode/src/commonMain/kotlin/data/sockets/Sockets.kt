@@ -127,6 +127,7 @@ class Sockets(private val engine: HttpClientEngine) {
                 }
             }
             //if (CONNECT) subscribe()
+            log("Sockets", "DISCONNECTED")
             close()
             subscribed = 0
         }
