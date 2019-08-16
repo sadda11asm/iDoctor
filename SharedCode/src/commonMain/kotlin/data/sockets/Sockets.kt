@@ -47,7 +47,7 @@ class Sockets(private val engine: HttpClientEngine) {
     }
 
     suspend fun subscribe(chatList: List<Chat>) {
-        if (subscribed>=1) return
+        if (subscribed >= 1) return
         CONNECT = true
         subscribed++
         val json = defaultSerializer()
@@ -58,17 +58,17 @@ class Sockets(private val engine: HttpClientEngine) {
                 request = {
                     url.protocol = URLProtocol.WS
                     url.port = 80
-                    log("Sockets", "request")
+                    log("Sockets", "REQUEST CREATION")
                 }
             ) {
                 val chats = getChatIDs(chatList)
                 val request = json.write(JoinRequest(chats)).toString()
-                log("Sockets", "request: $request")
+                log("Sockets", "CHAT IDs: $request")
                 send(request)
                 listenSockets(this)
             }
         } catch (e: Exception) {
-            log("Sockets", e.toString())
+            log("Sockets", "EXCEPTION: $e")
             subscribed = 0
             if (CONNECT)
                 subscribe(chatList)
@@ -89,16 +89,16 @@ class Sockets(private val engine: HttpClientEngine) {
     }
 
     private suspend fun listenSockets(session: DefaultClientWebSocketSession) {
-        with (session) {
-            log("Sockets", "zashel")
-            log("Sockets", listener.toString())
+        with(session) {
+            log("Sockets", "SUBSCRIBED TO SOCKETS")
+            log("Sockets", "LISTENER INFO: $listener")
             while (CONNECT) {
                 try {
                     val frame = incoming.receive()
-                    log("Sockets", frame.toString())
+                    log("Sockets", "INCOMING FRAME: $frame")
                     if (frame is Frame.Text) {
                         val body = frame.readText()
-                        log("Sockets", body)
+                        log("Sockets", "INCOMING FRAME TEXT: $body")
                         launch(uiDispatcher) {
                             log("Sockets", listener.toString())
                             try {

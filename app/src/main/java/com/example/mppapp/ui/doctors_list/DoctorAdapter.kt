@@ -59,6 +59,13 @@ class DoctorAdapter(
                 if (doctor.qualifications.isNotEmpty()) doctor.qualifications[0].name else resources.getString(R.string.doctor_card_qualification)
             rating.rating = doctor.avgRate.toFloat()
             textRating.text = String.format(Locale.US, "%.1f", doctor.avgRate)
+            textReviews.text = resources.getString(R.string.doctor_card_reviews, doctor.commentsCount)
+            textMedcenter.text =
+                if (doctor.medcenters.isNotEmpty() && doctor.medcenters[0].name.isNotEmpty()) {
+                    doctor.medcenters[0].name
+                } else {
+                    resources.getString(R.string.doctor_card_no_medcenter)
+                } // TODO refactor
 
             Glide
                 .with(context)

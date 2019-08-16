@@ -50,14 +50,12 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
         super.onResume()
         presenter.attachView(this)
         swipeRefresh.isRefreshing = false
-        log("Sockets", "RESUME0")
     }
 
 
     override fun onStop() {
         super.onStop()
         presenter.detachView()
-        log("Sockets", "STOP0")
     }
 
     override fun onClick(data: Doctor) { this.context?.let { DoctorDetailsActivity.open(it, data.to()) } }

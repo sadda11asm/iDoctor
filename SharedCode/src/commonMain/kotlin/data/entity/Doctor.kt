@@ -37,6 +37,7 @@ data class Doctor(
     @SerialName("community_text") var communityText: String?,
     @SerialName("certs_text") var certsText: String?,
     @SerialName("feedback_link") var feedbackLink: String,
+    val medcenters: List<Medcenter>,
     @SerialName("comments_count") var commentsCount: Int
 ) {
 

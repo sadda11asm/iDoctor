@@ -40,7 +40,7 @@
 		<item name = "android:textStyle">bold</item>
 	</style>
 	<style name="RatingBar" parent="Theme.AppCompat">
-		<!--<item name="colorControlNormal">#FFFFFF</item>-->
+		<item name="colorControlNormal">@android:color/darker_gray</item>
 		<item name="colorControlActivated">#FFC60E</item>
 	</style>
 </resources>

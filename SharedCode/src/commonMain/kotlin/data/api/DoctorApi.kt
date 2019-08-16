@@ -39,6 +39,7 @@ class DoctorApi(engine: HttpClientEngine) {
                 header(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
                 parameter(PARAM_PAGE, page)
                 parameter(PARAM_ACCOUNT, "HAS")
+                parameter("withMedcenters", 1) // TODO move to consts
             }
             accept(ContentType.Application.Json)
         }
