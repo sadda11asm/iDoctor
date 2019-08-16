@@ -42,7 +42,6 @@ class ChatActivity : AppCompatActivity(), ChatView {
         setContentView(R.layout.activity_chat)
         setupToolbar()
         showAvatar()
-        Slidr.attach(this)
     }
 
     override fun onStart() {

@@ -131,6 +131,7 @@
 	<string name="doctor_card_currency">тг</string>
 	<string name="doctor_card_chat">Чат</string>
 	<string name="doctor_card_qualification">Врач</string>
+	<string name="doctor_card_no_medcenter">Клиника не указана</string>
 
 	<!--activity_chat-->
 	<string name="doctor_call">Позвонить</string>

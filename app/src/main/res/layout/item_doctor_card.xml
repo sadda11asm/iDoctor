@@ -14,6 +14,7 @@
 		android:layout_marginRight="8dp"
 		android:layout_marginBottom="8dp"
 		app:cardCornerRadius="4dp"
+		app:cardElevation="6dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
@@ -170,19 +171,21 @@
 				app:layout_constraintTop_toBottomOf="@id/textExperience" />
 
 			<TextView
-				android:id="@+id/textHospital"
-				android:layout_width="wrap_content"
+				android:id="@+id/textMedcenter"
+				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="20dp"
 				android:layout_marginLeft="20dp"
 				android:layout_marginTop="24dp"
+				android:layout_marginEnd="20dp"
+				android:layout_marginRight="20dp"
 				android:drawableStart="@drawable/ic_hospital_small"
 				android:drawableLeft="@drawable/ic_hospital_small"
 				android:drawablePadding="8dp"
-				android:text="Стоматологическая клиника ЕОК"
 				android:textColor="#001B36"
 				android:textSize="14sp"
 				app:fontFamily="@font/montserrat_regular"
+				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@id/separatorTop" />
 
@@ -194,7 +197,7 @@
 				android:background="@android:color/darker_gray"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/textHospital" />
+				app:layout_constraintTop_toBottomOf="@id/textMedcenter" />
 
 
 			<androidx.appcompat.widget.AppCompatButton
