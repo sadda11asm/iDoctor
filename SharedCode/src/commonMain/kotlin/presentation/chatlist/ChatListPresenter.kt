@@ -27,7 +27,7 @@ class ChatListPresenter(
 
     override fun onMessage(mes: Message) {
         log("Sockets", "onMessage")
-        view!!.showMessage(mes)
+        view?.showMessage(mes)
         scope.launch {
             log("Sockets", "receiveMessage")
             receiveMessage(

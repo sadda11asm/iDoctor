@@ -28,7 +28,7 @@ class ChatListApi(engine: HttpClientEngine) {
     suspend fun getChatList(token: String): List<Chat> {
         val response = client.get<HttpResponse> {
             url {
-                protocol = URLProtocol.HTTP
+                protocol = URLProtocol.HTTPS
                 host = TEMP_URL
                 encodedPath = "/"
                 header(HEADER_CONTENT, CONTENT_TYPE)
