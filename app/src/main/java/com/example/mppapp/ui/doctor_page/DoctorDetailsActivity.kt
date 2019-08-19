@@ -2,11 +2,11 @@ package com.example.mppapp.ui.doctor_page
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.mppapp.R
 import com.example.mppapp.model.DoctorO
@@ -36,7 +36,8 @@ class DoctorDetailsActivity : CloseableActivity(R.layout.activity_doctor_details
 
         showDoctorInfo()
 
-        val adapter = DoctorPagerAdapter(doctor.services as ArrayList<ServiceO>, doctor.id.toInt(), this, supportFragmentManager)
+        val adapter =
+            DoctorPagerAdapter(doctor.services as ArrayList<ServiceO>, doctor.id.toInt(), this, supportFragmentManager)
 
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
@@ -45,7 +46,7 @@ class DoctorDetailsActivity : CloseableActivity(R.layout.activity_doctor_details
             val title = getFullName() + "," + doctor.name
             startChat(token(), title, doctor.userId?.toInt()!!, false, doctor.id.toInt(), doctor.imageLink)
         }
-
+        buttonCall.setOnClickListener{ makePhoneCall() }
     }
 
     override fun onStart() {
@@ -99,6 +100,26 @@ class DoctorDetailsActivity : CloseableActivity(R.layout.activity_doctor_details
         Toast.makeText(this, R.string.doctors_load_error_message, Toast.LENGTH_SHORT).show()
     }
 
+    override fun showLoader() {
+        progressChat.visibility = View.VISIBLE
+        buttonChat.text = null
+        buttonChat.alpha = 0.7F
+        buttonChat.isClickable = false
+        buttonChat.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+    }
+
+    override fun hideLoader() {
+        progressChat.visibility = View.GONE
+        buttonChat.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_chats_white, 0, 0, 0)
+        buttonChat.text = resources.getString(R.string.doctor_details_chat)
+        buttonChat.alpha = 1.0F
+        buttonChat.isClickable = true
+    }
+
+    override fun makePhoneCall() {
+        val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", doctor.showingPhone, null))
+        startActivity(intent)
+    }
 
     companion object {
         const val EXTRA_DOCTOR = "extra_doctor"

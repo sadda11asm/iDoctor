@@ -13,11 +13,12 @@ class DoctorPagePresenter (
 ): BasePresenter<DoctorPageView>(coroutineContext) {
 
     fun createChat(token: String, title: String, userId: Int, anonymous: Boolean, doctorId: Int?, avatar: String) {
+        view?.showLoader()
         scope.launch {
             createChat(
                 params = CreateChatParams(token, title, userId, anonymous, doctorId),
-                onSuccess = { view?.goToChat(it, avatar, title) },
-                onFailure = { view?.showCreationError(it) }
+                onSuccess = { view?.goToChat(it, avatar, title); view?.hideLoader() },
+                onFailure = { view?.showCreationError(it); view?.hideLoader() }
             )
         }
     }

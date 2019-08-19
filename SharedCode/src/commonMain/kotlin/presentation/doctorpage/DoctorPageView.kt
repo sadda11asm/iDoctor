@@ -14,4 +14,10 @@ interface DoctorPageView {
     fun goToChat(chatId: Int, avatar: String, title: String?)
 
     fun showDoctorInfo()
+
+    fun showLoader()
+
+    fun hideLoader()
+
+    fun makePhoneCall()
 }
