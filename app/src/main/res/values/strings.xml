@@ -133,9 +133,6 @@
 	<string name="doctor_card_qualification">Врач</string>
 	<string name="doctor_card_no_medcenter">Клиника не указана</string>
 
-	<!--activity_chat-->
-	<string name="doctor_call">Позвонить</string>
-
 	<!--LoginActivity-->
 	<string name="login_authorization">Авторизация iDoctor.kz</string>
 	<string name="login_registration">Регистрация</string>
@@ -152,4 +149,16 @@
 		Вызов врача на дом, онлайн-консультация, бесплатная запись на прием.
 	</string>
 	<string name="login_idoctor_copyright">2013&#8211;2019 © iDoctor.kz</string>
+
+	<!--DoctorDetailsActivity-->
+	<string name="doctor_details_experience">Стаж %d лет</string>
+	<string name="doctor_details_reviews">%d отзывов</string>
+	<string name="doctor_details_schedule">График работы</string>
+	<string name="doctor_details_services">Сервисы</string>
+	<string name="doctor_details_chat">Чат</string>
+	<string name="doctor_details_call">Позвонить</string>
+
+	<!--item_service-->
+	<string name="service_price">%d тг.</string>
+	
 </resources>

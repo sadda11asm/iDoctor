@@ -39,8 +39,8 @@ data class DoctorO(
     var commentsCount: Int
 ) : Serializable {
     // TODO refactor
-    val experience: String
-        get() = "Стаж " + (getYear - worksSinceYear.substring(0, 4).toInt()).toString() + " лет"
+    val experience: Int
+        get() = getYear - worksSinceYear.substring(0, 4).toInt()
 
 
     val specializations: String

@@ -19,7 +19,7 @@ class iDoctorApplication : Application() {
         val intentFilter = IntentFilter("android.net.conn.CONNECTIVITY_CHANGE")
         this.registerReceiver(NetworkBroadcastReceiver(), intentFilter)
 
-        val lifecycleObserver =  AppLifeCycleObserver(applicationContext)
+        val lifecycleObserver = AppLifeCycleObserver(applicationContext)
 
         //ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
 

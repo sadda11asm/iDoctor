@@ -17,9 +17,8 @@ class DoctorPagePresenter (
             createChat(
                 params = CreateChatParams(token, title, userId, anonymous, doctorId),
                 onSuccess = { view?.goToChat(it, avatar, title) },
-                onFailure = { view?.showError(it) }
+                onFailure = { view?.showCreationError(it) }
             )
         }
     }
-
 }

@@ -21,6 +21,12 @@
 		<item name="android:layout_gravity">center</item>
 		<item name="colorAccent">#001B36</item>
 	</style>
+	
+	<style name="TabLayoutText" parent="@android:style/TextAppearance.Widget.TabWidget">
+		<item name="fontFamily">@font/montserrat_regular</item>
+		<item name="android:textAllCaps">true</item>
+		<item name="android:textStyle">bold</item>
+	</style>
 
     <style name="MainSearchView" parent="Widget.AppCompat.SearchView">
         <item name="searchHintIcon">@null</item>

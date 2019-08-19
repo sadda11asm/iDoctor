@@ -8,7 +8,7 @@ import com.example.mppapp.ui.doctors_list.DoctorListFragment
 import com.example.mppapp.ui.profile.ProfileFragment
 import java.lang.IllegalArgumentException
 
-private const val NUM_PAGES = 3
+private const val NUM_OF_PAGES = 3
 
 class MainPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
 
@@ -21,5 +21,5 @@ class MainPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(
         }
     }
 
-    override fun getCount() = NUM_PAGES
+    override fun getCount() = NUM_OF_PAGES
 }
