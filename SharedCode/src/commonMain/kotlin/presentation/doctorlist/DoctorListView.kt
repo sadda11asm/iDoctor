@@ -24,4 +24,12 @@ interface DoctorListView {
     fun showLoadingFailed()
 
     fun showRefreshingFailed()
+
+    fun showChatCreateLoader(position: Int)
+
+    fun hideChatCreateLoader(position: Int)
+
+    fun showChatCreationError(e: Exception)
+
+    fun openChat(chatId: Int, avatar: String, title: String?)
 }

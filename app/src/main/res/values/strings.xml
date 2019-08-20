@@ -157,6 +157,7 @@
 	<string name="doctor_details_services">Сервисы</string>
 	<string name="doctor_details_chat">Чат</string>
 	<string name="doctor_details_call">Позвонить</string>
+	<string name="doctor_details_creation_error">Произошла ошибка во время создания чата. Попробуйте еще раз.</string>
 
 	<!--item_service-->
 	<string name="service_price">%d тг.</string>

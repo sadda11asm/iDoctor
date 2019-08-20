@@ -11,14 +11,19 @@ import org.kotlin.mpp.mobile.domain.model.Success
 
 class CreateChat(
     private val chatFullRepository: ChatFullRepository
-): UseCase<Int, CreateChatParams>() {
+) : UseCase<Int, CreateChatParams>() {
     override suspend fun run(params: CreateChatParams): Either<Exception, Int> {
-        return try{
-            val response = chatFullRepository.createChat(params.token, params.title, params.user_id, params.anonymous, params.doctor_id)
+        return try {
+            val response = chatFullRepository.createChat(
+                params.token,
+                params.title,
+                params.userId,
+                params.anonymous,
+                params.doctorId
+            )
             Success(response)
         } catch (e: Exception) {
             Failure(e)
         }
     }
-
 }

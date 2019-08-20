@@ -9,22 +9,19 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mppapp.R
 import com.example.mppapp.model.to
-import com.example.mppapp.util.ItemClickListener
+import com.example.mppapp.ui.chat.ChatActivity
 import com.example.mppapp.ui.doctor_page.DoctorDetailsActivity
-import com.example.mppapp.util.PaginationScrollListener
-import com.example.mppapp.util.getAccessToken
-import com.example.mppapp.util.getNetworkConnection
+import com.example.mppapp.util.*
 import kotlinx.android.synthetic.main.fragment_doctor_list.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListView
-import org.kotlin.mpp.mobile.util.log
 
-class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor> {
+class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>, ButtonChatClickListener<Doctor> {
 
     private val presenter by lazy { ServiceLocator.doctorListPresenter }
 
-    private val adapter by lazy { DoctorAdapter(context!!,this) }
+    private val adapter by lazy { DoctorAdapter(context!!,this, this) }
 
     private val layoutManager by lazy { LinearLayoutManager(context) }
 
@@ -59,6 +56,11 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
     }
 
     override fun onClick(data: Doctor) { this.context?.let { DoctorDetailsActivity.open(it, data.to()) } }
+
+    override fun onButtonClick(item: Doctor, position: Int) {
+        val title = getName() + "," + item.name
+        presenter.createChat(token(), title, item.userId?.toInt()!!, false, item.id.toInt(), item.imageLink, position)
+    }
 
     override fun token() = getAccessToken()
 
@@ -104,6 +106,24 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
         isLoading = false
         adapter.removeLoader()
         Toast.makeText(context, R.string.toast_load_error_message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showChatCreateLoader(position: Int) {
+        val viewHolder = recyclerDoctors.findViewHolderForAdapterPosition(position) as DoctorAdapter.DoctorHolder
+        viewHolder.showLoader()
+    }
+
+    override fun hideChatCreateLoader(position: Int) {
+        val viewHolder = recyclerDoctors.findViewHolderForAdapterPosition(position) as DoctorAdapter.DoctorHolder
+        viewHolder.hideLoader()
+    }
+
+    override fun showChatCreationError(e: Exception) {
+        Toast.makeText(context, R.string.doctor_details_creation_error, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun openChat(chatId: Int, avatar: String, title: String?) {
+        ChatActivity.open(context!!, chatId, avatar, title?.split(',')?.get(1))
     }
 
     private fun setupRecycler() {

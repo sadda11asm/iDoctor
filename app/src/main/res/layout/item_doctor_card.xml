@@ -201,8 +201,11 @@
 
 			<androidx.appcompat.widget.AppCompatButton
 				android:id="@+id/buttonChat"
-				android:layout_width="wrap_content"
+				style="@style/Widget.AppCompat.Button.Borderless.Colored"
+				android:layout_width="0dp"
 				android:layout_height="wrap_content"
+				android:layout_marginStart="24dp"
+				android:layout_marginLeft="24dp"
 				android:layout_marginTop="20dp"
 				android:layout_marginEnd="20dp"
 				android:layout_marginRight="20dp"
@@ -219,7 +222,21 @@
 				android:textStyle="bold"
 				app:fontFamily="@font/montserrat_regular"
 				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toEndOf="@+id/textCurrency"
 				app:layout_constraintTop_toBottomOf="@id/separatorBottom" />
+
+			<ProgressBar
+				android:id="@+id/progressChat"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="2dp"
+				android:layout_marginBottom="2dp"
+				android:theme="@style/WhiteAccent"
+				android:visibility="gone"
+				app:layout_constraintBottom_toBottomOf="@id/buttonChat"
+				app:layout_constraintEnd_toEndOf="@id/buttonChat"
+				app:layout_constraintStart_toStartOf="@id/buttonChat"
+				app:layout_constraintTop_toTopOf="@id/buttonChat" />
 
 			<TextView
 				android:id="@+id/textAppointment"

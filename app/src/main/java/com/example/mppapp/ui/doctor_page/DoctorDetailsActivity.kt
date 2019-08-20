@@ -97,7 +97,7 @@ class DoctorDetailsActivity : CloseableActivity(R.layout.activity_doctor_details
 
     override fun showCreationError(e: Exception) {
         Log.v("Details", e.toString())
-        Toast.makeText(this, R.string.doctors_load_error_message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.doctor_details_creation_error, Toast.LENGTH_SHORT).show()
     }
 
     override fun showLoader() {

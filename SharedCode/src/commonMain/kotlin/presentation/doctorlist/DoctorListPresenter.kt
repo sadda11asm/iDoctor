@@ -1,5 +1,7 @@
 package org.kotlin.mpp.mobile.presentation.doctorlist
 
+import data.entity.CreateChatParams
+import domain.usecases.CreateChat
 import kotlinx.coroutines.launch
 import org.kotlin.mpp.mobile.SocketListener
 import org.kotlin.mpp.mobile.data.entity.Doctor
@@ -12,6 +14,7 @@ import kotlin.coroutines.CoroutineContext
 
 class DoctorListPresenter(
     private val getDoctors: GetDoctors,
+    private val createChat: CreateChat,
     private val coroutineContext: CoroutineContext = defaultDispatcher
 ) : BasePresenter<DoctorListView>(coroutineContext), SocketListener {
 
@@ -22,7 +25,7 @@ class DoctorListPresenter(
     private var page = 1
 
     fun start() {
-        if(view!!.isConnectedToNetwork()) {
+        if (view!!.isConnectedToNetwork()) {
             loadDoctors()
         } else {
             view?.showNoConnection()
@@ -34,7 +37,7 @@ class DoctorListPresenter(
             getDoctors(
                 params = DoctorRequest(token, page),
                 onSuccess = { onDoctorsLoadSuccess(it.data) },
-                onFailure = { onDoctorsLoadFailure(); log(value = "${it.message}") }
+                onFailure = { onDoctorsLoadFailure() }
             )
         }
     }
@@ -50,6 +53,25 @@ class DoctorListPresenter(
         }
     }
 
+    fun createChat(
+        token: String,
+        title: String,
+        userId: Int,
+        anonymous: Boolean,
+        doctorId: Int?,
+        avatar: String,
+        position: Int
+    ) {
+        view?.showChatCreateLoader(position)
+        scope.launch {
+            createChat(
+                params = CreateChatParams(token, title, userId, anonymous, doctorId),
+                onSuccess = { view?.openChat(it, avatar, title); view?.hideChatCreateLoader(position) },
+                onFailure = { view?.showChatCreationError(it); view?.hideChatCreateLoader(position) }
+            )
+        }
+    }
+
     private fun onDoctorsRefreshSuccess(doctors: MutableList<Doctor>) {
         view?.showRefreshedDoctors(doctors)
         isFirstLoad = false
@@ -57,7 +79,7 @@ class DoctorListPresenter(
     }
 
     private fun onDoctorsLoadSuccess(doctors: MutableList<Doctor>) {
-        if(isFirstLoad) {
+        if (isFirstLoad) {
             view?.hideLoading()
             isFirstLoad = false
         } else {
@@ -68,7 +90,7 @@ class DoctorListPresenter(
     }
 
     private fun onDoctorsLoadFailure() {
-        if(isFirstLoad) {
+        if (isFirstLoad) {
             view?.showLoadingFailed()
         } else {
             view?.showPagingFailed()

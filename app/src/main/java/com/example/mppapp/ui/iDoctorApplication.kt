@@ -11,6 +11,7 @@ import com.example.mppapp.util.NetworkBroadcastReceiver
 
 
 class iDoctorApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
 

@@ -1,5 +1,6 @@
 package data.entity
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
@@ -7,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class CreateChatParams(
     val token: String,
     val title: String,
-    val user_id: Int,
+    @SerialName("user_id") val userId: Int,
     val anonymous: Boolean,
-    val doctor_id: Int?
+    @SerialName("doctor_id") val doctorId: Int?
 )
