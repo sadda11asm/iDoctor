@@ -9,7 +9,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.mppapp.R
 import com.example.mppapp.util.BaseHolder
-import com.example.mppapp.util.ButtonChatClickListener
 import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.util.PageableAdapter
 import kotlinx.android.synthetic.main.item_doctor_card.view.*
@@ -78,7 +77,7 @@ class DoctorAdapter(
             }
 
             buttonChat.setOnClickListener {
-                buttonChatClickListener.onButtonClick(doctor, position)
+                buttonChatClickListener.onChatButtonClick(doctor, position)
             }
         }
 

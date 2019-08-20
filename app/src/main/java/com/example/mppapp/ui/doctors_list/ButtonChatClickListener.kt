@@ -1,4 +1,4 @@
-package com.example.mppapp.util
+package com.example.mppapp.ui.doctors_list
 
 interface ButtonChatClickListener<T> {
 
@@ -7,5 +7,5 @@ interface ButtonChatClickListener<T> {
      * inside RecyclerView ViewHolder
      */
 
-    fun onButtonClick(item: T, position: Int)
+    fun onChatButtonClick(item: T, position: Int)
 }

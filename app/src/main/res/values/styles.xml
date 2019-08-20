@@ -11,40 +11,45 @@
 		<item name="searchViewStyle">@style/MainSearchView</item>
 	</style>
 
-    <style name="Widget.BottomNavigationView"
-        parent="Widget.Design.BottomNavigationView">
-        <item name="fontFamily">@font/montserrat_regular</item>
-    </style>
+	<style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+		<item name="fontFamily">@font/montserrat_regular</item>
+	</style>
 
 	<style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
 		<item name="fontFamily">@font/montserrat_regular</item>
 		<item name="android:layout_gravity">center</item>
 		<item name="colorAccent">#001B36</item>
 	</style>
-	
+
 	<style name="TabLayoutText" parent="@android:style/TextAppearance.Widget.TabWidget">
 		<item name="fontFamily">@font/montserrat_regular</item>
 		<item name="android:textAllCaps">true</item>
 		<item name="android:textStyle">bold</item>
 	</style>
 
-    <style name="MainSearchView" parent="Widget.AppCompat.SearchView">
-        <item name="searchHintIcon">@null</item>
-    </style>
-
-    <style name="WhiteAccent" parent="ThemeOverlay.AppCompat.Light">
-        <item name="colorAccent">#FFFFFF</item>
-    </style>
-
-    <style name="NotificationsSwitch" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">#44DB5E</item>
-        <item name="colorSwitchThumbNormal">#cc0000</item>
-    </style>
-
-	<style name="AppTabTextAppearance2" parent="TextAppearance.Design.Tab">
-		<item name = "android:fontFamily" tools:targetApi="jelly_bean">@font/montserrat</item>
-		<item name = "android:textStyle">bold</item>
+	<style name="MainSearchView" parent="Widget.AppCompat.SearchView">
+		<item name="searchHintIcon">@null</item>
 	</style>
+
+	<style name="WhiteAccent" parent="ThemeOverlay.AppCompat.Light">
+		<item name="colorAccent">#FFFFFF</item>
+	</style>
+
+	<style name="NotificationsSwitch" parent="Theme.AppCompat.Light">
+		<item name="colorControlActivated">#44DB5E</item>
+		<item name="colorSwitchThumbNormal">#cc0000</item>
+	</style>
+
+	<style name="ChatCreateAlertDialog" parent="Base.Theme.AppCompat.Light.Dialog">
+		<item name="fontFamily">@font/montserrat_regular</item>
+		<item name="colorAccent">#1F8EFA</item>
+	</style>
+
+	<style name="LogoutAlertDialog" parent="Base.Theme.AppCompat.Light.Dialog">
+		<item name="fontFamily">@font/montserrat_regular</item>
+		<item name="colorAccent">@color/colorAccent</item>
+	</style>
+
 	<style name="RatingBar" parent="Theme.AppCompat">
 		<item name="colorControlNormal">@android:color/darker_gray</item>
 		<item name="colorControlActivated">#FFC60E</item>
