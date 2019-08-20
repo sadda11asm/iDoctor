@@ -44,6 +44,9 @@
 	<string name="profile_contact_us">Связаться с нами</string>
 	<string name="profile_about_us">О нас</string>
 	<string name="profile_logout">Выйти</string>
+	<string name="profile_dialog_logout">Вы действительно хотите выйти?</string>
+	<string name="profile_dialog_logout_positive">Выйти</string>
+	<string name="profile_dialog_logout_negative">Отмена</string>
 
 	<!--ProfileEditActivity-->
 	<string name="profile_edit_title">Личные данные</string>
@@ -133,9 +136,6 @@
 	<string name="doctor_card_qualification">Врач</string>
 	<string name="doctor_card_no_medcenter">Клиника не указана</string>
 
-	<!--activity_chat-->
-	<string name="doctor_call">Позвонить</string>
-
 	<!--LoginActivity-->
 	<string name="login_authorization">Авторизация iDoctor.kz</string>
 	<string name="login_registration">Регистрация</string>
@@ -152,4 +152,21 @@
 		Вызов врача на дом, онлайн-консультация, бесплатная запись на прием.
 	</string>
 	<string name="login_idoctor_copyright">2013&#8211;2019 © iDoctor.kz</string>
+
+	<!--DoctorDetailsActivity-->
+	<string name="doctor_details_experience">Стаж %d лет</string>
+	<string name="doctor_details_reviews">%d отзывов</string>
+	<string name="doctor_details_schedule">График работы</string>
+	<string name="doctor_details_services">Сервисы</string>
+	<string name="doctor_details_chat">Чат</string>
+	<string name="doctor_details_call">Позвонить</string>
+	<string name="doctor_details_creation_error">Произошла ошибка во время создания чата. Попробуйте еще раз.</string>
+
+	<!--item_service-->
+	<string name="service_price">%d тг.</string>
+
+	<!--DoctorListFragment-->
+	<string name="doctor_list_chat_dialog">Вы уверены что хотите начать чат?</string>
+	<string name="doctor_list_chat_dialog_positive">Начать</string>
+	<string name="doctor_list_chat_dialog_negative">Отмена</string>
 </resources>

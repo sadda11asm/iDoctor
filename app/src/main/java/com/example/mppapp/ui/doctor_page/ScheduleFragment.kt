@@ -18,12 +18,13 @@ import org.kotlin.mpp.mobile.data.entity.ScheduleResponse
 import org.kotlin.mpp.mobile.util.log
 
 
-class ScheduleFragment : Fragment()  {
+class ScheduleFragment : Fragment() {
 
     private val scope by lazy { CoroutineScope(defaultDispatcher) }
 
-
     val getSchedule = ServiceLocator.getSchedule
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_doctor_schedule, container, false)
     }
@@ -47,7 +48,7 @@ class ScheduleFragment : Fragment()  {
     private fun setData(scheduleResponse: ScheduleResponse) {
         val days = scheduleResponse.doctorJobs.jobs[0].schedule?.days
 
-        if (days==null) {
+        if (days == null) {
             monday.text = "Просим уточнять по телефону"
             tuesday.visibility = View.INVISIBLE
             wednesday.visibility = View.INVISIBLE
@@ -71,10 +72,10 @@ class ScheduleFragment : Fragment()  {
                     while (periods[i]) {
                         i++
                     }
-                    val finish = i-1
-                    if (start!=finish) {
-                        if (finalPeriod.length!=2) finalPeriod+=", "
-                        finalPeriod+="$start - $finish"
+                    val finish = i - 1
+                    if (start != finish) {
+                        if (finalPeriod.length != 2) finalPeriod += ", "
+                        finalPeriod += "$start - $finish"
                     }
                 }
                 i++
@@ -91,7 +92,6 @@ class ScheduleFragment : Fragment()  {
             }
         }
     }
-
 
 
 }

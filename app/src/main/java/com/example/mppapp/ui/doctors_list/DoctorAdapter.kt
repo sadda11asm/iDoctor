@@ -1,20 +1,16 @@
 package com.example.mppapp.ui.doctors_list
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.mppapp.R
-import com.example.mppapp.util.BaseAdapter
 import com.example.mppapp.util.BaseHolder
 import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.util.PageableAdapter
-import kotlinx.android.synthetic.main.activity_doctor_details.view.*
 import kotlinx.android.synthetic.main.item_doctor_card.view.*
 import org.kotlin.mpp.mobile.data.entity.Doctor
 import java.lang.IllegalArgumentException
@@ -23,6 +19,7 @@ import java.util.*
 class DoctorAdapter(
     private val context: Context,
     private val itemClickListener: ItemClickListener<Doctor>,
+    private val buttonChatClickListener: ButtonChatClickListener<Doctor>,
     private var doctors: MutableList<Doctor> = mutableListOf()
 ) : PageableAdapter<Doctor>(doctors) {
 
@@ -78,6 +75,26 @@ class DoctorAdapter(
             setOnClickListener {
                 itemClickListener.onClick(doctor)
             }
+
+            buttonChat.setOnClickListener {
+                buttonChatClickListener.onChatButtonClick(doctor, position)
+            }
+        }
+
+        fun showLoader() = with(itemView) {
+            progressChat.visibility = View.VISIBLE
+            buttonChat.text = null
+            buttonChat.alpha = 0.7F
+            buttonChat.isClickable = false
+            buttonChat.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        }
+
+        fun hideLoader() = with(itemView) {
+            progressChat.visibility = View.GONE
+            buttonChat.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_chats_white, 0, 0, 0)
+            buttonChat.text = resources.getString(R.string.doctor_details_chat)
+            buttonChat.alpha = 1.0F
+            buttonChat.isClickable = true
         }
 
         override fun onClick(view: View?) {

@@ -9,21 +9,26 @@ import com.example.mppapp.R
 import android.os.Bundle
 import com.example.mppapp.model.ServiceO
 
+class DoctorPagerAdapter(
+    private val services: ArrayList<ServiceO>,
+    private val id: Int,
+    private val context: Context,
+    fragmentManager: FragmentManager
+) : FragmentPagerAdapter(fragmentManager) {
 
-class DoctorPagerAdapter (private val services: ArrayList<ServiceO>, private val id: Int, private val context: Context, fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager) {
     override fun getItem(position: Int): Fragment {
-         return if (position == 0) {
-             val bundle = Bundle()
-             bundle.putInt("id", id)
-             val scheduleFragment = ScheduleFragment()
-             scheduleFragment.arguments = bundle
-             scheduleFragment
+        return if (position == 0) {
+            val bundle = Bundle()
+            bundle.putInt("id", id)
+            val scheduleFragment = ScheduleFragment()
+            scheduleFragment.arguments = bundle
+            scheduleFragment
         } else {
-             val bundle = Bundle()
-             bundle.putSerializable("services", services)
-             val servicesFragment = ServicesFragment()
-             servicesFragment.arguments = bundle
-             servicesFragment
+            val bundle = Bundle()
+            bundle.putSerializable("services", services)
+            val servicesFragment = ServicesFragment()
+            servicesFragment.arguments = bundle
+            servicesFragment
         }
     }
 
@@ -38,6 +43,4 @@ class DoctorPagerAdapter (private val services: ArrayList<ServiceO>, private val
             context.getString(R.string.treatments_title)
         }
     }
-
-
 }

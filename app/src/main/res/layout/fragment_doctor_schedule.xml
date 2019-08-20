@@ -1,92 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:paddingBottom="70dp">
+	android:layout_height="match_parent">
 
-	<TextView
-		android:id="@+id/monday"
+	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="20dp"
-		android:layout_marginTop="24dp"
-		android:layout_marginRight="20dp"
-		android:text="ПН:"
-		android:textColor="@android:color/black"
-		android:textSize="16sp"
-		app:fontFamily="@font/montserrat_regular" />
+		android:orientation="vertical">
 
-	<TextView
-		android:id="@+id/tuesday"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="20dp"
-		android:layout_marginTop="24dp"
-		android:layout_marginRight="20dp"
-		android:text="ВТ:"
-		android:textColor="@android:color/black"
-		android:textSize="16sp"
-		app:fontFamily="@font/montserrat_regular" />
+		<TextView
+			android:id="@+id/monday"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginRight="20dp"
+			android:text="ПН:"
+			android:textColor="@android:color/black"
+			android:textSize="16sp"
+			app:fontFamily="@font/montserrat_regular" />
 
-	<TextView
-		android:id="@+id/wednesday"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="20dp"
-		android:layout_marginTop="24dp"
-		android:layout_marginRight="20dp"
-		android:text="СР:"
-		android:textColor="@android:color/black"
-		android:textSize="16sp"
-		app:fontFamily="@font/montserrat_regular" />
+		<TextView
+			android:id="@+id/tuesday"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginRight="20dp"
+			android:text="ВТ:"
+			android:textColor="@android:color/black"
+			android:textSize="16sp"
+			app:fontFamily="@font/montserrat_regular" />
 
-	<TextView
-		android:id="@+id/thursday"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="20dp"
-		android:layout_marginTop="24dp"
-		android:layout_marginRight="20dp"
-		android:text="ЧТ:"
-		android:textColor="@android:color/black"
-		android:textSize="16sp"
-		app:fontFamily="@font/montserrat_regular" />
+		<TextView
+			android:id="@+id/wednesday"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginRight="20dp"
+			android:text="СР:"
+			android:textColor="@android:color/black"
+			android:textSize="16sp"
+			app:fontFamily="@font/montserrat_regular" />
 
-	<TextView
-		android:id="@+id/friday"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="20dp"
-		android:layout_marginTop="24dp"
-		android:layout_marginRight="20dp"
-		android:text="ПТ:"
-		android:textColor="@android:color/black"
-		android:textSize="16sp"
-		app:fontFamily="@font/montserrat_regular" />
+		<TextView
+			android:id="@+id/thursday"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginRight="20dp"
+			android:text="ЧТ:"
+			android:textColor="@android:color/black"
+			android:textSize="16sp"
+			app:fontFamily="@font/montserrat_regular" />
 
-	<TextView
-		android:id="@+id/saturday"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="20dp"
-		android:layout_marginTop="24dp"
-		android:layout_marginRight="20dp"
-		android:text="СБ:"
-		android:textColor="@android:color/black"
-		android:textSize="16sp"
-		app:fontFamily="@font/montserrat_regular" />
+		<TextView
+			android:id="@+id/friday"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginRight="20dp"
+			android:text="ПТ:"
+			android:textColor="@android:color/black"
+			android:textSize="16sp"
+			app:fontFamily="@font/montserrat_regular" />
 
-	<TextView
-		android:id="@+id/sunday"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="20dp"
-		android:layout_marginTop="24dp"
-		android:layout_marginRight="20dp"
-		android:text="ВС:"
-		android:textColor="@android:color/black"
-		android:textSize="16sp"
-		app:fontFamily="@font/montserrat_regular" />
-</LinearLayout>
+		<TextView
+			android:id="@+id/saturday"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginRight="20dp"
+			android:text="СБ:"
+			android:textColor="@android:color/black"
+			android:textSize="16sp"
+			app:fontFamily="@font/montserrat_regular" />
+
+		<TextView
+			android:id="@+id/sunday"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="24dp"
+			android:layout_marginRight="20dp"
+			android:text="ВС:"
+			android:textColor="@android:color/black"
+			android:textSize="16sp"
+			app:fontFamily="@font/montserrat_regular" />
+	</LinearLayout>
+</androidx.core.widget.NestedScrollView>

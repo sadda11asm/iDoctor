@@ -71,7 +71,7 @@ object ServiceLocator {
         get() = GetDoctors(doctorApi)
 
     val doctorListPresenter: DoctorListPresenter
-        get() = DoctorListPresenter(getDoctors)
+        get() = DoctorListPresenter(getDoctors, createChat)
 
     /**
     * Get User

@@ -5,11 +5,19 @@ interface DoctorPageView {
 
     fun token(): String
 
-    fun startChat(token: String, title: String, userId: Int, anonymous: Boolean, doctorId: Int, avatar: String)
-
-    fun showError(e: Exception)
-
-    fun goToChat(chatId: Int, avatar: String, title: String?)
-
     fun getFullName(): String
+
+    fun createChat()
+
+    fun showCreationError(e: Exception)
+
+    fun openChat(chatId: Int, avatar: String, title: String?)
+
+    fun showDoctorInfo()
+
+    fun showLoader()
+
+    fun hideLoader()
+
+    fun makePhoneCall()
 }

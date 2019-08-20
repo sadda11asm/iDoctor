@@ -1,55 +1,29 @@
 package com.example.mppapp.ui.doctor_page
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mppapp.R
 import com.example.mppapp.model.ServiceO
 import com.example.mppapp.util.BaseAdapter
 import com.example.mppapp.util.BaseHolder
-import io.ktor.http.parseServerSetCookieHeader
+import kotlinx.android.synthetic.main.item_service.view.*
 
-class ServicesAdapter(private val list: ArrayList<ServiceO>) : RecyclerView.Adapter<BaseHolder>() {
+class ServicesAdapter(private val list: ArrayList<ServiceO>) : BaseAdapter<ServiceO>(list) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder {
-        val inflater = LayoutInflater.from(parent.context)
-
-        return ServicesViewHolder(inflater, parent)
-
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_service, parent, false)
+        return ServiceViewHolder(view)
     }
 
-    override fun getItemCount() = list.size + 1
+    inner class ServiceViewHolder(itemView: View) : BaseHolder(itemView) {
 
-    override fun onBindViewHolder(holder: BaseHolder, position: Int) {
-        holder.bind(position)
-    }
-
-
-    inner class ServicesViewHolder(inflater: LayoutInflater, parent: ViewGroup): BaseHolder(inflater.inflate(R.layout.item_service, parent, false)) {
-
-        private var serviceName: TextView? = null
-        private var servicePrice: TextView? = null
-
-        init {
-            serviceName = itemView.findViewById(R.id.service_name)
-            servicePrice = itemView.findViewById(R.id.service_price)
+        override fun bind(position: Int) = with(itemView) {
+            val service = list[position]
+            val price = service.pivot.price ?: 0
+            textServicePrice.text = resources.getString(R.string.service_price, price)
+            textServiceName.text = service.name
         }
-
-        override fun bind(position: Int) {
-            if (position == list.size) {
-                serviceName?.text = ""
-                servicePrice?.text = ""
-            } else {
-                val serviceO = list[position]
-                serviceName?.text = serviceO.name
-                servicePrice?.text = if (serviceO.pivot.price != null )
-                    serviceO.pivot.price.toString() + " тг. "
-                else "0" + " тг. "
-            }
-        }
-
-
     }
 
 }

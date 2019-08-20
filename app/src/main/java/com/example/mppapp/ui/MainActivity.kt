@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.mppapp.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity: AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +32,7 @@ class MainActivity: AppCompatActivity() {
         }
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-                TODO("not implemented")
-            }
+            override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 changeToolbarTitle(position)
@@ -47,7 +45,7 @@ class MainActivity: AppCompatActivity() {
             }
 
             private fun changeToolbarTitle(position: Int) {
-                when(position) {
+                when (position) {
                     0 -> toolbar.title = resources.getString(R.string.toolbar_doctors)
                     1 -> toolbar.title = resources.getString(R.string.toolbar_chats)
                     2 -> toolbar.title = resources.getString(R.string.toolbar_profile)

@@ -11,6 +11,7 @@ import com.example.mppapp.util.NetworkBroadcastReceiver
 
 
 class iDoctorApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
 
@@ -19,7 +20,7 @@ class iDoctorApplication : Application() {
         val intentFilter = IntentFilter("android.net.conn.CONNECTIVITY_CHANGE")
         this.registerReceiver(NetworkBroadcastReceiver(), intentFilter)
 
-        val lifecycleObserver =  AppLifeCycleObserver(applicationContext)
+        val lifecycleObserver = AppLifeCycleObserver(applicationContext)
 
         //ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleObserver)
 
