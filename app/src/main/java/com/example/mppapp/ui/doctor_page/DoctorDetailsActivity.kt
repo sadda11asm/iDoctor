@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.example.mppapp.R
 import com.example.mppapp.model.DoctorO
@@ -42,11 +43,8 @@ class DoctorDetailsActivity : CloseableActivity(R.layout.activity_doctor_details
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
 
-        buttonChat.setOnClickListener {
-            val title = getFullName() + "," + doctor.name
-            startChat(token(), title, doctor.userId?.toInt()!!, false, doctor.id.toInt(), doctor.imageLink)
-        }
-        buttonCall.setOnClickListener{ makePhoneCall() }
+        buttonChat.setOnClickListener { showDialog() }
+        buttonCall.setOnClickListener { makePhoneCall() }
     }
 
     override fun onStart() {
@@ -80,19 +78,13 @@ class DoctorDetailsActivity : CloseableActivity(R.layout.activity_doctor_details
             .into(imageAvatar)
     }
 
-    override fun goToChat(chatId: Int, avatar: String, title: String?) {
+    override fun openChat(chatId: Int, avatar: String, title: String?) {
         ChatActivity.open(this, chatId, avatar, title?.split(',')?.get(1))
     }
 
-    override fun startChat(
-        token: String,
-        title: String,
-        userId: Int,
-        anonymous: Boolean,
-        doctorId: Int,
-        avatar: String
-    ) {
-        presenter.createChat(token, title, userId, anonymous, doctorId, avatar)
+    override fun createChat() {
+        val title = getFullName() + "," + doctor.name
+        presenter.createChat(token(), title, doctor.userId?.toInt()!!, false, doctor.id.toInt(), doctor.imageLink)
     }
 
     override fun showCreationError(e: Exception) {
@@ -119,6 +111,14 @@ class DoctorDetailsActivity : CloseableActivity(R.layout.activity_doctor_details
     override fun makePhoneCall() {
         val intent = Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", doctor.showingPhone, null))
         startActivity(intent)
+    }
+
+    private fun showDialog() {
+        AlertDialog.Builder(this, R.style.ChatCreateAlertDialog)
+            .setView(R.layout.dialog_chat_create)
+            .setPositiveButton(R.string.doctor_list_chat_dialog_positive) { _, _ -> createChat() }
+            .setNegativeButton(R.string.doctor_list_chat_dialog_negative) { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
     companion object {

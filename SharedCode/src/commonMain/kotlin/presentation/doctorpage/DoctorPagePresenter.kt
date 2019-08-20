@@ -17,7 +17,7 @@ class DoctorPagePresenter (
         scope.launch {
             createChat(
                 params = CreateChatParams(token, title, userId, anonymous, doctorId),
-                onSuccess = { view?.goToChat(it, avatar, title); view?.hideLoader() },
+                onSuccess = { view?.openChat(it, avatar, title); view?.hideLoader() },
                 onFailure = { view?.showCreationError(it); view?.hideLoader() }
             )
         }

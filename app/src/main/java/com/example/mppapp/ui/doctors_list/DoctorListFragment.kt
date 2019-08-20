@@ -64,7 +64,6 @@ class DoctorListFragment : Fragment(), DoctorListView, ItemClickListener<Doctor>
             .setView(R.layout.dialog_chat_create)
             .setPositiveButton(R.string.doctor_list_chat_dialog_positive) { _, _ -> onChatCreate(item, position) }
             .setNegativeButton(R.string.doctor_list_chat_dialog_negative) { dialog, _ -> dialog.dismiss() }
-            .setCancelable(false)
             .show()
     }
 
