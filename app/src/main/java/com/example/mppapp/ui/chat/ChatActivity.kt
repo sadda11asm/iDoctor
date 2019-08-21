@@ -5,10 +5,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.mppapp.R
@@ -19,13 +18,11 @@ import com.example.mppapp.model.ViewModel
 import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getNetworkConnection
 import com.example.mppapp.util.getUserId
-import com.r0adkll.slidr.Slidr
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.ChatFull
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.presentation.chat.ChatView
-import org.kotlin.mpp.mobile.util.log
 
 class ChatActivity : AppCompatActivity(), ChatView {
 
@@ -46,7 +43,6 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     override fun onStart() {
         super.onStart()
-        log("Sockets", "START2")
         ServiceLocator.setSocketListener(presenter)
         presenter.attachView(this)
     }
@@ -75,7 +71,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     override fun showMessage(message: Message) {
         val isSent = message.userId == currentUserId
-        adapter.addMessage(MessageViewModel(message, isSent))
+        adapter.addMessage(MessageViewModel(message, isSent, getFormattedDate(message.createdAt!!)))
         recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
     }
 
@@ -93,11 +89,11 @@ class ChatActivity : AppCompatActivity(), ChatView {
     private fun setListeners() {
         fabSend.setOnClickListener { sendMessage() }
         fabDown.setOnClickListener { recyclerMessages.scrollToPosition(adapter.itemCount - 1) }
-        recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
-                recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
-            }
-        }
+//        recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+//            if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
+//                recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
+//            }
+//        }
     }
 
     private fun setupToolbar() {
@@ -120,7 +116,8 @@ class ChatActivity : AppCompatActivity(), ChatView {
         adapter = MessageAdapter(this, mappedMessages)
         recyclerMessages.layoutManager = layoutManager
         recyclerMessages.adapter = adapter
-        recyclerMessages.addOnScrollListener(object : FabScrollListener(layoutManager) {
+        recyclerMessages.scrollToPosition(adapter.itemCount - 1)
+        recyclerMessages.addOnScrollListener(object : ChatScrollListener(layoutManager) {
             override fun changeFabState(isNotLastItem: Boolean) {
                 if (isNotLastItem) {
                     fabDown.show()
@@ -128,26 +125,43 @@ class ChatActivity : AppCompatActivity(), ChatView {
                     fabDown.hide()
                 }
             }
+
+            override fun showDateViewHolder(firstVisibleItem: Int) {
+                textDateView.visibility = View.VISIBLE
+                val date = adapter.messages[firstVisibleItem].formattedDate()
+                if(date.isNotEmpty()) {
+                    textDateView.text = date
+                }
+            }
+
+            override fun hideDateViewHolder() {
+                val animation = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
+                animation.startOffset = 650
+                textDateView.startAnimation(animation)
+                textDateView.visibility = View.INVISIBLE
+            }
         })
     }
 
+    // TODO refactor mapMessagesToViewModels()
     private fun mapMessagesToViewModels(messages: MutableList<Message>, lastReadMesUnreadPair: Pair<Int, Int>): MutableList<ViewModel> {
         val mappedMessages = mutableListOf<ViewModel>()
-        var currentDate = " "
+        var previousDate = ""
         var isUnreadAdded = false
         for (message in messages) {
-            val date = message.createdAt?.substring(0, 10)
-            if(currentDate != date) {
-                mappedMessages.add(DateViewModel(getFormattedDate(date!!)))
-                currentDate = date
-            }
-            if(message.id > lastReadMesUnreadPair.first && !isUnreadAdded) {
-                log("CHATHOLDER", "${message.id} ${lastReadMesUnreadPair.first}")
+            val date = getFormattedDate(message.createdAt!!)
+
+            if(lastReadMesUnreadPair.second != 0 && !isUnreadAdded && message.id > lastReadMesUnreadPair.first) {
                 mappedMessages.add(UnreadViewModel(lastReadMesUnreadPair.second))
                 isUnreadAdded = true
             }
+            if(date != previousDate) {
+                previousDate = date
+                mappedMessages.add(DateViewModel(date))
+            }
+
             val isSent = message.userId == currentUserId
-            mappedMessages.add(MessageViewModel(message, isSent))
+            mappedMessages.add(MessageViewModel(message, isSent, date))
         }
         return mappedMessages
     }

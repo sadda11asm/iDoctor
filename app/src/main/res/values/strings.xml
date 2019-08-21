@@ -1,19 +1,15 @@
 <resources>
 	<string name="app_name">iDoctor</string>
-	<string name="type_text">Введите текст</string>
 
 	<string name="doctors">Врачи</string>
 	<string name="chats">Чаты</string>
 	<string name="profile">Профиль</string>
-	<string name="search_doctor">Поиск врача</string>
+
 	<string name="toast_load_error_message">Не удалось загрузить данные</string>
 	<string name="doctors_refresh_error">Не удалось обновить данные</string>
 	<string name="doctors_no_connection">Нет подключения к интернету. Потяние вниз чтобы обновить страницу.</string>
 	<string name="doctors_load_error_message">Произошла ошибка во время загрузки данных. Потяните вниз чтобы попробовать еще раз.</string>
-	<string name="anonymous">Аноним</string>
-	<string name="experience">Стаж %s</string>
 	<string name="search">Поиск</string>
-	<string name="chat_unread_messages">%d непрочитанных сообщений</string>
 	<string name="schedule_title">График работы</string>
 	<string name="treatments_title">Услуги</string>
 
@@ -35,6 +31,12 @@
 	<string name="toolbar_doctors">Поиск врача</string>
 	<string name="toolbar_chats">Сообщения</string>
 	<string name="toolbar_profile">Мой профиль</string>
+	
+	<!--ChatActivity-->
+	<string name="chat_unread_messages">%d непрочитанных сообщений</string>
+	<string name="chat_type_text">Введите сообщение</string>
+	<string name="chat_date_today">Сегодня</string>
+	<string name="chat_date_yesterday">Вчера</string>
 
 	<!--ProfileActivity-->
 	<string name="profile_edit_data">Редактировать данные</string>
@@ -166,7 +168,7 @@
 	<string name="service_price">%d тг.</string>
 
 	<!--DoctorListFragment-->
-	<string name="doctor_list_chat_dialog">Вы уверены что хотите начать чат?</string>
+	<string name="doctor_list_chat_dialog">Вы действительно хотите начать чат?</string>
 	<string name="doctor_list_chat_dialog_positive">Начать</string>
 	<string name="doctor_list_chat_dialog_negative">Отмена</string>
 </resources>

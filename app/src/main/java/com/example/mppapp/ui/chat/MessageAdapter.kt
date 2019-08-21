@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.item_unread_message.view.*
 
 class MessageAdapter(
     private val context: Context,
-    private val messages: MutableList<ViewModel>
+    val messages: MutableList<ViewModel>
 ) : RecyclerView.Adapter<BaseMessageHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseMessageHolder {
@@ -27,7 +27,7 @@ class MessageAdapter(
             R.layout.item_received_message -> ReceivedMessageHolder(view)
             R.layout.item_date_message -> DateMessageHolder(view)
             R.layout.item_unread_message -> UnreadMessageHolder(view)
-            else -> throw NoSuchPropertyException("NoSuchViewType") // TODO refactor
+            else -> throw IllegalArgumentException("NoSuchViewType") // TODO refactor
         }
     }
 
@@ -53,16 +53,22 @@ class MessageAdapter(
     }
 
     open inner class ReceivedMessageHolder(itemView: View) : BaseMessageHolder(itemView) {
+
+        private lateinit var itemMessage: MessageViewModel
+
         override fun bind(item: ViewModel) = with(itemView) {
-            val itemMessage = item as MessageViewModel
+            itemMessage = item as MessageViewModel
             textMessage.text = itemMessage.message.text
             textSentDate.text = itemMessage.message.createdAt?.substring(11, 16) // TODO better implementation?
         }
     }
 
     inner class DateMessageHolder(itemView: View) : BaseMessageHolder(itemView) {
+
+        private lateinit var itemDateMessage: DateViewModel
+
         override fun bind(item: ViewModel) = with(itemView) {
-            val itemDateMessage = item as DateViewModel
+            itemDateMessage = item as DateViewModel
             textDate.text = itemDateMessage.formattedDate
         }
     }
