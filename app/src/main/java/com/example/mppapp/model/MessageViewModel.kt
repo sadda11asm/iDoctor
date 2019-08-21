@@ -8,7 +8,6 @@ class MessageViewModel(
     private val isSent: Boolean,
     private val formattedDate: String
 ) : ViewModel() {
-
     override fun type() = if (isSent) R.layout.item_sent_message else R.layout.item_received_message
 
     override fun formattedDate() = formattedDate

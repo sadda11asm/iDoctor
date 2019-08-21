@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 

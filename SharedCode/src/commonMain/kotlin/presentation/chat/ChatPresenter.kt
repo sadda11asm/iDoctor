@@ -27,18 +27,15 @@ class ChatPresenter(
     private val coroutineContext: CoroutineContext = defaultDispatcher
 ) : BasePresenter<ChatView>(coroutineContext), SocketListener {
 
-    private lateinit var token: String
+    private val token by lazy { view!!.token() }
 
     private val chatId by lazy { view!!.chatId() }
 
     private val userId by lazy { view!!.userId() }
 
-    override fun onViewAttached(view: ChatView) {
-        super.onViewAttached(view)
-        token = view.token()
-        val isConnected = view.isConnectedToNetwork()
-        if (!isConnected) loadCachedChat(isConnected)
-        else loadChat(isConnected)
+    fun start() {
+        val isConnected = view!!.isConnectedToNetwork()
+        loadChat(isConnected)
     }
 
     override fun onMessage(mes: Message) {
@@ -46,7 +43,7 @@ class ChatPresenter(
             if (mes.userId != userId) view?.showMessage(mes)
             scope.launch {
                 receiveMessage(
-                    mes,
+                    params = mes,
                     onSuccess = { markMessageAsRead(mes.id) },
                     onFailure = { log("Sockets", it.message!!) }
                 )

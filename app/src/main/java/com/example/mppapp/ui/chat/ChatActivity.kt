@@ -23,6 +23,7 @@ import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.ChatFull
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.presentation.chat.ChatView
+import util.currentTime
 
 class ChatActivity : AppCompatActivity(), ChatView {
 
@@ -39,6 +40,8 @@ class ChatActivity : AppCompatActivity(), ChatView {
         setContentView(R.layout.activity_chat)
         setupToolbar()
         showAvatar()
+        presenter.attachView(this)
+        presenter.start()
     }
 
     override fun onStart() {
@@ -71,7 +74,11 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     override fun showMessage(message: Message) {
         val isSent = message.userId == currentUserId
-        adapter.addMessage(MessageViewModel(message, isSent, getFormattedDate(message.createdAt!!)))
+        val adapterSize = adapter.itemCount
+        if (!(adapterSize > 0 && adapter.messages[adapterSize - 1].formattedDate() == getFormattedDate(currentTime))) {
+            adapter.addViewModel(DateViewModel(getFormattedDate(currentTime)))
+        }
+        adapter.addViewModel(MessageViewModel(message, isSent, getFormattedDate(message.createdAt!!)))
         recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
     }
 
@@ -91,6 +98,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
         fabDown.setOnClickListener { recyclerMessages.scrollToPosition(adapter.itemCount - 1) }
 //        recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
 //            if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
+//                Log.d("SCROLL", "onLayoutChange()")
 //                recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
 //            }
 //        }
@@ -129,16 +137,19 @@ class ChatActivity : AppCompatActivity(), ChatView {
             override fun showDateViewHolder(firstVisibleItem: Int) {
                 textDateView.visibility = View.VISIBLE
                 val date = adapter.messages[firstVisibleItem].formattedDate()
-                if(date.isNotEmpty()) {
+                if (date.isNotEmpty()) {
                     textDateView.text = date
                 }
             }
 
             override fun hideDateViewHolder() {
-                val animation = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
-                animation.startOffset = 650
-                textDateView.startAnimation(animation)
-                textDateView.visibility = View.INVISIBLE
+                if (textDateView.visibility == View.VISIBLE) {
+                    val animation = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
+                    animation.startOffset = 600
+                    animation.duration = 150
+                    textDateView.startAnimation(animation)
+                    textDateView.visibility = View.INVISIBLE
+                }
             }
         })
     }
@@ -151,11 +162,11 @@ class ChatActivity : AppCompatActivity(), ChatView {
         for (message in messages) {
             val date = getFormattedDate(message.createdAt!!)
 
-            if(lastReadMesUnreadPair.second != 0 && !isUnreadAdded && message.id > lastReadMesUnreadPair.first) {
+            if (lastReadMesUnreadPair.second != 0 && !isUnreadAdded && message.id > lastReadMesUnreadPair.first) {
                 mappedMessages.add(UnreadViewModel(lastReadMesUnreadPair.second))
                 isUnreadAdded = true
             }
-            if(date != previousDate) {
+            if (date != previousDate) {
                 previousDate = date
                 mappedMessages.add(DateViewModel(date))
             }
@@ -179,7 +190,9 @@ class ChatActivity : AppCompatActivity(), ChatView {
     private fun sendMessage() {
         val messageText = editMessage.text.toString()
         editMessage.text = null
-        presenter.sendMessage(messageText)
+        if (messageText.isNotEmpty()) {
+            presenter.sendMessage(messageText)
+        }
     }
 
     companion object {

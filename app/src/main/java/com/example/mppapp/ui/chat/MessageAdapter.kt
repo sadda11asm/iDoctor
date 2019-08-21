@@ -47,28 +47,22 @@ class MessageAdapter(
         return -1
     }
 
-    fun addMessage(message: MessageViewModel) {
-        messages.add(message)
+    fun addViewModel(viewModel: ViewModel) {
+        messages.add(viewModel)
         notifyItemInserted(messages.size - 1)
     }
 
     open inner class ReceivedMessageHolder(itemView: View) : BaseMessageHolder(itemView) {
-
-        private lateinit var itemMessage: MessageViewModel
-
         override fun bind(item: ViewModel) = with(itemView) {
-            itemMessage = item as MessageViewModel
+            val itemMessage = item as MessageViewModel
             textMessage.text = itemMessage.message.text
             textSentDate.text = itemMessage.message.createdAt?.substring(11, 16) // TODO better implementation?
         }
     }
 
     inner class DateMessageHolder(itemView: View) : BaseMessageHolder(itemView) {
-
-        private lateinit var itemDateMessage: DateViewModel
-
         override fun bind(item: ViewModel) = with(itemView) {
-            itemDateMessage = item as DateViewModel
+            val itemDateMessage = item as DateViewModel
             textDate.text = itemDateMessage.formattedDate
         }
     }
