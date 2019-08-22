@@ -72,6 +72,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
 
     override fun isConnectedToNetwork() = getNetworkConnection(this)
 
+    // TODO refactor showMessage()
     override fun showMessage(message: Message) {
         val isSent = message.userId == currentUserId
         val adapterSize = adapter.itemCount
@@ -96,12 +97,11 @@ class ChatActivity : AppCompatActivity(), ChatView {
     private fun setListeners() {
         fabSend.setOnClickListener { sendMessage() }
         fabDown.setOnClickListener { recyclerMessages.scrollToPosition(adapter.itemCount - 1) }
-//        recyclerMessages.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-//            if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
-//                Log.d("SCROLL", "onLayoutChange()")
-//                recyclerMessages.scrollToPosition(layoutManager.itemCount - 1)
-//            }
-//        }
+        recyclerMessages.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
+            if(bottom < oldBottom) {
+                recyclerMessages.scrollBy(0, oldBottom - bottom)
+            }
+        }
     }
 
     private fun setupToolbar() {
@@ -119,6 +119,7 @@ class ChatActivity : AppCompatActivity(), ChatView {
             .into(imageAvatar)
     }
 
+    // TODO refactor setupRecycler()
     private fun setupRecycler(messages: MutableList<Message>, lastReadMesUnreadPair: Pair<Int, Int>) {
         val mappedMessages = mapMessagesToViewModels(messages, lastReadMesUnreadPair)
         adapter = MessageAdapter(this, mappedMessages)
@@ -145,8 +146,11 @@ class ChatActivity : AppCompatActivity(), ChatView {
             override fun hideDateViewHolder() {
                 if (textDateView.visibility == View.VISIBLE) {
                     val animation = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
-                    animation.startOffset = 600
-                    animation.duration = 150
+                    if (animation.hasStarted()) {
+                        textDateView.clearAnimation()
+                    }
+                    animation.startOffset = 1000
+                    animation.duration = 100
                     textDateView.startAnimation(animation)
                     textDateView.visibility = View.INVISIBLE
                 }
@@ -155,7 +159,10 @@ class ChatActivity : AppCompatActivity(), ChatView {
     }
 
     // TODO refactor mapMessagesToViewModels()
-    private fun mapMessagesToViewModels(messages: MutableList<Message>, lastReadMesUnreadPair: Pair<Int, Int>): MutableList<ViewModel> {
+    private fun mapMessagesToViewModels(
+        messages: MutableList<Message>,
+        lastReadMesUnreadPair: Pair<Int, Int>
+    ): MutableList<ViewModel> {
         val mappedMessages = mutableListOf<ViewModel>()
         var previousDate = ""
         var isUnreadAdded = false
