@@ -13,17 +13,15 @@ import com.example.mppapp.util.ItemClickListener
 import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getName
 import com.example.mppapp.util.getNetworkConnection
-import com.orhanobut.hawk.Hawk
 import data.entity.Chat
 import kotlinx.android.synthetic.main.fragment_chat_list.*
 import org.kotlin.mpp.mobile.ServiceLocator
 import org.kotlin.mpp.mobile.data.entity.Message
+import org.kotlin.mpp.mobile.presentation.chatlist.ChatListView
 import org.kotlin.mpp.mobile.util.log
-import presentation.chatlist.ChatListView
 
 
 class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
-
 
     private val TAG = "ChatListFragment"
 
@@ -32,6 +30,7 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
     private val adapter by lazy { ChatAdapter(context!!, this) }
 
     private val layoutManager by lazy { LinearLayoutManager(context) }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_chat_list, container, false)
@@ -42,7 +41,6 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
         recyclerChats.layoutManager = layoutManager
         recyclerChats.adapter = adapter
         setSwipeListener()
-        log("Sockets", "ONCREATED1")
     }
 
     override fun onClick(data: Chat) {
@@ -55,8 +53,6 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
     }
 
     override fun showLoading(loading: Boolean) {
-        Log.d(TAG, "showLoading()")
-
         if (loading) {
             recyclerChats.visibility = View.INVISIBLE
             chatListProgress.visibility = View.VISIBLE
@@ -75,31 +71,20 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
     override fun onStart() {
         super.onStart()
         presenter.attachView(this)
-        log("Sockets", "START1")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        log("Sockets", "PAUSE1")
     }
 
     override fun onResume() {
         super.onResume()
         ServiceLocator.setSocketListener(presenter)
-        log("Sockets", "RESUME1")
     }
-
-
 
     override fun onStop() {
         super.onStop()
-        log("Sockets", "STOP1")
         presenter.detachView()
         chatListSwipe.isRefreshing = false
     }
 
     override fun showChats(chats: MutableList<Chat>) {
-        Log.v("Sockets-show", chats.toString())
         adapter.setData(chats)
     }
 
@@ -116,13 +101,11 @@ class ChatListFragment : Fragment(), ChatListView, ItemClickListener<Chat> {
     }
 
     override fun showMessage(mes: Message) {
-        log("Sockets", "SHOW-MES")
         adapter.updateMessage(mes)
     }
 
     private fun setSwipeListener() {
         chatListSwipe.setOnRefreshListener {
-            log("ChatList", "Connectivity ${getNetworkConnection(activity)}")
             presenter.onLoadChats(
                 getAccessToken(),
                 getNetworkConnection(activity)

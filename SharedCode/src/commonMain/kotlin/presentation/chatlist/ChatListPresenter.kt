@@ -1,17 +1,14 @@
 package presentation.chatlist
 
 import data.entity.Chat
-import io.ktor.http.HttpProtocolVersion
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.kotlin.mpp.mobile.SocketListener
 import org.kotlin.mpp.mobile.data.entity.ChatListRequest
 import org.kotlin.mpp.mobile.data.entity.Message
 import org.kotlin.mpp.mobile.domain.defaultDispatcher
-import org.kotlin.mpp.mobile.domain.uiDispatcher
 import org.kotlin.mpp.mobile.domain.usecases.*
 import org.kotlin.mpp.mobile.presentation.BasePresenter
+import org.kotlin.mpp.mobile.presentation.chatlist.ChatListView
 import org.kotlin.mpp.mobile.util.log
 import kotlin.coroutines.CoroutineContext
 
@@ -31,7 +28,7 @@ class ChatListPresenter(
         scope.launch {
             log("Sockets", "receiveMessage")
             receiveMessage(
-                mes,
+                params = mes,
                 onSuccess = { log("Sockets-Saved", "DODO")},
                 onFailure = { log("Sockets", it.message!!) }
             )
@@ -42,7 +39,7 @@ class ChatListPresenter(
         view?.showChat(chat)
         scope.launch {
             saveChat(
-                chat,
+                params = chat,
                 onSuccess = {},
                 onFailure = { log("Sockets", it.message!!) }
             )
@@ -93,13 +90,4 @@ class ChatListPresenter(
         }
     }
 
-}
-
-interface ChatListView {
-    fun showLoading(loading: Boolean) // TODO add boolean loading param
-    fun showChats(chats: MutableList<Chat>)
-    fun showLoadFailed(e: Exception)
-    fun showChat(chat: Chat)
-    fun getToken(): String
-    fun showMessage(mes: Message)
 }

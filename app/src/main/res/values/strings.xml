@@ -31,7 +31,12 @@
 	<string name="toolbar_doctors">Поиск врача</string>
 	<string name="toolbar_chats">Сообщения</string>
 	<string name="toolbar_profile">Мой профиль</string>
-	
+
+	<!--ChatListActivity-->
+	<string name="chat_list_no_messages">Пока нет сообщений в этом чате</string>
+	<string name="chat_list_no_chats">У вас нет активных чатов</string>
+	<string name="chat_list_your_message">Вы: %s</string>
+
 	<!--ChatActivity-->
 	<string name="chat_unread_messages">%d непрочитанных сообщений</string>
 	<string name="chat_type_text">Введите сообщение</string>
