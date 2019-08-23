@@ -19,8 +19,6 @@ class UserDao(database: MyDatabase) {
             user.email,
             user.createdAt,
             user.updatedAt,
-            if (user.verified) 1
-            else 0,
             user.doctorId
         )
     }

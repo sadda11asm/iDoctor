@@ -6,3 +6,9 @@ import kotlinx.serialization.Serializable
 data class UserResponse(
     val data: UserFull
 )
+
+@Serializable
+data class UserEditResponse(
+    val success: String,
+    val user: UserFull
+)

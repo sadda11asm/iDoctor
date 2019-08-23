@@ -25,6 +25,7 @@ import presentation.chatlist.ChatListPresenter
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListPresenter
 import org.kotlin.mpp.mobile.presentation.login.LoginPresenter
 import org.kotlin.mpp.mobile.presentation.profile.ProfilePresenter
+import org.kotlin.mpp.mobile.presentation.profile.edit.EditInfoPresenter
 import presentation.doctorpage.DoctorPagePresenter
 import kotlin.native.concurrent.ThreadLocal
 
@@ -145,7 +146,20 @@ object ServiceLocator {
      */
 
     val profilePresenter: ProfilePresenter
-        get() = ProfilePresenter(getUserInfo)
+        get() = ProfilePresenter(fetchUserInfo)
+
+    /**
+     * Edit Page
+     */
+
+    val editUserInfo: EditUserInfo
+        get() = EditUserInfo(userRepository)
+
+    val fetchUserInfo: FetchUserInfo
+        get() = FetchUserInfo(userRepository)
+
+    val editInfoPresenter:EditInfoPresenter
+        get() = EditInfoPresenter(fetchUserInfo, editUserInfo)
 
     /**
      * Send message

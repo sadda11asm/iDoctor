@@ -1,15 +1,13 @@
 package data.api
 
+import data.entity.UserEditResponse
 import data.entity.UserFull
 import data.entity.UserResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
-import io.ktor.client.request.accept
-import io.ktor.client.request.get
-import io.ktor.client.request.header
-import io.ktor.client.request.patch
+import io.ktor.client.request.*
 import io.ktor.client.response.HttpResponse
 import io.ktor.client.response.readText
 import io.ktor.http.ContentType
@@ -45,7 +43,7 @@ class UserApi(engine: HttpClientEngine) {
         return Json.nonstrict.parse(UserResponse.serializer(), jsonBody)
     }
 
-    suspend fun editUserInfo(request: UserEditRequest) {
+    suspend fun editUserInfo(request: UserEditRequest): UserFull {
         val userId = request.user.id
         val token = request.token
         val response = client.patch<HttpResponse>{
@@ -55,10 +53,16 @@ class UserApi(engine: HttpClientEngine) {
                 encodedPath = "$API_USER_EDIT/$userId"
                 header(HEADER_CONTENT, CONTENT_TYPE)
                 header(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
+                parameter("firstname", request.user.firstName)
+                parameter("lastname", request.user.lastName)
+                parameter("patronymic", request.user.patronymic)
+                parameter("birthday", request.user.birthday)
+                parameter("phone", request.user.phone)
+                parameter("email", request.user.email)
             }
             accept(ContentType.Application.Json)
         }
         val jsonBody = response.readText()
-//        return Json.nonstrict.parse()
+        return Json.nonstrict.parse(UserEditResponse.serializer(), jsonBody).user
     }
 }

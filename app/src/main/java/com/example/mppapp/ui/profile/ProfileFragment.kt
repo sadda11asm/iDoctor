@@ -14,6 +14,7 @@ import com.example.mppapp.ui.profile.profile_edit.ProfileEditActivity
 import com.example.mppapp.util.deleteAccessToken
 import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getName
+import com.example.mppapp.util.getUserId
 import data.entity.UserFull
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.kotlin.mpp.mobile.ServiceLocator
@@ -29,7 +30,6 @@ class ProfileFragment : Fragment(), ProfileView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.attachView(this)
         setListeners()
     }
 
@@ -38,15 +38,19 @@ class ProfileFragment : Fragment(), ProfileView {
         presenter.attachView(this)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
         presenter.detachView()
     }
 
     override fun token() = getAccessToken()
 
+    override fun userId(): Int {
+        return getUserId()
+    }
+
     override fun showUserInfo(userFull: UserFull) {
-        textName.text = getName()
+        textName.text = "${userFull.firstName} ${userFull.lastName}"
         textLocation.text = userFull.createdAt?.timezone
         textEmail.text = userFull.email
         textPhone.text = userFull.phone
