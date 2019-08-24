@@ -11,6 +11,7 @@ const val API_DOCTORS = "/doctors"
 const val API_SCHEDULE = "/doctors"
 
 const val API_USER = "/my"
+const val API_USER_EDIT = "/user"
 
 const val TEMP_URL = "statistic.idoctor.kz"
 

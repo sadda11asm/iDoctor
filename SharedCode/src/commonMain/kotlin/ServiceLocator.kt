@@ -25,6 +25,8 @@ import presentation.chatlist.ChatListPresenter
 import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListPresenter
 import org.kotlin.mpp.mobile.presentation.login.LoginPresenter
 import org.kotlin.mpp.mobile.presentation.profile.ProfilePresenter
+import org.kotlin.mpp.mobile.presentation.profile.edit.EditInfoPresenter
+import org.kotlin.mpp.mobile.presentation.profile.password.PasswordChangePresenter
 import presentation.doctorpage.DoctorPagePresenter
 import kotlin.native.concurrent.ThreadLocal
 
@@ -55,9 +57,6 @@ object ServiceLocator {
 
     val sockets by lazy {Sockets(PlatformServiceLocator.cioEngine)}
 
-//    val subscribe by lazy {Subscribe(sockets)}
-
-//    val unsubscribe by lazy {Unsubscribe(sockets)}
 
 
     /**
@@ -83,6 +82,12 @@ object ServiceLocator {
 
     val saveChat: SaveChat
         get() = SaveChat(chatRepository)
+
+
+
+    /**
+     * Get User Info
+     */
 
     val userApi by lazy {UserApi(PlatformServiceLocator.httpClientEngine)}
 
@@ -142,7 +147,30 @@ object ServiceLocator {
      */
 
     val profilePresenter: ProfilePresenter
-        get() = ProfilePresenter(getUserInfo)
+        get() = ProfilePresenter(fetchUserInfo)
+
+    /**
+     * Edit Page
+     */
+
+    val editUserInfo: EditUserInfo
+        get() = EditUserInfo(userRepository)
+
+    val fetchUserInfo: FetchUserInfo
+        get() = FetchUserInfo(userRepository)
+
+    val editInfoPresenter:EditInfoPresenter
+        get() = EditInfoPresenter(fetchUserInfo, editUserInfo)
+
+    /**
+     * Change Password
+     */
+
+    val editPassword: EditPassword
+        get() = EditPassword(userRepository)
+
+    val passwordChangePresenter: PasswordChangePresenter
+        get() = PasswordChangePresenter(editPassword)
 
     /**
      * Send message

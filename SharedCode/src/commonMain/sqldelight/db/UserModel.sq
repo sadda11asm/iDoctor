@@ -9,7 +9,6 @@ CREATE TABLE UserModel(
     email TEXT NOT NULL,
     created_at TEXT as EventDate,
     updated_at TEXT as EventDate,
-    verified INTEGER NOT NULL,
     doctor_id TEXT
 );
 
@@ -20,4 +19,4 @@ selectById:
 SELECT * FROM UserModel WHERE id = ?;
 
 insertItem:
-INSERT OR REPLACE INTO UserModel(id, firstname, lastname, patronymic, phone, email, created_at, updated_at, verified, doctor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+INSERT OR REPLACE INTO UserModel(id, firstname, lastname, patronymic, phone, email, created_at, updated_at, doctor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);

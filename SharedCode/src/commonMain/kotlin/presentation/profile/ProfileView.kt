@@ -6,6 +6,9 @@ interface ProfileView {
 
     fun token(): String
 
+    fun userId(): Int
+
+
     fun showUserInfo(userFull: UserFull)
 
     fun openEditDataPage()

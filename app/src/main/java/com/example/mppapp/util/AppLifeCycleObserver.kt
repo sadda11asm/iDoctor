@@ -20,6 +20,8 @@ class AppLifeCycleObserver(private val applicationContext: Context) : LifecycleO
     private val sockets = ServiceLocator.sockets
     private val scope = CoroutineScope(defaultDispatcher)
     private val getChatList = ServiceLocator.getChatList
+    private val getUserInfo = ServiceLocator.getUserInfo
+
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreateApplication() {
@@ -38,7 +40,11 @@ class AppLifeCycleObserver(private val applicationContext: Context) : LifecycleO
                         onSuccess = { subscribe(it) },
                         onFailure = { log("Sockets", "SOCKETS DID NOT SUBSCRIBED ${it.toString()}")}
                     )
-
+                    getUserInfo(
+                        params = getAccessToken(),
+                        onSuccess = {},
+                        onFailure = {}
+                    )
                 }
             }
         } catch (e: Exception) {
