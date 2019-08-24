@@ -13,6 +13,8 @@ import io.ktor.client.response.readText
 import io.ktor.http.ContentType
 import io.ktor.http.URLProtocol
 import kotlinx.serialization.json.Json
+import org.kotlin.mpp.mobile.data.entity.PasswordEditRequest
+import org.kotlin.mpp.mobile.data.entity.PasswordEditResponse
 import org.kotlin.mpp.mobile.data.entity.UserEditRequest
 import org.kotlin.mpp.mobile.data.entity.ignoreOutgoingContent
 import org.kotlin.mpp.mobile.util.constants.*
@@ -64,5 +66,26 @@ class UserApi(engine: HttpClientEngine) {
         }
         val jsonBody = response.readText()
         return Json.nonstrict.parse(UserEditResponse.serializer(), jsonBody).user
+    }
+
+
+    suspend fun editPassword(request: PasswordEditRequest): PasswordEditResponse {
+        val userId = request.userId
+        val token = request.token
+        val response = client.patch<HttpResponse>{
+            url {
+                protocol = URLProtocol.HTTPS
+                host = API_URL
+                encodedPath = "$API_USER_EDIT/$userId/password"
+                header(HEADER_CONTENT, CONTENT_TYPE)
+                header(HEADER_AUTHORIZATION, "$TOKEN_TYPE $token")
+                parameter("current_password", request.currentPassword)
+                parameter("password", request.password)
+                parameter("password_confirm", request.confirmPassword)
+            }
+            accept(ContentType.Application.Json)
+        }
+        val jsonBody = response.readText()
+        return Json.nonstrict.parse(PasswordEditResponse.serializer(), jsonBody)
     }
 }

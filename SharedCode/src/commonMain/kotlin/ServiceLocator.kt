@@ -26,6 +26,7 @@ import org.kotlin.mpp.mobile.presentation.doctorlist.DoctorListPresenter
 import org.kotlin.mpp.mobile.presentation.login.LoginPresenter
 import org.kotlin.mpp.mobile.presentation.profile.ProfilePresenter
 import org.kotlin.mpp.mobile.presentation.profile.edit.EditInfoPresenter
+import org.kotlin.mpp.mobile.presentation.profile.password.PasswordChangePresenter
 import presentation.doctorpage.DoctorPagePresenter
 import kotlin.native.concurrent.ThreadLocal
 
@@ -160,6 +161,16 @@ object ServiceLocator {
 
     val editInfoPresenter:EditInfoPresenter
         get() = EditInfoPresenter(fetchUserInfo, editUserInfo)
+
+    /**
+     * Change Password
+     */
+
+    val editPassword: EditPassword
+        get() = EditPassword(userRepository)
+
+    val passwordChangePresenter: PasswordChangePresenter
+        get() = PasswordChangePresenter(editPassword)
 
     /**
      * Send message

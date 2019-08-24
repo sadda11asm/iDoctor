@@ -53,8 +53,8 @@
 	<string name="profile_edit_phone">Ваш телефон:</string>
 	<string name="profile_edit_email">E-mail:</string>
 	<string name="profile_edit_save">Сохранить</string>
-	<string name="upload_fail">Не удалось загрузить данные, проверьте соединение</string>
-	<string name="update_fail">Не удалось обновить данные, проверьте соединение</string>
+	<string name="upload_fail">Не удалось загрузить данные, попробуйте еще раз</string>
+	<string name="update_fail">Не удалось обновить данные, попробуйте еще раз</string>
 	<string name="update_successful">Данные успешно изменены</string>
 
 
@@ -64,7 +64,10 @@
 	<string name="password_change_new">Новый пароль:</string>
 	<string name="password_change_repeat">Повторите пароль:</string>
 	<string name="password_change">Изменить</string>
-	<string name="password_change_hint">**********</string>
+	<string name="password_change_hint">""</string>
+	<string name="password_changed">"Пароль успешно изменен"</string>
+	<string name="password_fail">Не удалось обновить данные, попробуйте еще раз</string>
+
 
 	<!--AboutUsActivity-->
 	<string name="about_us_title">О нас</string>

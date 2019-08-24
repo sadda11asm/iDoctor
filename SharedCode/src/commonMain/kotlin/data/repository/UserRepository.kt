@@ -4,6 +4,8 @@ import data.api.UserApi
 import data.db.UserDao
 import data.entity.UserEditResponse
 import data.entity.UserFull
+import org.kotlin.mpp.mobile.data.entity.PasswordEditRequest
+import org.kotlin.mpp.mobile.data.entity.PasswordEditResponse
 import org.kotlin.mpp.mobile.data.entity.UserEditRequest
 import org.kotlin.mpp.mobile.domain.usecases.EditUserInfo
 import org.kotlin.mpp.mobile.util.log
@@ -34,5 +36,10 @@ class UserRepository(
         val response = userApi.editUserInfo(request)
         insertToDb(response)
         return response
+    }
+
+
+    suspend fun editPassword(request: PasswordEditRequest): PasswordEditResponse {
+        return userApi.editPassword(request)
     }
 }
