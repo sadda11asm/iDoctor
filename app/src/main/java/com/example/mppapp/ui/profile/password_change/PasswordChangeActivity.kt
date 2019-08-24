@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.example.mppapp.R
-import com.example.mppapp.ui.profile.ProfileOptionsActivity
 import com.example.mppapp.util.getAccessToken
 import com.example.mppapp.util.getUserId
 import kotlinx.android.synthetic.main.activity_login.*
